@@ -257,6 +257,36 @@
 		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Widgets/Qt6QModernWindowsStylePluginTargets-relwithdebinfo.cmake",
 		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Widgets/Qt6QModernWindowsStylePluginAdditionalTargetInfo.cmake",
 		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Widgets/Qt6WidgetsVersionlessAliasTargets.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlConfigVersion.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlConfigVersionImpl.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlConfig.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlDependencies.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlTargets.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlTargets-relwithdebinfo.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlAdditionalTargetInfo.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlPlugins.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QMimerSQLDriverPluginConfig.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QMimerSQLDriverPluginTargets.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QMimerSQLDriverPluginTargets-relwithdebinfo.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QMimerSQLDriverPluginAdditionalTargetInfo.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QODBCDriverPluginConfig.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QODBCDriverPluginTargets.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QODBCDriverPluginTargets-relwithdebinfo.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QODBCDriverPluginAdditionalTargetInfo.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QPSQLDriverPluginConfig.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QPSQLDriverPluginTargets.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QPSQLDriverPluginTargets-relwithdebinfo.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QPSQLDriverPluginAdditionalTargetInfo.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginConfig.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginTargets.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginTargets-relwithdebinfo.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginAdditionalTargetInfo.cmake",
+		"C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlVersionlessAliasTargets.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/GNUInstallDirs.cmake"
 	],
 	"CMAKE_SOURCE_DIR" : "C:/cpp/projectsQt/SimpleChat",
@@ -266,21 +296,45 @@
 	"HEADERS" : 
 	[
 		[
-			"C:/cpp/projectsQt/SimpleChat/chatform.h",
+			"C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatcontent.h",
 			"MU",
-			"EWIEGA46WW/moc_chatform.cpp",
+			"PVAUTHT5OE/moc_chatcontent.cpp",
 			null
 		],
 		[
-			"C:/cpp/projectsQt/SimpleChat/loginform.h",
+			"C:/cpp/projectsQt/SimpleChat/ChatForm/SwitchChatContainer/switchchatbutton.h",
 			"MU",
-			"EWIEGA46WW/moc_loginform.cpp",
+			"OG6CA427KQ/moc_switchchatbutton.cpp",
 			null
 		],
 		[
-			"C:/cpp/projectsQt/SimpleChat/mainwindow.h",
+			"C:/cpp/projectsQt/SimpleChat/ChatForm/SwitchChatContainer/switchchatcontainer.h",
 			"MU",
-			"EWIEGA46WW/moc_mainwindow.cpp",
+			"OG6CA427KQ/moc_switchchatcontainer.cpp",
+			null
+		],
+		[
+			"C:/cpp/projectsQt/SimpleChat/ChatForm/chatform.h",
+			"MU",
+			"AOVY3JPGGQ/moc_chatform.cpp",
+			null
+		],
+		[
+			"C:/cpp/projectsQt/SimpleChat/LoginForm/loginbutton.h",
+			"MU",
+			"OPI2EOJSNA/moc_loginbutton.cpp",
+			null
+		],
+		[
+			"C:/cpp/projectsQt/SimpleChat/LoginForm/loginform.h",
+			"MU",
+			"OPI2EOJSNA/moc_loginform.cpp",
+			null
+		],
+		[
+			"C:/cpp/projectsQt/SimpleChat/MainWindow/mainwindow.h",
+			"MU",
+			"WCPGUQ57CZ/moc_mainwindow.cpp",
 			null
 		]
 	],
@@ -293,6 +347,7 @@
 		"QT_CORE_LIB",
 		"QT_GUI_LIB",
 		"QT_NEEDS_QMAIN",
+		"QT_SQL_LIB",
 		"QT_WIDGETS_LIB",
 		"UNICODE",
 		"WIN32",
@@ -315,6 +370,7 @@
 		"C:/Qt/6.8.0/mingw_64/mkspecs/win32-g++",
 		"C:/Qt/6.8.0/mingw_64/include/QtWidgets",
 		"C:/Qt/6.8.0/mingw_64/include/QtGui",
+		"C:/Qt/6.8.0/mingw_64/include/QtSql",
 		"C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++",
 		"C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32",
 		"C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward",
@@ -355,10 +411,26 @@
 	"SETTINGS_FILE" : "C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/CMakeFiles/SimpleChat_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
-		[ "C:/cpp/projectsQt/SimpleChat/chatform.cpp", "MU", null ],
-		[ "C:/cpp/projectsQt/SimpleChat/loginform.cpp", "MU", null ],
-		[ "C:/cpp/projectsQt/SimpleChat/main.cpp", "MU", null ],
-		[ "C:/cpp/projectsQt/SimpleChat/mainwindow.cpp", "MU", null ]
+		[
+			"C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatcontent.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/cpp/projectsQt/SimpleChat/ChatForm/SwitchChatContainer/switchchatbutton.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/cpp/projectsQt/SimpleChat/ChatForm/SwitchChatContainer/switchchatcontainer.cpp",
+			"MU",
+			null
+		],
+		[ "C:/cpp/projectsQt/SimpleChat/ChatForm/chatform.cpp", "MU", null ],
+		[ "C:/cpp/projectsQt/SimpleChat/LoginForm/loginbutton.cpp", "MU", null ],
+		[ "C:/cpp/projectsQt/SimpleChat/LoginForm/loginform.cpp", "MU", null ],
+		[ "C:/cpp/projectsQt/SimpleChat/MainWindow/mainwindow.cpp", "MU", null ],
+		[ "C:/cpp/projectsQt/SimpleChat/src/main.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

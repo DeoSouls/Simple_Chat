@@ -9,21 +9,26 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Sql)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Sql)
 
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
+        src/main.cpp
+        MainWindow/mainwindow.cpp
+        MainWindow/mainwindow.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(SimpleChat
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        loginform.h loginform.cpp
-        chatform.h chatform.cpp
+        LoginForm/loginform.h LoginForm/loginform.cpp
+        ChatForm/chatform.h ChatForm/chatform.cpp
+        LoginForm/loginbutton.h LoginForm/loginbutton.cpp
+        ChatForm/SwitchChatContainer/switchchatcontainer.h ChatForm/SwitchChatContainer/switchchatcontainer.cpp
+        ChatForm/SwitchChatContainer/switchchatbutton.h ChatForm/SwitchChatContainer/switchchatbutton.cpp
+        ChatForm/ChatContent/chatcontent.h ChatForm/ChatContent/chatcontent.cpp
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET SimpleChat APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -43,7 +48,7 @@ else()
     endif()
 endif()
 
-target_link_libraries(SimpleChat PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(SimpleChat PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Sql)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

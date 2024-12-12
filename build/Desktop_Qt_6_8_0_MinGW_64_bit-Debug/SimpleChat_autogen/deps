@@ -1,9 +1,13 @@
 SimpleChat_autogen/timestamp: \
+	C:/Qt/6.8.0/mingw_64/include/QtCore/QDebug \
+	C:/Qt/6.8.0/mingw_64/include/QtCore/QList \
+	C:/Qt/6.8.0/mingw_64/include/QtCore/QPropertyAnimation \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/q20functional.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/q20iterator.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/q20memory.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/q20type_traits.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/q23utility.h \
+	C:/Qt/6.8.0/mingw_64/include/QtCore/qabstractanimation.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qalgorithms.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qanystringview.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qarraydata.h \
@@ -32,6 +36,7 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qdarwinhelpers.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qdatastream.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qdebug.h \
+	C:/Qt/6.8.0/mingw_64/include/QtCore/qeasingcurve.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qendian.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qexceptionhandling.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qflags.h \
@@ -56,6 +61,7 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qmargins.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qmath.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qmetacontainer.h \
+	C:/Qt/6.8.0/mingw_64/include/QtCore/qmetaobject.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qmetatype.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qminmax.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qnamespace.h \
@@ -68,6 +74,7 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qpair.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qpoint.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qprocessordetection.h \
+	C:/Qt/6.8.0/mingw_64/include/QtCore/qpropertyanimation.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qrect.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qrefcount.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qscopedpointer.h \
@@ -113,8 +120,10 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qtversionchecks.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qtypeinfo.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qtypes.h \
+	C:/Qt/6.8.0/mingw_64/include/QtCore/qurl.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qutf8stringview.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qvariant.h \
+	C:/Qt/6.8.0/mingw_64/include/QtCore/qvariantanimation.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qvarlengtharray.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qversiontagging.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qxptype_traits.h \
@@ -132,23 +141,38 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qkeysequence.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qpaintdevice.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qpalette.h \
+	C:/Qt/6.8.0/mingw_64/include/QtGui/qpen.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qpixelformat.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qpixmap.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qpolygon.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qregion.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qrgb.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qrgba64.h \
+	C:/Qt/6.8.0/mingw_64/include/QtGui/qtextcursor.h \
+	C:/Qt/6.8.0/mingw_64/include/QtGui/qtextdocument.h \
+	C:/Qt/6.8.0/mingw_64/include/QtGui/qtextformat.h \
+	C:/Qt/6.8.0/mingw_64/include/QtGui/qtextoption.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qtgui-config.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qtguiexports.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qtguiglobal.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qtransform.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qwindowdefs.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qwindowdefs_win.h \
+	C:/Qt/6.8.0/mingw_64/include/QtSql/QSqlDatabase \
+	C:/Qt/6.8.0/mingw_64/include/QtSql/QSqlError \
+	C:/Qt/6.8.0/mingw_64/include/QtSql/qsqldatabase.h \
+	C:/Qt/6.8.0/mingw_64/include/QtSql/qsqlerror.h \
+	C:/Qt/6.8.0/mingw_64/include/QtSql/qtsql-config.h \
+	C:/Qt/6.8.0/mingw_64/include/QtSql/qtsqlexports.h \
+	C:/Qt/6.8.0/mingw_64/include/QtSql/qtsqlglobal.h \
+	C:/Qt/6.8.0/mingw_64/include/QtWidgets/QFrame \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/QPushButton \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/QStackedWidget \
+	C:/Qt/6.8.0/mingw_64/include/QtWidgets/QTextEdit \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/QVBoxLayout \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/QWidget \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractbutton.h \
+	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qboxlayout.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qframe.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qgridlayout.h \
@@ -157,6 +181,7 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qpushbutton.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qsizepolicy.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qstackedwidget.h \
+	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qtextedit.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qtwidgets-config.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qtwidgetsexports.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -271,6 +296,31 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6GuiTools/Qt6GuiToolsTargets-relwithdebinfo.cmake \
 	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6GuiTools/Qt6GuiToolsTargets.cmake \
 	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6GuiTools/Qt6GuiToolsVersionlessTargets.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QMimerSQLDriverPluginAdditionalTargetInfo.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QMimerSQLDriverPluginConfig.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QMimerSQLDriverPluginTargets-relwithdebinfo.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QMimerSQLDriverPluginTargets.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QODBCDriverPluginAdditionalTargetInfo.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QODBCDriverPluginConfig.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QODBCDriverPluginTargets-relwithdebinfo.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QODBCDriverPluginTargets.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QPSQLDriverPluginAdditionalTargetInfo.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QPSQLDriverPluginConfig.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QPSQLDriverPluginTargets-relwithdebinfo.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QPSQLDriverPluginTargets.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginAdditionalTargetInfo.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginConfig.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginTargets-relwithdebinfo.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginTargets.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlAdditionalTargetInfo.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlConfig.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlConfigVersion.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlConfigVersionImpl.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlDependencies.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlPlugins.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlTargets-relwithdebinfo.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlTargets.cmake \
+	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Sql/Qt6SqlVersionlessAliasTargets.cmake \
 	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Widgets/Qt6QModernWindowsStylePluginAdditionalTargetInfo.cmake \
 	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Widgets/Qt6QModernWindowsStylePluginConfig.cmake \
 	C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6Widgets/Qt6QModernWindowsStylePluginTargets-relwithdebinfo.cmake \
@@ -538,16 +588,24 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/vadefs.h \
 	C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h \
 	C:/cpp/projectsQt/SimpleChat/CMakeLists.txt \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatcontent.cpp \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatcontent.h \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/SwitchChatContainer/switchchatbutton.cpp \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/SwitchChatContainer/switchchatbutton.h \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/SwitchChatContainer/switchchatcontainer.cpp \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/SwitchChatContainer/switchchatcontainer.h \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/chatform.cpp \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/chatform.h \
+	C:/cpp/projectsQt/SimpleChat/LoginForm/loginbutton.cpp \
+	C:/cpp/projectsQt/SimpleChat/LoginForm/loginbutton.h \
+	C:/cpp/projectsQt/SimpleChat/LoginForm/loginform.cpp \
+	C:/cpp/projectsQt/SimpleChat/LoginForm/loginform.h \
+	C:/cpp/projectsQt/SimpleChat/MainWindow/mainwindow.cpp \
+	C:/cpp/projectsQt/SimpleChat/MainWindow/mainwindow.h \
 	C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake \
 	C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeCXXCompiler.cmake \
 	C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeRCCompiler.cmake \
 	C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake \
 	C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleChat_autogen/moc_predefs.h \
-	C:/cpp/projectsQt/SimpleChat/chatform.cpp \
-	C:/cpp/projectsQt/SimpleChat/chatform.h \
-	C:/cpp/projectsQt/SimpleChat/loginform.cpp \
-	C:/cpp/projectsQt/SimpleChat/loginform.h \
-	C:/cpp/projectsQt/SimpleChat/main.cpp \
-	C:/cpp/projectsQt/SimpleChat/mainwindow.cpp \
-	C:/cpp/projectsQt/SimpleChat/mainwindow.h \
+	C:/cpp/projectsQt/SimpleChat/src/main.cpp \
 	C:/Qt/Tools/CMake_64/bin/cmake.exe
