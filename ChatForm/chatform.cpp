@@ -5,18 +5,18 @@
 #include <QSplitter>
 #include <QHBoxLayout>
 
-ChatForm::ChatForm(QWidget *parent): QWidget{parent} {
+ChatForm::ChatForm(int userId, QString userFirstname, QString userLastname, QWidget *parent): QWidget{parent} {
     layoutChat = new QHBoxLayout(this);
     layoutChat->setContentsMargins(0,0,0,0);
     layoutChat->setSpacing(0);
 
-    btnToLogin = new QPushButton("Ok, get started");
+    sContainer = new SwitchChatContainer(userId, userFirstname, userLastname);
 
-    sContainer = new SwitchChatContainer(this);
+    layoutChat->addWidget(sContainer);
+    layoutChat->addWidget(sContainer->switchChats);
 
     menu = new QFrame(this);
-    menu->raise();
-    menu->setStyleSheet("background-color: #222; color: white; border-right: 1px solid #777");
+    menu->setStyleSheet("background-color: #222; color: white; border-right: 1px solid #555");
     menu->setFixedWidth(200);
     menu->setGeometry(-200, 0, 200, height());
     menu->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
@@ -24,7 +24,8 @@ ChatForm::ChatForm(QWidget *parent): QWidget{parent} {
     QVBoxLayout* menuLayout = new QVBoxLayout(menu);
     menuLayout->addWidget(new QPushButton("Button 1"));
     menuLayout->addWidget(new QPushButton("Button 2"));
-    menuLayout->addWidget(new QPushButton("Button 3"));
+    exitFromChat = new QPushButton("Exit");
+    menuLayout->addWidget(exitFromChat);
     menuLayout->setAlignment(Qt::AlignCenter);
 
     animation = new QPropertyAnimation(menu, "geometry", this);
@@ -32,18 +33,11 @@ ChatForm::ChatForm(QWidget *parent): QWidget{parent} {
 
     connect(sContainer->toggleButton, SIGNAL(clicked()), SLOT(toggleMenu()));
 
-    layoutChat->addWidget(sContainer);
-    // layoutChat->addWidget(btnToLogin); // перенос в последнюю очередь
-    layoutChat->addWidget(sContainer->switchChats);
-
     layoutChat->setStretch(0,1);
     layoutChat->setStretch(1,3);
 
     setLayout(layoutChat);
-
 }
-
-
 
 void ChatForm::toggleMenu() {
     if (animation->state() == QAbstractAnimation::Running) {

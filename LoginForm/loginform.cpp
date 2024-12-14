@@ -1,5 +1,4 @@
 #include "loginform.h"
-#include <QLineEdit>
 #include <QLabel>
 
 LoginForm::LoginForm(QWidget* parent) : QWidget{parent} {
@@ -10,8 +9,8 @@ LoginForm::LoginForm(QWidget* parent) : QWidget{parent} {
 
     containedLayout = new QVBoxLayout(this);
 
-    QLineEdit* mailLine = new QLineEdit();
-    QLineEdit* passLine = new QLineEdit();
+    mailLine = new QLineEdit();
+    passLine = new QLineEdit();
     mailLine->setFixedSize(300, 25);
     passLine->setFixedSize(300, 25);
 
@@ -43,7 +42,7 @@ void LoginForm::connectToBaseData() {
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
     db.setHostName("localhost");
     db.setPort(5432);
-    db.setDatabaseName("postgres");
+    db.setDatabaseName("SimpleChat");
     db.setUserName("postgres");
     db.setPassword("11281215");
 
@@ -56,8 +55,8 @@ void LoginForm::connectToBaseData() {
 
 void LoginForm::addLogupForm() {
     if(temporaryWidgets.empty()) {
-        QLineEdit* firstNameLine = new QLineEdit();
-        QLineEdit* lastNameLine = new QLineEdit();
+        firstNameLine = new QLineEdit();
+        lastNameLine = new QLineEdit();
         firstNameLine->setFixedSize(300,25);
         lastNameLine->setFixedSize(300,25);
 

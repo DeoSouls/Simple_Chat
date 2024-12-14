@@ -49,6 +49,7 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qglobalstatic.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qhash.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qhashfunctions.h \
+	C:/Qt/6.8.0/mingw_64/include/QtCore/qiodevice.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qiodevicebase.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qiterable.h \
 	C:/Qt/6.8.0/mingw_64/include/QtCore/qiterator.h \
@@ -142,6 +143,7 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qpaintdevice.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qpalette.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qpen.h \
+	C:/Qt/6.8.0/mingw_64/include/QtGui/qpicture.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qpixelformat.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qpixmap.h \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qpolygon.h \
@@ -160,13 +162,18 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/6.8.0/mingw_64/include/QtGui/qwindowdefs_win.h \
 	C:/Qt/6.8.0/mingw_64/include/QtSql/QSqlDatabase \
 	C:/Qt/6.8.0/mingw_64/include/QtSql/QSqlError \
+	C:/Qt/6.8.0/mingw_64/include/QtSql/QSqlQuery \
 	C:/Qt/6.8.0/mingw_64/include/QtSql/qsqldatabase.h \
 	C:/Qt/6.8.0/mingw_64/include/QtSql/qsqlerror.h \
+	C:/Qt/6.8.0/mingw_64/include/QtSql/qsqlquery.h \
 	C:/Qt/6.8.0/mingw_64/include/QtSql/qtsql-config.h \
 	C:/Qt/6.8.0/mingw_64/include/QtSql/qtsqlexports.h \
 	C:/Qt/6.8.0/mingw_64/include/QtSql/qtsqlglobal.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/QFrame \
+	C:/Qt/6.8.0/mingw_64/include/QtWidgets/QLabel \
+	C:/Qt/6.8.0/mingw_64/include/QtWidgets/QLineEdit \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/QPushButton \
+	C:/Qt/6.8.0/mingw_64/include/QtWidgets/QScrollArea \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/QStackedWidget \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/QTextEdit \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/QVBoxLayout \
@@ -176,9 +183,12 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qboxlayout.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qframe.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qgridlayout.h \
+	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlabel.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlayout.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlayoutitem.h \
+	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlineedit.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qpushbutton.h \
+	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qscrollarea.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qsizepolicy.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qstackedwidget.h \
 	C:/Qt/6.8.0/mingw_64/include/QtWidgets/qtextedit.h \
@@ -588,6 +598,10 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/vadefs.h \
 	C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h \
 	C:/cpp/projectsQt/SimpleChat/CMakeLists.txt \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/InputMessage/inputmessage.cpp \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/InputMessage/inputmessage.h \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/MessageContainer/messagecontainer.cpp \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/MessageContainer/messagecontainer.h \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatcontent.cpp \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatcontent.h \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/SwitchChatContainer/switchchatbutton.cpp \

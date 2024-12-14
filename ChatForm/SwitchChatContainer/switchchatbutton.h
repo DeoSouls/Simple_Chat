@@ -9,6 +9,7 @@ class SwitchChatButton : public QPushButton {
         explicit SwitchChatButton(const QString text, int index, QWidget *parent = nullptr);
 
         int switchIndex;
+        ~SwitchChatButton();
 };
 
 #endif // SWITCHCHATBUTTON_H

@@ -4,6 +4,10 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QStackedWidget>
+#include <QSqlQuery>
+#include <QSqlDatabase>
+#include <QSqlError>
+
 
 class Mainwindow : public QWidget {
         Q_OBJECT

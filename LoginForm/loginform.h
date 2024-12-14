@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QLineEdit>
 #include "LoginButton.h"
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlError>
@@ -15,6 +16,11 @@ class LoginForm : public QWidget {
         QList<QWidget*> temporaryWidgets;
         LoginButton* btn2ToChat;
         LoginButton* btnToChat;
+
+        QLineEdit* firstNameLine;
+        QLineEdit* lastNameLine;
+        QLineEdit* mailLine;
+        QLineEdit* passLine;
 
         void removeLogupForm();
 

@@ -8,3 +8,6 @@ SwitchChatButton::SwitchChatButton(const QString text, int index, QWidget *paren
                   "color: white; padding-left: 35px}"
                   "QPushButton::hover {background-color: #444;}");
 }
+
+SwitchChatButton::~SwitchChatButton() {
+}

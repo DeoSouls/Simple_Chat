@@ -46,6 +46,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.0/mingw_64/include/QtCore/qglobalstatic.h \
   C:/Qt/6.8.0/mingw_64/include/QtCore/qhash.h \
   C:/Qt/6.8.0/mingw_64/include/QtCore/qhashfunctions.h \
+  C:/Qt/6.8.0/mingw_64/include/QtCore/qiodevice.h \
   C:/Qt/6.8.0/mingw_64/include/QtCore/qiodevicebase.h \
   C:/Qt/6.8.0/mingw_64/include/QtCore/qiterable.h \
   C:/Qt/6.8.0/mingw_64/include/QtCore/qiterator.h \
@@ -136,6 +137,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.0/mingw_64/include/QtGui/qpaintdevice.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qpalette.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qpen.h \
+  C:/Qt/6.8.0/mingw_64/include/QtGui/qpicture.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qpixelformat.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qpixmap.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qpolygon.h \
@@ -152,6 +154,8 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.0/mingw_64/include/QtGui/qtransform.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qwindowdefs.h \
   C:/Qt/6.8.0/mingw_64/include/QtGui/qwindowdefs_win.h \
+  C:/Qt/6.8.0/mingw_64/include/QtWidgets/QLabel \
+  C:/Qt/6.8.0/mingw_64/include/QtWidgets/QScrollArea \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/QTextEdit \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/QVBoxLayout \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/QWidget \
@@ -159,8 +163,10 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qboxlayout.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qframe.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qgridlayout.h \
+  C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlabel.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlayout.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qlayoutitem.h \
+  C:/Qt/6.8.0/mingw_64/include/QtWidgets/qscrollarea.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qsizepolicy.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qtextedit.h \
   C:/Qt/6.8.0/mingw_64/include/QtWidgets/qtwidgets-config.h \
@@ -372,4 +378,6 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sys/types.h \
   C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/time.h \
   C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/vadefs.h \
-  C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h
+  C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h \
+  C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/InputMessage/inputmessage.h \
+  C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/MessageContainer/messagecontainer.h

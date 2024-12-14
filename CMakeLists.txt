@@ -28,6 +28,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ChatForm/SwitchChatContainer/switchchatcontainer.h ChatForm/SwitchChatContainer/switchchatcontainer.cpp
         ChatForm/SwitchChatContainer/switchchatbutton.h ChatForm/SwitchChatContainer/switchchatbutton.cpp
         ChatForm/ChatContent/chatcontent.h ChatForm/ChatContent/chatcontent.cpp
+        ChatForm/ChatContent/InputMessage/inputmessage.h ChatForm/ChatContent/InputMessage/inputmessage.cpp
+        ChatForm/ChatContent/MessageContainer/messagecontainer.h ChatForm/ChatContent/MessageContainer/messagecontainer.cpp
 
     )
 # Define target properties for Android with Qt 6 as:

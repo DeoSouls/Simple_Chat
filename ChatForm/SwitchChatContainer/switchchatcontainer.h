@@ -9,9 +9,15 @@
 class SwitchChatContainer : public QWidget {
     Q_OBJECT
     public:
-        explicit SwitchChatContainer(QWidget *parent = nullptr);
+        explicit SwitchChatContainer(int userId, QString userFirstname, QString userLastname, QWidget *parent = nullptr);
         QStackedWidget* switchChats;
         QPushButton* toggleButton;
+
+        int userId;
+        QString userFirstname;
+        QString userLastname;
+
+        ~SwitchChatContainer();
     private:
         QVBoxLayout* switchLayout;
         QList<SwitchChatButton*> switchButtons;

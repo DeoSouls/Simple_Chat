@@ -9,6 +9,8 @@ class LoginButton : public QPushButton {
         Q_OBJECT
     public:
         explicit LoginButton(const QString text, QWidget* parent = nullptr);
+
+        ~LoginButton();
 };
 
 #endif // LOGINBUTTON_H

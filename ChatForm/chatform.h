@@ -11,17 +11,22 @@
 class ChatForm : public QWidget {
         Q_OBJECT
     public:
-        explicit ChatForm(QWidget *parent = nullptr);
-        QPushButton* btnToLogin;
+        explicit ChatForm(int userId, QString userFirstname, QString userLastname, QWidget *parent = nullptr);
+
+        int userId;
+        QString userFirstname;
+        QString userLastname;
+        SwitchChatContainer* sContainer;
+        QPushButton* exitFromChat;
 
         ~ChatForm();
     private slots:
         void toggleMenu();
     private:
-        SwitchChatContainer* sContainer;
         QHBoxLayout* layoutChat;
         QPropertyAnimation* animation;
         QFrame* menu;
+
     protected:
         void resizeEvent(QResizeEvent* event) override;
 };
