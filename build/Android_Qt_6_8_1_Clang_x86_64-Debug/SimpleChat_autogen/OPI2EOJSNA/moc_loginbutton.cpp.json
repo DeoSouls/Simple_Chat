@@ -1,0 +1,18 @@
+{
+    "classes": [
+        {
+            "className": "LoginButton",
+            "lineNumber": 8,
+            "object": true,
+            "qualifiedClassName": "LoginButton",
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QPushButton"
+                }
+            ]
+        }
+    ],
+    "inputFile": "loginbutton.h",
+    "outputRevision": 68
+}

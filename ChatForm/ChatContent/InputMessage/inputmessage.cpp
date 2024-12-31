@@ -12,6 +12,3 @@ void InputMessage::adjustHeight() {
     int newHeight = qBound(minHeight, docHeight + 5, maxHeight);
     setFixedHeight(newHeight);
 }
-
-InputMessage::~InputMessage() {
-}

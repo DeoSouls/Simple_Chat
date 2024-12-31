@@ -8,8 +8,6 @@ class InputMessage : public QTextEdit {
         Q_OBJECT
     public:
         explicit InputMessage(QWidget* parent = nullptr);
-
-        ~InputMessage();
     private slots:
         void adjustHeight();
 };

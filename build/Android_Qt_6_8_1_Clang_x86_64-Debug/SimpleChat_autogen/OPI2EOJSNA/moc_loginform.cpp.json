@@ -1,0 +1,38 @@
+{
+    "classes": [
+        {
+            "className": "LoginForm",
+            "lineNumber": 12,
+            "object": true,
+            "qualifiedClassName": "LoginForm",
+            "slots": [
+                {
+                    "access": "public",
+                    "index": 0,
+                    "name": "addLogupForm",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 1,
+                    "name": "login",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 2,
+                    "name": "connectToBaseData",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QWidget"
+                }
+            ]
+        }
+    ],
+    "inputFile": "loginform.h",
+    "outputRevision": 68
+}

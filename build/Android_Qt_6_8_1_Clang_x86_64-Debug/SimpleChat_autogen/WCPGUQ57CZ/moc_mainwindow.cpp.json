@@ -1,0 +1,26 @@
+{
+    "classes": [
+        {
+            "className": "Mainwindow",
+            "lineNumber": 12,
+            "object": true,
+            "qualifiedClassName": "Mainwindow",
+            "slots": [
+                {
+                    "access": "private",
+                    "index": 0,
+                    "name": "onConnected",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QWidget"
+                }
+            ]
+        }
+    ],
+    "inputFile": "mainwindow.h",
+    "outputRevision": 68
+}

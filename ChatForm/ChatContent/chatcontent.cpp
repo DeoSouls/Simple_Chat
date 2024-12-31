@@ -1,55 +1,44 @@
 #include "chatcontent.h"
+#include "infopanelchat.h"
+#include "messageitemdelegate.h"
 #include <QLabel>
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QTextEdit>
 #include <QFontMetrics>
-#include <QScrollArea>
 #include <QScrollBar>
 #include <QSqlQuery>
 #include <QSqlError>
-#include <QTimer>
+#include <QClipboard>
 #include <QDebug>
+#include <QListView>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <QApplication>
+#include <QBuffer>
 
-ChatContent::ChatContent(const QString case1, int index, int id, QWidget *parent) : QWidget{parent}, chatIndex(index), userId(id) {
+ChatContent::ChatContent(const QString& chatName, int index, int id, QWebSocket* m_client, QWidget *parent) : QWidget{parent}, chatIndex(index), userId(id), m_socket(m_client) {
     chatContentLayout = new QVBoxLayout(this);
     chatContentLayout->setContentsMargins(0,0,0,0);
     chatContentLayout->setAlignment(Qt::AlignTop);
     chatContentLayout->setSpacing(0);
+    setStyleSheet("QWidget { background-color: #444; }");
 
+    messageModel = new ChatMessageModel(this);
+    loadMessagesFromDatabase();
+
+    // WebSocket
+    connect(m_socket, &QWebSocket::textMessageReceived, this, &ChatContent::addMessageToChat);
+
+    font1 = QFont("Segoe UI", 12);
     font3 = QFont("Arial", 11, QFont::Expanded);
-    QFont font1("Arial", 9, QFont::Expanded);
 
     // инфо о чате (верхняя панель)
-    QWidget* infoPanel = new QWidget(this);
-    QHBoxLayout* infoChatLayout = new QHBoxLayout(infoPanel);
-    infoChatLayout->setContentsMargins(0,0,0,0);
-    infoChatLayout->setSpacing(15);
-    infoPanel->setFixedHeight(45);
-    infoPanel->setStyleSheet("QWidget {"
-                             "border-bottom: 1px solid #444; background-color: #222 }"
-                             "QLabel { border: 0px; color: white; font-family: Arial;"
-                             "font-size: 11px;}");
-
-    QLabel* chatIndex = new QLabel("Chat "+ QString::number(index));
-    QLabel* chatName = new QLabel(case1);
-    QLabel* infoTime = new QLabel("Time...");
-    chatIndex->setFixedHeight(30);
-    chatIndex->setStyleSheet("margin-left: 10px");
-    chatName->setFixedHeight(30);
-    infoTime->setFixedSize(70, 30);
-    chatName->setAlignment(Qt::AlignCenter);
-
-    infoChatLayout->addWidget(chatIndex);
-    infoChatLayout->addWidget(chatName);
-    infoChatLayout->addWidget(infoTime);
-
-    infoChatLayout->setStretch(0,1);
-    infoChatLayout->setStretch(1,6);
+    InfoPanelChat* infoPanelChat = new InfoPanelChat(index, chatName);
 
     // поле для ввода сообщения и его отправки
     inputField = new QWidget(this);
-    QHBoxLayout* inputFieldLayout = new QHBoxLayout(inputField);
+    inputFieldLayout = new QHBoxLayout(inputField);
     inputFieldLayout->setContentsMargins(0,0,0,0);
     inputFieldLayout->setAlignment(Qt::AlignLeft);
     inputField->setFixedHeight(50);
@@ -62,6 +51,15 @@ ChatContent::ChatContent(const QString case1, int index, int id, QWidget *parent
                               "QTextEdit { border: 0px; border-radius: 8px; margin-left: 15px}");
 
 
+    QPushButton* btnToAttachImage = new QPushButton("Image");
+    btnToAttachImage->setStyleSheet("QPushButton {margin: 0px; margin-left: 5px;}");
+    connect(btnToAttachImage, &QPushButton::clicked, this, &ChatContent::onAttachImageButtonClicked);
+
+    m_imagePreviewLabel = new QLabel();
+    m_imagePreviewLabel->setFixedSize(100, 100);
+    m_imagePreviewLabel->setStyleSheet("border: 1px solid gray;");
+    m_imagePreviewLabel->setScaledContents(true);
+
     inputMessage = new InputMessage();
     inputMessage->setFont(font3);
     inputMessage->setFixedHeight(40);
@@ -72,116 +70,236 @@ ChatContent::ChatContent(const QString case1, int index, int id, QWidget *parent
     btnToSendMessage->setFont(font1);
     connect(btnToSendMessage, SIGNAL(clicked()), SLOT(sendMessage()));
 
+    inputFieldLayout->addWidget(btnToAttachImage);
     inputFieldLayout->addWidget(inputMessage);
     inputFieldLayout->addWidget(btnToSendMessage);
 
-    // прокрутка для поля сообщений между пользователями
-    scrollArea = new QScrollArea(this);
-    scrollArea->setWidgetResizable(true);
-    scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    scrollArea->setStyleSheet(
+    // Представление для сообщений
+    messageView = new QListView(this);
+    messageView->setModel(messageModel);
+    messageView->setItemDelegate(new MessageItemDelegate(this));
+
+    messageView->setStyleSheet(
+        "QListView {"
+        "background-color: #222;"
+        "color: #252424;"
+        "border: none;"
+        "padding: 5px;"
+        "border-left: 1px solid #333"
+        "}"
         "QScrollBar:vertical {"
-        "    border: none;"
-        "    background: #222;"
-        "    width: 10px;"
+        "background-color: #222;"
+        "width: 10px;"
         "}"
         "QScrollBar::handle:vertical {"
-        "    background: #333;"
-        "    border-radius: 5px;"
-        "    min-height: 20px;"
+        "background-color: #333;"
+        "min-height: 10px;"
         "}"
-    );
+        "QScrollBar::add-line:vertical {"
+        "height: 10px;"
+        "background-color: #222;"
+        "}"
+        "QScrollBar::sub-line:vertical {"
+        "height: 10px;"
+        "background-color: #222;"
+        "}"
+        );
+    messageView->setSpacing(5);
+    messageView->setUniformItemSizes(false);
+    messageView->setResizeMode(QListView::Adjust);
+    messageView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    messageView->setWordWrap(true);
+    messageView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    messageView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    QScrollBar *verticalScrollBar = messageView->verticalScrollBar();
+    verticalScrollBar->setSingleStep(20);
+    messageView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    messageView->setContentsMargins(0, 0, 0, 0);
+    messageView->scrollToBottom();
 
-    // поле для сообщений между пользователями
-    QWidget* outputField = new QWidget(this);
-    outputFieldLayout = new QVBoxLayout(outputField);
-    outputFieldLayout->setContentsMargins(0,0,0,0);
-    outputFieldLayout->setAlignment(Qt::AlignBottom);
-    outputFieldLayout->setSpacing(0);
-    outputField->setStyleSheet("QWidget {border: 0px; border-left: 1px solid #444;background-color: #222}");
+    connect(messageView, &QListView::activated, [&](const QModelIndex &index) {
+        // Копируем текст в буфер обмена, если элемент выделен
+        if (index.isValid()) {
+            QVariant data = index.data(ChatMessageModel::ChatMessageRole);
 
-    scrollArea->setWidget(outputField);
+            ChatMessage msg = data.value<ChatMessage>();
+            QClipboard *clipboard = QApplication::clipboard();
+            clipboard->setText(msg.message);
 
-    chatContentLayout->addWidget(infoPanel);
-    chatContentLayout->addWidget(scrollArea);
+            qDebug() << "Copied to clipboard:" << msg.message;
+        }
+    });
+
+    chatContentLayout->addWidget(infoPanelChat);
+    chatContentLayout->addWidget(messageView);
     chatContentLayout->addWidget(inputField);
 
     setLayout(chatContentLayout);
-    addMessageToChat();
 }
 
-void ChatContent::addMessageToChat() {
-    QSqlDatabase::database().transaction();
-    QSqlQuery selectQuery;
+void ChatContent::loadMessagesFromDatabase() {
+    messageModel->clearMessage();
 
-    selectQuery.prepare("SELECT body, user_id FROM messages WHERE chatid = :chatid");
+    QSqlQuery selectQuery;
+    selectQuery.prepare("SELECT users.firstname, messages.user_id, messages.body, messages.created_at, messages.id, messages.image_data "
+                        "FROM users "
+                        "INNER JOIN messages ON users.id = messages.user_id "
+                        "WHERE messages.chat_id = :chatid "
+                        "ORDER BY messages.created_at ASC;");
     selectQuery.bindValue(":chatid", chatIndex);
 
     if (!selectQuery.exec()) {
-        qDebug() << "Ошибка проверки email:" << selectQuery.lastError().text();
-        QSqlDatabase::database().rollback();
-    } else {
-        while(selectQuery.next()) {
-            if(selectQuery.value("user_id") == userId) {
-                MessageContainer* msgContainer = new MessageContainer(font3,selectQuery.value("body").toString());
-                msgContainer->setAlignment(Qt::AlignRight);
-                outputFieldLayout->addWidget(msgContainer, 0, Qt::AlignRight | Qt::AlignBottom);
-            } else {
-                MessageContainer* msgContainer = new MessageContainer(font3,selectQuery.value("body").toString());
-                msgContainer->setAlignment(Qt::AlignLeft);
-                outputFieldLayout->addWidget(msgContainer, 0, Qt::AlignLeft | Qt::AlignBottom);
-            }
-        }
-        qDebug() << "Количество найденных: " << selectQuery.size();
-        QSqlDatabase::database().commit();
+        qDebug() << "Ошибка выборки сообщений:" << selectQuery.lastError().text();
+        QMessageBox::critical(this, "Ошибка", "Не удалось загрузить сообщения.");
+        return;
     }
+
+    while(selectQuery.next()) {
+        int id = selectQuery.value("id").toInt();
+        QString firstname = selectQuery.value("firstname").toString();
+        int user_id = selectQuery.value("user_id").toInt();
+        QString body = selectQuery.value("body").toString();
+        QDateTime created_at = selectQuery.value("created_at").toDateTime();
+        QByteArray image_data = selectQuery.value("image_data").toByteArray();
+
+        ChatMessage msg;
+        msg.id = id;
+        msg.username = firstname;
+        msg.message = body;
+        msg.isMine = (user_id == userId);
+        msg.timestamp = created_at;
+        msg.hasImage = !image_data.isEmpty();
+
+        if(msg.hasImage) {
+            msg.imageData = image_data;
+        }
+
+        messageModel->addMessage(msg);
+    }
+
+}
+
+void ChatContent::addMessageToChat(const QString &message) {
+    Q_UNUSED(message);
+
+    loadMessagesFromDatabase();
+    messageView->scrollToBottom();
 }
 
 void ChatContent::sendMessage() {
-    QString text = inputMessage->toPlainText();
-    if(text.length() > 0) {
-        MessageContainer* msgContainer = new MessageContainer(font3,text);
-        msgContainer->setAlignment(Qt::AlignRight);
+    QString text = inputMessage->toPlainText().trimmed();
 
-        outputFieldLayout->setAlignment(Qt::AlignTop);
-        outputFieldLayout->addWidget(msgContainer, 0);
-        outputFieldLayout->setAlignment(Qt::AlignBottom);
-
-        QSqlDatabase::database().transaction();
-        QSqlQuery query;
-
-        query.prepare("INSERT INTO messages (user_id, body, chatid) "
-                      "VALUES (:user_id, :body, :chatid) RETURNING id");
-        query.bindValue(":user_id", userId);
-        query.bindValue(":body", text);
-        query.bindValue(":chatid", chatIndex);
-
-        if (!query.exec()) {
-            qDebug() << "Ошибка добавления сообщения:" << query.lastError().text();
-            QSqlDatabase::database().rollback(); // Откат транзакции
-        } else {
-            qDebug() << "Сообщение успешно добавлено!";
-            QSqlDatabase::database().commit(); // Подтверждение транзакции
-            inputMessage->clear();
-        }
+    if(text.isEmpty()) {
+        return;
     }
 
-    // -- проблема 1 - sroll должен про поялвлении нового сообщения спускаться вниз
-    QScrollBar* scrollBar = scrollArea->verticalScrollBar();
-    scrollBar->setValue(scrollBar->maximum());
-    // if (scrollBar->value() == scrollBar->maximum()) {
-    //     QTimer::singleShot(0, this, [&]() {
-    //         scrollBar->setValue(scrollBar->maximum());
-    //     });
-    // }
-    // -- проблема 1 - sroll должен про поялвлении нового сообщения спускаться вниз
-    qDebug() << text;
+    QSqlDatabase db = QSqlDatabase::database();
+    if(!db.transaction()) {
+        qDebug() << "Не удалось начать транзакцию:" << db.lastError().text();
+        QMessageBox::critical(this, "Ошибка", "Не удалось отправить сообщение.");
+        return;
+    }
+
+    QByteArray pixmapBytes;
+    if(!m_attachedImage.isNull()) {
+        QBuffer buffer(&pixmapBytes);
+        buffer.open(QIODevice::WriteOnly);
+
+        // Сохраняем pixmap в формате PNG (можно выбрать другой формат, напр. JPG)
+        m_attachedImage.save(&buffer, "PNG", 90);
+
+        // Закрываем buffer, хотя после выхода из области видимости он сам закроется
+        buffer.close();
+    }
+
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO messages (user_id, body, chat_id, created_at, image_data) "
+                  "VALUES (:user_id, :body, :chat_id, :created_at, :image_data) RETURNING id");
+    query.bindValue(":user_id", userId);
+    query.bindValue(":body", text);
+    query.bindValue(":chat_id", chatIndex);
+    query.bindValue(":created_at", QDateTime::currentDateTime());
+    query.bindValue(":image_data", pixmapBytes);
+
+    if (!query.exec()) {
+        qDebug() << "Ошибка добавления сообщения:" << query.lastError().text();
+        db.rollback();
+        QMessageBox::critical(this, "Ошибка", "Не удалось отправить сообщение.");
+        return;
+    }
+
+    query.next();
+    int message_id = query.value("id").toInt();
+
+    query.prepare("SELECT CASE WHEN user1_id != :userid THEN user1_id ELSE user2_id "
+                  "END AS result FROM chats WHERE (user1_id != :userid OR user2_id != :userid)");
+    query.bindValue(":userid", userId);
+
+    if (!query.exec()) {
+        qDebug() << "Ошибка добавления сообщения:" << query.lastError().text();
+        db.rollback();
+        QMessageBox::critical(this, "Ошибка", "Не удалось отправить сообщение.");
+        return;
+    }
+
+    query.next();
+    int user2_id = query.value("result").toInt();
+
+    query.prepare("INSERT INTO message_read_status (message_id, user_id, is_read) "
+                  "VALUES (:message_id, :user_id, :is_read)");
+    query.bindValue(":message_id", message_id);
+    query.bindValue(":user_id", user2_id);
+    query.bindValue(":is_read", false);
+
+    if (!query.exec()) {
+        qDebug() << "Ошибка добавления сообщения:" << query.lastError().text();
+        db.rollback();
+        QMessageBox::critical(this, "Ошибка", "Не удалось отправить сообщение.");
+        return;
+    }
+
+    db.commit();
+
+    ChatMessage msg;
+    msg.id = message_id;
+    msg.username = "Me";
+    msg.message = text;
+    msg.isMine = true;
+    msg.timestamp = QDateTime::currentDateTime();
+    msg.hasImage = !pixmapBytes.isEmpty();
+
+    if(msg.hasImage) {
+        msg.imageData = pixmapBytes;
+    }
+
+    messageModel->addMessage(msg);
+
+    m_socket->sendTextMessage(text);
+    messageView->scrollToBottom();
+    inputMessage->clear();
+
+    m_imagePreviewLabel->clear();
+    m_imagePreviewLabel->hide();
+    m_attachedImage = QPixmap();
+    chatContentLayout->removeWidget(m_imagePreviewLabel);
 }
 
 void ChatContent::resizeInputField() {
     inputField->setFixedHeight(inputMessage->height() + 10);
 }
 
-ChatContent::~ChatContent() {
+void ChatContent::onAttachImageButtonClicked() {
+    chatContentLayout->addWidget(m_imagePreviewLabel);
+    m_imagePreviewLabel->show();
+    QString fileName = QFileDialog::getOpenFileName(this, "Select Image", "", "Images (*.png *.jpg *.jpeg *.bmp)");
+    if (!fileName.isEmpty()) {
+        QPixmap pixmap(fileName);
+        if (!pixmap.isNull()) {
+            m_attachedImage = pixmap.scaled(m_imagePreviewLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            m_imagePreviewLabel->setPixmap(m_attachedImage);
+        } else {
+            QMessageBox::warning(this, "Invalid Image", "The selected file is not a valid image.");
+        }
+    }
 }

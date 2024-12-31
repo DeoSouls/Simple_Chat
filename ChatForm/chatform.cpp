@@ -5,28 +5,37 @@
 #include <QSplitter>
 #include <QHBoxLayout>
 
-ChatForm::ChatForm(int userId, QString userFirstname, QString userLastname, QWidget *parent): QWidget{parent} {
+ChatForm::ChatForm(int userId, QString userFirstname, QString userLastname, QWebSocket* m_client, QWidget *parent)
+    : userId(userId), userFirstname(userFirstname), userLastname(userLastname), m_socket(m_client), QWidget{parent} {
+
     layoutChat = new QHBoxLayout(this);
     layoutChat->setContentsMargins(0,0,0,0);
     layoutChat->setSpacing(0);
 
-    sContainer = new SwitchChatContainer(userId, userFirstname, userLastname);
+    sContainer = new SwitchChatContainer(userId, userFirstname, userLastname, m_client);
 
     layoutChat->addWidget(sContainer);
     layoutChat->addWidget(sContainer->switchChats);
 
     menu = new QFrame(this);
-    menu->setStyleSheet("background-color: #222; color: white; border-right: 1px solid #555");
+    menu->setStyleSheet("QFrame { background-color: #222; color: white; border-right: 1px solid #444;} "
+                        "QPushButton { border: none; border-top: 1px solid #333; font-size: 14px }"
+                        "QPushButton:hover { background-color: #444 }");
     menu->setFixedWidth(200);
     menu->setGeometry(-200, 0, 200, height());
     menu->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
     QVBoxLayout* menuLayout = new QVBoxLayout(menu);
-    menuLayout->addWidget(new QPushButton("Button 1"));
-    menuLayout->addWidget(new QPushButton("Button 2"));
+    startChatting = new QPushButton("Start Chatting");
+    startChatting->setFixedSize(150, 35);
+
+    menuLayout->addWidget(startChatting);
     exitFromChat = new QPushButton("Exit");
+    exitFromChat->setFixedSize(150, 35);
+
     menuLayout->addWidget(exitFromChat);
     menuLayout->setAlignment(Qt::AlignCenter);
+    menuLayout->setSpacing(30);
 
     animation = new QPropertyAnimation(menu, "geometry", this);
     animation->setDuration(200);
@@ -62,7 +71,4 @@ void ChatForm::resizeEvent(QResizeEvent* event) {
     QWidget::resizeEvent(event);
 
     menu->setGeometry(menu->x(), 0, menu->width(), height());
-}
-
-ChatForm::~ChatForm() {
 }

@@ -6,24 +6,27 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QFrame>
+#include <QWebSocket>
 #include <QPropertyAnimation>
 
 class ChatForm : public QWidget {
         Q_OBJECT
     public:
-        explicit ChatForm(int userId, QString userFirstname, QString userLastname, QWidget *parent = nullptr);
+        explicit ChatForm(int userId, QString userFirstname, QString userLastname, QWebSocket* m_client, QWidget *parent = nullptr);
 
         int userId;
         QString userFirstname;
         QString userLastname;
+        QWebSocket* m_socket;
         SwitchChatContainer* sContainer;
         QPushButton* exitFromChat;
+        QPushButton* startChatting;
 
-        ~ChatForm();
+        void clearLayout(QLayout *layout);
+        QHBoxLayout* layoutChat;
     private slots:
         void toggleMenu();
     private:
-        QHBoxLayout* layoutChat;
         QPropertyAnimation* animation;
         QFrame* menu;
 

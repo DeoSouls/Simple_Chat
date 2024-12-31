@@ -1,0 +1,50 @@
+{
+    "classes": [
+        {
+            "className": "ChatContent",
+            "lineNumber": 14,
+            "object": true,
+            "qualifiedClassName": "ChatContent",
+            "slots": [
+                {
+                    "access": "public",
+                    "index": 0,
+                    "name": "sendMessage",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 1,
+                    "name": "resizeInputField",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "message",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 2,
+                    "name": "addMessageToChat",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 3,
+                    "name": "onAttachImageButtonClicked",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QWidget"
+                }
+            ]
+        }
+    ],
+    "inputFile": "chatcontent.h",
+    "outputRevision": 68
+}

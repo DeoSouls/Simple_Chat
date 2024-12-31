@@ -18,7 +18,7 @@ LoginForm::LoginForm(QWidget* parent) : QWidget{parent} {
     QLabel* passLabel = new QLabel("Password:");
 
     btnToChat = new LoginButton("Log in");
-    connect(btnToChat, SIGNAL(clicked()), SLOT(removeLogupForm()));
+    connect(btnToChat, &LoginButton::clicked,this, &LoginForm::removeLogupForm);
 
     btn2ToChat = new LoginButton("Log up");
 

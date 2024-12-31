@@ -1,0 +1,18 @@
+{
+    "classes": [
+        {
+            "className": "UserChoiceModel",
+            "lineNumber": 13,
+            "object": true,
+            "qualifiedClassName": "UserChoiceModel",
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QAbstractListModel"
+                }
+            ]
+        }
+    ],
+    "inputFile": "userchoicemodel.h",
+    "outputRevision": 68
+}
