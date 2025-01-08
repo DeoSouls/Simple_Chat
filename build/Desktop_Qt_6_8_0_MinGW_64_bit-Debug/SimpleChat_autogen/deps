@@ -710,8 +710,12 @@ SimpleChat_autogen/timestamp: \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatcontent.h \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatmessagemodel.cpp \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatmessagemodel.h \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/hoverlabel.cpp \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/hoverlabel.h \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopanelchat.cpp \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopanelchat.h \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopopup.cpp \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopopup.h \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/messageitemdelegate.cpp \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/messageitemdelegate.h \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/SwitchChatContainer/switchchatbutton.cpp \

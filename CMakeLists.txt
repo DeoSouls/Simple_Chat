@@ -39,6 +39,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ChatForm/ChatContent/infopanelchat.h ChatForm/ChatContent/infopanelchat.cpp
         ChatForm/UserChoiceContainer/userchoicemodel.h ChatForm/UserChoiceContainer/userchoicemodel.cpp
         ChatForm/UserChoiceContainer/useritemdelegate.h ChatForm/UserChoiceContainer/useritemdelegate.cpp
+        ChatForm/ChatContent/hoverlabel.h ChatForm/ChatContent/hoverlabel.cpp
+        ChatForm/ChatContent/infopopup.h ChatForm/ChatContent/infopopup.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET SimpleChat APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -71,6 +73,8 @@ else()
             ChatForm/ChatContent/infopanelchat.h ChatForm/ChatContent/infopanelchat.cpp
             ChatForm/UserChoiceContainer/userchoicemodel.h ChatForm/UserChoiceContainer/userchoicemodel.cpp
             ChatForm/UserChoiceContainer/useritemdelegate.h ChatForm/UserChoiceContainer/useritemdelegate.cpp
+            ChatForm/ChatContent/hoverlabel.h ChatForm/ChatContent/hoverlabel.cpp
+            ChatForm/ChatContent/infopopup.h ChatForm/ChatContent/infopopup.cpp
         )
     endif()
 endif()
@@ -110,6 +114,8 @@ add_library(SimpleChatLib STATIC
     ChatForm/ChatContent/messageitemdelegate.h
     ChatForm/ChatContent/infopanelchat.cpp
     ChatForm/ChatContent/infopanelchat.h
+    ChatForm/ChatContent/hoverlabel.h ChatForm/ChatContent/hoverlabel.cpp
+    ChatForm/ChatContent/infopopup.h ChatForm/ChatContent/infopopup.cpp
 )
 
 # Установка директорий заголовков

@@ -3,23 +3,51 @@
 #include <QtSql/QSqlDatabase>
 #include <QLabel>
 #include <QMessageBox>
+#include <QHBoxLayout>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 SwitchChatContainer::SwitchChatContainer(int userId, QString userFirstname, QString userLastname, QWebSocket* m_client, QWidget *parent)
     : userId(userId), userFirstname(userFirstname), userLastname(userLastname), m_socket(m_client), QWidget{parent} {
 
-    connect(m_socket, &QWebSocket::textMessageReceived, this, &SwitchChatContainer::updateButtons);
+    connect(m_socket, &QWebSocket::textMessageReceived, this, &SwitchChatContainer::updateHandler);
+
+    QJsonObject messageObj;
+    messageObj["action"] = "add_chats";
+    messageObj["userid"] = userId;
+    QJsonDocument mesDoc(messageObj);
+    QString jsonString = mesDoc.toJson(QJsonDocument::Compact);
+
+    m_socket->sendTextMessage(jsonString);
 
     switchLayout = new QVBoxLayout(this);
     switchLayout->setContentsMargins(0,0,0,0);
     switchLayout->setAlignment(Qt::AlignTop);
     switchLayout->setSpacing(0);
 
-    setStyleSheet("QWidget {border-right: 1px solid #444}");
-    toggleButton = new QPushButton("Show/Hide menu");
-    toggleButton->setFont(QFont("Helvetica", 11));
-    toggleButton->setStyleSheet("QPushButton { border: 0px; background-color: #222; "
-                                "color: white; border-right: 1px solid #333; }"
-                                "QPushButton::hover { background-color: #444; }");
+    QWidget* topPanel = new QWidget(this);
+    QHBoxLayout* panelLayout = new QHBoxLayout(topPanel);
+    topPanel->setFixedHeight(40);
+    topPanel->setStyleSheet("QWidget { background-color: #222; border: none;"
+                            "border-bottom: 1px solid #333; }"
+                            "QPushButton { border: 1px solid #444; background-color: #222; "
+                            "color: white; border-radius: 8px;}"
+                            "QPushButton::hover { background-color: #444; }");
+    panelLayout->setAlignment(Qt::AlignRight);
+    panelLayout->setContentsMargins(0,0,8,0);
+
+    QPushButton* searchOnTopPanel = new QPushButton();
+    searchOnTopPanel->setFixedSize(30,30);
+    searchOnTopPanel->setIcon(QIcon("C://Users//Purik//Downloads//iconSearch.png"));
+    searchOnTopPanel->setIconSize(QSize(17,17));
+    panelLayout->addWidget(searchOnTopPanel);
+
+    toggleButton = new QPushButton();
+    toggleButton->setFixedSize(30,30);
+    toggleButton->setIcon(QIcon("C://Users//Purik//Downloads//iconsMenu.png"));
+    toggleButton->setIconSize(QSize(17,17));
+    panelLayout->addWidget(toggleButton);
 
     switchChats = new QStackedWidget(this);
 
@@ -28,7 +56,8 @@ SwitchChatContainer::SwitchChatContainer(int userId, QString userFirstname, QStr
     layoutStartChat->setAlignment(Qt::AlignCenter);
     startChat->setContentsMargins(0,0,0,0);
 
-    QLabel* startChatContent = new QLabel("Select chat or start a conversation with a new contact!");
+    QLabel* startChatContent = new QLabel("Select chat or start a conversation with a new contact! ✨");
+    startChatContent->setFont(QFont("Segoe UI", 12, 300));
     layoutStartChat->addWidget(startChatContent);
 
     switchChats->addWidget(startChat);
@@ -39,6 +68,7 @@ SwitchChatContainer::SwitchChatContainer(int userId, QString userFirstname, QStr
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scrollArea->setStyleSheet(
         "QScrollArea {"
+        "background-image: url(C://Users//Purik//Downloads//phoneTab.jpg);"
         "border: none;"
         "}"
         "QScrollBar:vertical {"
@@ -65,7 +95,7 @@ SwitchChatContainer::SwitchChatContainer(int userId, QString userFirstname, QStr
     buttonLayout->setAlignment(Qt::AlignTop);
     buttonLayout->setContentsMargins(0, 0, 0, 0);
     buttonLayout->setSpacing(0);
-    buttonLayout->addWidget(toggleButton);
+    buttonLayout->addWidget(topPanel);
 
     // Связываем контейнер с QScrollArea
     buttonContainer->setLayout(buttonLayout);
@@ -74,125 +104,99 @@ SwitchChatContainer::SwitchChatContainer(int userId, QString userFirstname, QStr
     // Добавляем QScrollArea в switchLayout
     switchLayout->addWidget(scrollArea);
 
-    addSwitchButtons();
+    // addSwitchButtons();
     setLayout(switchLayout);
 }
 
-void SwitchChatContainer::addSwitchButtons() {
-    QSqlQuery query = executeQuery(
-        "SELECT chats.id, users.firstname, users.lastname, "
-        "(SELECT messages.body FROM messages "
-        "WHERE messages.chat_id = chats.id "
-        "ORDER BY messages.created_at DESC LIMIT 1) AS last_message "
-        "FROM chats "
-        "INNER JOIN users ON (users.id = chats.user1_id OR users.id = chats.user2_id) "
-        "WHERE (chats.user1_id = :user_id OR chats.user2_id = :user_id) AND users.id != :user_id "
-        "ORDER BY chats.created_at ASC;",
-        {{":user_id", userId}}
-    );
+void SwitchChatContainer::updateHandler(const QString& message) {
+    QJsonDocument response_doc = QJsonDocument::fromJson(message.toUtf8());
+    QJsonObject response_obj = response_doc.object();
+    QString type = response_obj.value("type").toString();
 
-    while (query.next()) {
+    if(type.contains("error")) {
+        QMessageBox::critical(this, "Ошибка: ", response_obj.value("message").toString());
+        return;
+    }
+
+    if(type.contains("add_chats")) {
+        addSwitchButtons(response_obj);
+    } else if (type.contains("update_chats")) {
+        updateButtons(response_obj);
+    }
+}
+
+void SwitchChatContainer::addSwitchButtons(const QJsonObject& message) {
+    QJsonArray responseArray;
+    responseArray = message["data"].toArray();
+
+    for(const QJsonValue& value : responseArray) {
+        QJsonObject responseObj = value.toObject();
         int index = switchChats->count();
-        int chatId = query.value("id").toInt();
-        QString chatName = "[Chat] with " + query.value("firstname").toString() + " " + query.value("lastname").toString();
-        QString lastMessage = query.value("last_message").toString();
+        int chatId = responseObj["chatId"].toInt();
+        QString email = responseObj["email"].toString();
+        QString userName = responseObj["userName"].toString();
+        QString lastMessage = responseObj["lastMessage"].toString();
+        bool status = responseObj["status"].toBool();
 
         if (!switchButtons.contains(chatId)) {
-            auto button = new SwitchChatButton(chatName, switchButtons.size() + 1, chatId, this);
+            auto button = new SwitchChatButton(userName, switchButtons.size() + 1, chatId, this);
             switchButtons[chatId] = button;
 
-            button->setText(chatName + "\n\n" + lastMessage);
+            button->setLastMessage(0,lastMessage);
 
             buttonLayout->addWidget(button); // Добавляем кнопку в buttonLayout
 
-            auto chatContent = new ChatContent(chatName, chatId, userId, m_socket, this);
+            auto chatContent = new ChatContent(userName, email, status, chatId, userId, m_socket, this);
             switchChats->addWidget(chatContent);
 
-            connect(button, &QPushButton::clicked, this, [this, button, index, chatId]() {
+            connect(button, &SwitchChatButton::clicked, this, [this, button, index, chatId]() {
                 switchChats->setCurrentIndex(index);
-                updateStatus(chatId);
+                QJsonObject mesObj;
+                mesObj["action"] = "update_stat";
+                mesObj["userid"] = userId;
+                mesObj["chatid"] = chatId;
+
+                QJsonDocument messageDoc(mesObj);
+                QString jsonString = messageDoc.toJson(QJsonDocument::Compact);
+                m_socket->sendTextMessage(jsonString);
             });
         }
     }
+    QJsonObject messageObj;
+    messageObj["action"] = "update_chats";
+    messageObj["userid"] = userId;
+
+    QJsonDocument mesDoc(messageObj);
+    QString jsonString2 = mesDoc.toJson(QJsonDocument::Compact);
+    m_socket->sendTextMessage(jsonString2);
 }
 
-// QString SwitchChatContainer::formatButtonText(const QString& chatName, const QString& lastMessage) {
-//     return QString(
-//                "<div style='text-align: left;'>"
-//                "<span style='font-weight: bold;'>%1</span><br>"
-//                "<span style='background-color: lightgray; padding: 2px;'>%2</span>"
-//                "</div>"
-//                ).arg(chatName, lastMessage);
-// }
+void SwitchChatContainer::updateButtons(const QJsonObject& message) {
+    QJsonArray responseArray = message["data"].toArray();
+    for(const QJsonValue& value : responseArray) {
+        QJsonObject messageObj = value.toObject();
 
-void SwitchChatContainer::clearLayout(QLayout *layout) {
-    if (!layout)
-        return;
+        QString lastMessage = messageObj.value("lastMessage").toString();
+        int unreadCount = messageObj.value("unreadCount").toInt();
+        int chatid = messageObj.value("chatid").toInt();
 
-    // Удаляем все виджеты из макета
-    while (QLayoutItem *item = layout->takeAt(1)) {
-        if (QWidget *widget = item->widget()) {
-            widget->deleteLater();
-        }
-    }
-}
-
-void SwitchChatContainer::updateButtons() {
-    QSqlQuery query = executeQuery(
-        "SELECT chats.id, "
-        "(SELECT messages.body FROM messages "
-        "WHERE messages.chat_id = chats.id "
-        "ORDER BY messages.created_at DESC LIMIT 1) AS last_message "
-        "FROM chats "
-        "WHERE chats.user1_id = :user_id OR chats.user2_id = :user_id;",
-        {{":user_id", userId}}
-    );
-
-    QSqlQuery squery;
-    while(query.next()) {
-        int chat_id = query.value("id").toInt();
-        QString lastMessage = query.value("last_message").toString();
-
-        squery = executeQuery("SELECT COUNT(*) AS total_count FROM message_read_status "
-                              "INNER JOIN messages ON messages.id = message_read_status.message_id "
-                              "WHERE message_read_status.user_id = :userid "
-                              "AND message_read_status.is_read = false AND messages.chat_id = :chatid",
-                              {
-                                  {":chatid", chat_id},
-                                  {":userid", userId}
-                              });
-        squery.next();
-        int unreadCount = squery.value("total_count").toInt();
-
-        // Обновляем текст кнопки
-        if (switchButtons.contains(chat_id)) {
-            SwitchChatButton* button = switchButtons.value(chat_id);
+        if (switchButtons.contains(chatid)) {
+            SwitchChatButton* button = switchButtons.value(chatid);
             if (switchChats->currentIndex() == button->switchIndex) { // Текущий активный чат
 
-                button->setTextButton(0, lastMessage);
-                updateStatus(chat_id); // Обновляем статус сообщений
+                button->setLastMessage(0, lastMessage);
+                QJsonObject mesObj;
+                mesObj["action"] = "update_stat";
+                mesObj["userid"] = userId;
+                mesObj["chatid"] = chatid;
+
+                QJsonDocument messageDoc(mesObj);
+                QString jsonString = messageDoc.toJson(QJsonDocument::Compact);
+                m_socket->sendTextMessage(jsonString);
             } else {
-                button->setTextButton(unreadCount, lastMessage); // Обновляем количество непрочитанных сообщений
+                button->setLastMessage(unreadCount, lastMessage); // Обновляем количество непрочитанных сообщений
             }
         }
-    }
-}
-
-void SwitchChatContainer::updateStatus(int index) {
-    QSqlQuery squery = executeQuery("SELECT message_read_status.id FROM message_read_status "
-                          "INNER JOIN messages ON messages.id = message_read_status.message_id "
-                          "WHERE message_read_status.user_id = :userid "
-                          "AND message_read_status.is_read = false AND messages.chat_id = :chatid",
-                          {
-                           {":chatid", index},
-                           {":userid", userId}
-                          });
-
-    QSqlQuery updateQuery;
-
-    while(squery.next()) {
-        updateQuery = executeQuery("UPDATE message_read_status SET is_read = true WHERE id = :id",
-                              {{":id", squery.value("id").toInt()}});
     }
 }
 

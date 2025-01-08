@@ -43,7 +43,24 @@ static constexpr auto qt_meta_stringdata_ZN10ChatServerE = QtMocHelpers::stringD
     "onNewConnection",
     "onTextMessageReceived",
     "message",
-    "onClientDisconnected"
+    "onClientDisconnected",
+    "handleRegistration",
+    "QWebSocket*",
+    "senderClient",
+    "handleLogin",
+    "handleSendMessage",
+    "handleChatMessages",
+    "handleAddChats",
+    "handleUpdateChats",
+    "handleUpdateStatusMessages",
+    "handleAddUsers",
+    "handleCreateChat",
+    "executeQuery",
+    "QSqlQuery",
+    "command",
+    "QVariantMap",
+    "params",
+    "errorMessage"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -55,7 +72,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10ChatServerE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -63,12 +80,22 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10ChatServerE[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   38,    2, 0x06,    1 /* Public */,
+       1,    0,   98,    2, 0x06,    1 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       3,    0,   39,    2, 0x08,    2 /* Private */,
-       4,    1,   40,    2, 0x08,    3 /* Private */,
-       6,    0,   43,    2, 0x08,    5 /* Private */,
+       3,    0,   99,    2, 0x08,    2 /* Private */,
+       4,    1,  100,    2, 0x08,    3 /* Private */,
+       6,    0,  103,    2, 0x08,    5 /* Private */,
+       7,    2,  104,    2, 0x08,    6 /* Private */,
+      10,    2,  109,    2, 0x08,    9 /* Private */,
+      11,    2,  114,    2, 0x08,   12 /* Private */,
+      12,    2,  119,    2, 0x08,   15 /* Private */,
+      13,    2,  124,    2, 0x08,   18 /* Private */,
+      14,    2,  129,    2, 0x08,   21 /* Private */,
+      15,    2,  134,    2, 0x08,   24 /* Private */,
+      16,    2,  139,    2, 0x08,   27 /* Private */,
+      17,    2,  144,    2, 0x08,   30 /* Private */,
+      18,    4,  149,    2, 0x08,   33 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -77,6 +104,16 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10ChatServerE[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,    5,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 8, QMetaType::QJsonObject,    9,    5,
+    QMetaType::Void, 0x80000000 | 8, QMetaType::QJsonObject,    9,    5,
+    QMetaType::Void, 0x80000000 | 8, QMetaType::QJsonObject,    9,    5,
+    QMetaType::Void, 0x80000000 | 8, QMetaType::QJsonObject,    9,    5,
+    QMetaType::Void, 0x80000000 | 8, QMetaType::QJsonObject,    9,    5,
+    QMetaType::Void, 0x80000000 | 8, QMetaType::QJsonObject,    9,    5,
+    QMetaType::Void, 0x80000000 | 8, QMetaType::QJsonObject,    9,    5,
+    QMetaType::Void, 0x80000000 | 8, QMetaType::QJsonObject,    9,    5,
+    QMetaType::Void, 0x80000000 | 8, QMetaType::QJsonObject,    9,    5,
+    0x80000000 | 19, QMetaType::QString, 0x80000000 | 21, QMetaType::QString, 0x80000000 | 8,   20,   22,   23,    9,
 
        0        // eod
 };
@@ -98,7 +135,49 @@ Q_CONSTINIT const QMetaObject ChatServer::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
         // method 'onClientDisconnected'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'handleRegistration'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QWebSocket *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QJsonObject &, std::false_type>,
+        // method 'handleLogin'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QWebSocket *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QJsonObject &, std::false_type>,
+        // method 'handleSendMessage'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QWebSocket *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QJsonObject &, std::false_type>,
+        // method 'handleChatMessages'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QWebSocket *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QJsonObject &, std::false_type>,
+        // method 'handleAddChats'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QWebSocket *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QJsonObject &, std::false_type>,
+        // method 'handleUpdateChats'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QWebSocket *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QJsonObject &, std::false_type>,
+        // method 'handleUpdateStatusMessages'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QWebSocket *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QJsonObject &, std::false_type>,
+        // method 'handleAddUsers'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QWebSocket *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QJsonObject &, std::false_type>,
+        // method 'handleCreateChat'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QWebSocket *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QJsonObject &, std::false_type>,
+        // method 'executeQuery'
+        QtPrivate::TypeAndForceComplete<QSqlQuery, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QVariantMap &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QWebSocket *, std::false_type>
     >,
     nullptr
 } };
@@ -112,7 +191,93 @@ void ChatServer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 1: _t->onNewConnection(); break;
         case 2: _t->onTextMessageReceived((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 3: _t->onClientDisconnected(); break;
+        case 4: _t->handleRegistration((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
+        case 5: _t->handleLogin((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
+        case 6: _t->handleSendMessage((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
+        case 7: _t->handleChatMessages((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
+        case 8: _t->handleAddChats((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
+        case 9: _t->handleUpdateChats((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
+        case 10: _t->handleUpdateStatusMessages((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
+        case 11: _t->handleAddUsers((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
+        case 12: _t->handleCreateChat((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
+        case 13: { QSqlQuery _r = _t->executeQuery((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QVariantMap>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[4])));
+            if (_a[0]) *reinterpret_cast< QSqlQuery*>(_a[0]) = std::move(_r); }  break;
         default: ;
+        }
+    }
+    if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+        case 4:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QWebSocket* >(); break;
+            }
+            break;
+        case 5:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QWebSocket* >(); break;
+            }
+            break;
+        case 6:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QWebSocket* >(); break;
+            }
+            break;
+        case 7:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QWebSocket* >(); break;
+            }
+            break;
+        case 8:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QWebSocket* >(); break;
+            }
+            break;
+        case 9:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QWebSocket* >(); break;
+            }
+            break;
+        case 10:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QWebSocket* >(); break;
+            }
+            break;
+        case 11:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QWebSocket* >(); break;
+            }
+            break;
+        case 12:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QWebSocket* >(); break;
+            }
+            break;
+        case 13:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 3:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QWebSocket* >(); break;
+            }
+            break;
         }
     }
     if (_c == QMetaObject::IndexOfMethod) {
@@ -146,14 +311,14 @@ int ChatServer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 14;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 4;
+        if (_id < 14)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 14;
     }
     return _id;
 }

@@ -46,10 +46,10 @@
     {
         "classes": [
             {
-                "className": "userChoice",
+                "className": "UserChoice",
                 "lineNumber": 10,
                 "object": true,
-                "qualifiedClassName": "userChoice",
+                "qualifiedClassName": "UserChoice",
                 "slots": [
                     {
                         "access": "public",
@@ -85,24 +85,6 @@
             }
         ],
         "inputFile": "userchoice.h",
-        "outputRevision": 68
-    },
-    {
-        "classes": [
-            {
-                "className": "UserChoiceButton",
-                "lineNumber": 7,
-                "object": true,
-                "qualifiedClassName": "UserChoiceButton",
-                "superClasses": [
-                    {
-                        "access": "public",
-                        "name": "QPushButton"
-                    }
-                ]
-            }
-        ],
-        "inputFile": "userchoicebutton.h",
         "outputRevision": 68
     },
     {
@@ -163,7 +145,7 @@
         "classes": [
             {
                 "className": "SwitchChatContainer",
-                "lineNumber": 12,
+                "lineNumber": 13,
                 "object": true,
                 "qualifiedClassName": "SwitchChatContainer",
                 "slots": [
@@ -187,36 +169,14 @@
                     },
                     {
                         "access": "private",
-                        "arguments": [
-                            {
-                                "name": "query",
-                                "type": "QSqlQuery"
-                            },
-                            {
-                                "name": "index",
-                                "type": "int"
-                            }
-                        ],
                         "index": 2,
-                        "name": "selectQueryCount",
-                        "returnType": "int"
-                    },
-                    {
-                        "access": "private",
-                        "index": 3,
                         "name": "updateButtons",
                         "returnType": "void"
                     },
                     {
                         "access": "private",
-                        "index": 4,
+                        "index": 3,
                         "name": "showChat",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "private",
-                        "index": 5,
-                        "name": "appearedNotifications",
                         "returnType": "void"
                     }
                 ],
@@ -473,14 +433,32 @@
         "classes": [
             {
                 "className": "Mainwindow",
-                "lineNumber": 12,
+                "lineNumber": 13,
                 "object": true,
                 "qualifiedClassName": "Mainwindow",
                 "slots": [
                     {
                         "access": "private",
+                        "arguments": [
+                            {
+                                "name": "login",
+                                "type": "LoginForm*"
+                            }
+                        ],
                         "index": 0,
-                        "name": "onConnected",
+                        "name": "onLoginClicked",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "log",
+                                "type": "LoginForm*"
+                            }
+                        ],
+                        "index": 1,
+                        "name": "onLogupClicked",
                         "returnType": "void"
                     }
                 ],

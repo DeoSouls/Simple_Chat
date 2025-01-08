@@ -4,17 +4,38 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QPushButton>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QMessageBox>
 #include <QDebug>
 
-UserChoice::UserChoice(int id, ChatForm* chatform, QStackedWidget* stackedWidget, QWidget *parent)
-    : currentUserId(id), chatform(chatform), stackedWidget(stackedWidget), QWidget{parent} {
+UserChoice::UserChoice(int id, ChatForm* chatform, QWebSocket* m_client, QStackedWidget* stackedWidget, QWidget *parent)
+    : currentUserId(id), chatform(chatform), m_socket(m_client), stackedWidget(stackedWidget), QWidget{parent} {
     mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->setSpacing(0);
     mainLayout->setAlignment(Qt::AlignCenter);
     setStyleSheet("QWidget { background-color: #222; }");
 
+    connect(m_socket, &QWebSocket::textMessageReceived, this, &UserChoice::handlerCommand);
+
     setLayout(mainLayout);
+}
+
+void UserChoice::handlerCommand(const QString& message) {
+    QJsonDocument response_doc = QJsonDocument::fromJson(message.toUtf8());
+    QJsonObject response_obj = response_doc.object();
+    QString type = response_obj.value("type").toString();
+
+    if(type.contains("error")) {
+        QMessageBox::critical(this, "Ошибка: ", response_obj.value("message").toString());
+        return;
+    }
+
+    if(type.contains("add_users")) {
+        addUsers(response_obj);
+    }
 }
 
 void UserChoice::addMenuUser() {
@@ -49,27 +70,29 @@ void UserChoice::addMenuUser() {
     mainLayout->addWidget(returnMain);
     mainLayout->addWidget(userView);
 
-    QSqlDatabase::database().transaction();
-    QSqlQuery query;
+    QJsonObject mesObj;
+    mesObj["action"] = "add_users";
+    mesObj["userid"] = currentUserId;
+    QJsonDocument mesDoc(mesObj);
+    QString jsonString = mesDoc.toJson(QJsonDocument::Compact);
 
-    query.prepare("SELECT id, firstname, lastname, email FROM users WHERE users.id != :id");
-    query.bindValue(":id", currentUserId);
+    m_socket->sendTextMessage(jsonString);
+}
 
-    if(!query.exec()) {
-        qDebug() << "Ошибка: "<< query.lastError().text();
-        QSqlDatabase::database().rollback();
-    }
+void UserChoice::addUsers(const QJsonObject& message) {
+    QJsonArray messageArray = message["data"].toArray();
 
-    while(query.next()) {
+    for(const QJsonValue& value : messageArray) {
+        QJsonObject mesObj = value.toObject();
+
         Users user;
-        user.firstname = query.value("firstname").toString();
-        user.lastname = query.value("lastname").toString();
-        user.email = query.value("email").toString();
-        user.user_id = query.value("id").toInt();
+        user.firstname = mesObj.value("firstname").toString();
+        user.lastname = mesObj.value("lastname").toString();
+        user.email = mesObj.value("email").toString();
+        user.user_id = mesObj.value("id").toInt();
 
         userModel->addUser(user);
     }
-    QSqlDatabase::database().commit();
 }
 
 void UserChoice::clearLayout(QLayout *layout) {
@@ -90,28 +113,25 @@ void UserChoice::createChat(const QModelIndex &current) {
     QVariant data = current.data(UserChoiceModel::UserChatRole);
     Users user = data.value<Users>();
 
-    QSqlQuery query;
-    query.prepare("SELECT id FROM chats WHERE (user1_id=:user1_id AND user2_id=:user2_id) OR (user1_id=:user2_id AND user2_id=:user1_id)");
-    query.bindValue(":user1_id", currentUserId);
-    query.bindValue(":user2_id", user.user_id);
+    QJsonObject messageObj;
+    messageObj["action"] = "create_chat";
+    messageObj["userid"] = currentUserId;
+    messageObj["user2id"] = user.user_id;
+    QJsonDocument mesDoc(messageObj);
 
-    if(!query.exec()) {
-        qDebug() << "Ошибка создания чата: "<< query.lastError().text();
-        QSqlDatabase::database().rollback();
-    }
+    QString jsonString = mesDoc.toJson(QJsonDocument::Compact);
 
-    if(!query.next()) {
-        query.prepare("INSERT INTO chats (user1_id, user2_id) VALUES (:user1_id, :user2_id)");
-        query.bindValue(":user1_id", currentUserId);
-        query.bindValue(":user2_id", user.user_id);
+    m_socket->sendTextMessage(jsonString);
 
-        if(!query.exec()) {
-            qDebug() << "Ошибка создания чата: "<< query.lastError().text();
-            QSqlDatabase::database().rollback();
-        }
+    QJsonObject messageObj2;
+    messageObj2["action"] = "add_chats";
+    messageObj2["userid"] = currentUserId;
+    QJsonDocument mesDoc2(messageObj2);
 
-        chatform->sContainer->addSwitchButtons();
-    }
+    QString jsonString2 = mesDoc2.toJson(QJsonDocument::Compact);
+
+    m_socket->sendTextMessage(jsonString2);
+
     stackedWidget->setCurrentIndex(1);
 }
 

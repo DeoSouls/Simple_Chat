@@ -1,10 +1,10 @@
 {
     "classes": [
         {
-            "className": "userChoice",
+            "className": "UserChoice",
             "lineNumber": 10,
             "object": true,
-            "qualifiedClassName": "userChoice",
+            "qualifiedClassName": "UserChoice",
             "slots": [
                 {
                     "access": "public",

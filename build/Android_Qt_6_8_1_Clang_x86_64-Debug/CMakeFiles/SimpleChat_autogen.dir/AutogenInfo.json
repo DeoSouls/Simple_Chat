@@ -365,12 +365,6 @@
 			null
 		],
 		[
-			"C:/cpp/projectsQt/SimpleChat/ChatForm/UserChoiceContainer/userchoicebutton.h",
-			"MU",
-			"M6XKVLCEAZ/moc_userchoicebutton.cpp",
-			null
-		],
-		[
 			"C:/cpp/projectsQt/SimpleChat/ChatForm/UserChoiceContainer/userchoicemodel.h",
 			"MU",
 			"M6XKVLCEAZ/moc_userchoicemodel.cpp",
@@ -531,11 +525,6 @@
 		],
 		[
 			"C:/cpp/projectsQt/SimpleChat/ChatForm/UserChoiceContainer/userchoice.cpp",
-			"MU",
-			null
-		],
-		[
-			"C:/cpp/projectsQt/SimpleChat/ChatForm/UserChoiceContainer/userchoicebutton.cpp",
 			"MU",
 			null
 		],

@@ -694,6 +694,7 @@ C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleCha
   C:/Andriod/AndroidSDK/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android/asm/signal.h \
   C:/Andriod/AndroidSDK/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android/asm/types.h \
   C:/Andriod/AndroidSDK/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/xlocale.h \
+  C:/Qt/6.8.1/android_x86_64/include/QtCore/QDebug \
   C:/Qt/6.8.1/android_x86_64/include/QtCore/QFlags \
   C:/Qt/6.8.1/android_x86_64/include/QtCore/QSharedDataPointer \
   C:/Qt/6.8.1/android_x86_64/include/QtCore/QString \
@@ -840,12 +841,17 @@ C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleCha
   C:/Qt/6.8.1/android_x86_64/include/QtGui/qkeysequence.h \
   C:/Qt/6.8.1/android_x86_64/include/QtGui/qpaintdevice.h \
   C:/Qt/6.8.1/android_x86_64/include/QtGui/qpalette.h \
+  C:/Qt/6.8.1/android_x86_64/include/QtGui/qpen.h \
   C:/Qt/6.8.1/android_x86_64/include/QtGui/qpixelformat.h \
   C:/Qt/6.8.1/android_x86_64/include/QtGui/qpixmap.h \
   C:/Qt/6.8.1/android_x86_64/include/QtGui/qpolygon.h \
   C:/Qt/6.8.1/android_x86_64/include/QtGui/qregion.h \
   C:/Qt/6.8.1/android_x86_64/include/QtGui/qrgb.h \
   C:/Qt/6.8.1/android_x86_64/include/QtGui/qrgba64.h \
+  C:/Qt/6.8.1/android_x86_64/include/QtGui/qtextcursor.h \
+  C:/Qt/6.8.1/android_x86_64/include/QtGui/qtextdocument.h \
+  C:/Qt/6.8.1/android_x86_64/include/QtGui/qtextformat.h \
+  C:/Qt/6.8.1/android_x86_64/include/QtGui/qtextoption.h \
   C:/Qt/6.8.1/android_x86_64/include/QtGui/qtgui-config.h \
   C:/Qt/6.8.1/android_x86_64/include/QtGui/qtguiexports.h \
   C:/Qt/6.8.1/android_x86_64/include/QtGui/qtguiglobal.h \
@@ -884,17 +890,24 @@ C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleCha
   C:/Qt/6.8.1/android_x86_64/include/QtWebSockets/qwebsocket.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWebSockets/qwebsocketprotocol.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWebSockets/qwebsockets_global.h \
+  C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QLineEdit \
+  C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QPushButton \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QStackedWidget \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QVBoxLayout \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QWidget \
+  C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qabstractbutton.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qboxlayout.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qframe.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qgridlayout.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qlayout.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qlayoutitem.h \
+  C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qlineedit.h \
+  C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qpushbutton.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qsizepolicy.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qstackedwidget.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qtwidgets-config.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qtwidgetsexports.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qtwidgetsglobal.h \
-  C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qwidget.h
+  C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qwidget.h \
+  C:/cpp/projectsQt/SimpleChat/LoginForm/LoginButton.h \
+  C:/cpp/projectsQt/SimpleChat/LoginForm/loginform.h

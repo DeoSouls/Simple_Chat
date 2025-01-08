@@ -1,7 +1,6 @@
 C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../AOVY3JPGGQ/moc_chatform.cpp.json
 C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../GCSBWPHYNB/moc_messagecontainer.cpp.json
 C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../M6XKVLCEAZ/moc_userchoice.cpp.json
-C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../M6XKVLCEAZ/moc_userchoicebutton.cpp.json
 C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../M6XKVLCEAZ/moc_userchoicemodel.cpp.json
 C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../M6XKVLCEAZ/moc_useritemdelegate.cpp.json
 C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../OG6CA427KQ/moc_switchchatbutton.cpp.json

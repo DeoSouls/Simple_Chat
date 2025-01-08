@@ -85,7 +85,7 @@ void MessageItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     int imageOffsetY = 0; // Насколько сдвинуть текст вниз
 
     if (msg.hasImage && !msg.imageData.isEmpty()) {
-        if (pixmap.loadFromData(msg.imageData)) {
+        if (pixmap.loadFromData(msg.imageData, "PNG")) {
             // Успешно загрузили pixmap
             QPixmap scaledImage = pixmap.scaled(imageMaxWidth,
                                                 imageMaxHeight,
@@ -172,7 +172,12 @@ QSize MessageItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QM
     int bubbleHeight = boundingRect.height() + scaledImageY + 2 + 2 * padding;
 
     // Общая ширина пузыря (текст + отступы слева и справа)
-    int bubbleWidth = scaledImageX + 2 * padding;
+    int bubbleWidth = 0;
+    if(msg.hasImage) {
+        bubbleWidth = scaledImageX + 2 * padding;
+    } else {
+        bubbleWidth = boundingRect.width() + scaledImageX + 2 * padding;
+    }
     // Ограничение ширины пузыря до максимальной
     if (bubbleWidth > maxBubbleWidth + scaledImageX) {
         bubbleWidth = maxBubbleWidth;

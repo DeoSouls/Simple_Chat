@@ -46,6 +46,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtCore/qglobalstatic.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qhash.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qhashfunctions.h \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/qiodevice.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qiodevicebase.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qiterable.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qiterator.h \
@@ -137,6 +138,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpaintdevice.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpalette.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpen.h \
+  C:/Qt/6.8.1/mingw_64/include/QtGui/qpicture.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpixelformat.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpixmap.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpolygon.h \
@@ -160,6 +162,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtSql/qtsql-config.h \
   C:/Qt/6.8.1/mingw_64/include/QtSql/qtsqlexports.h \
   C:/Qt/6.8.1/mingw_64/include/QtSql/qtsqlglobal.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/QLabel \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QLineEdit \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QPushButton \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QVBoxLayout \
@@ -168,6 +171,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qboxlayout.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qframe.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qgridlayout.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qlabel.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qlayout.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qlayoutitem.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qlineedit.h \

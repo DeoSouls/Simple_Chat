@@ -44,7 +44,11 @@ static constexpr auto qt_meta_stringdata_ZN10MainwindowE = QtMocHelpers::stringD
     "LoginForm*",
     "login",
     "onLogupClicked",
-    "log"
+    "log",
+    "connectToServer",
+    "url",
+    "handlerLogin",
+    "message"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -56,7 +60,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10MainwindowE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -64,12 +68,16 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10MainwindowE[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   26,    2, 0x08,    1 /* Private */,
-       5,    1,   29,    2, 0x08,    3 /* Private */,
+       1,    1,   38,    2, 0x08,    1 /* Private */,
+       5,    1,   41,    2, 0x08,    3 /* Private */,
+       7,    1,   44,    2, 0x08,    5 /* Private */,
+       9,    1,   47,    2, 0x08,    7 /* Private */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void, 0x80000000 | 3,    6,
+    QMetaType::Void, QMetaType::QUrl,    8,
+    QMetaType::Void, QMetaType::QString,   10,
 
        0        // eod
 };
@@ -88,7 +96,13 @@ Q_CONSTINIT const QMetaObject Mainwindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<LoginForm *, std::false_type>,
         // method 'onLogupClicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<LoginForm *, std::false_type>
+        QtPrivate::TypeAndForceComplete<LoginForm *, std::false_type>,
+        // method 'connectToServer'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QUrl &, std::false_type>,
+        // method 'handlerLogin'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>
     >,
     nullptr
 } };
@@ -100,6 +114,8 @@ void Mainwindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->onLoginClicked((*reinterpret_cast< std::add_pointer_t<LoginForm*>>(_a[1]))); break;
         case 1: _t->onLogupClicked((*reinterpret_cast< std::add_pointer_t<LoginForm*>>(_a[1]))); break;
+        case 2: _t->connectToServer((*reinterpret_cast< std::add_pointer_t<QUrl>>(_a[1]))); break;
+        case 3: _t->handlerLogin((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         default: ;
         }
     }
@@ -143,14 +159,14 @@ int Mainwindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 4;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 4;
     }
     return _id;
 }

@@ -8,20 +8,31 @@ LoginForm::LoginForm(QWidget* parent) : QWidget{parent} {
     layoutLogin->setSpacing(6);
 
     containedLayout = new QVBoxLayout(this);
+    font = QFont("Segoe UI", 11, 300);
 
     mailLine = new QLineEdit();
     passLine = new QLineEdit();
     mailLine->setFixedSize(300, 25);
     passLine->setFixedSize(300, 25);
 
+    headerLogin = new QLabel("Sign in");
+    headerLogin->setFont(QFont("Segoe UI", 18, 800));
+    headerLogin->setStyleSheet("QLabel { margin-bottom: 25px; }");
+    headerLogin->setAlignment(Qt::AlignCenter);
+
     QLabel* mailLabel = new QLabel("Email or login:");
+    mailLabel->setFont(font);
     QLabel* passLabel = new QLabel("Password:");
+    passLabel->setFont(font);
 
     btnToChat = new LoginButton("Log in");
+    btnToChat->setFont(font);
     connect(btnToChat, &LoginButton::clicked,this, &LoginForm::removeLogupForm);
 
     btn2ToChat = new LoginButton("Log up");
+    btn2ToChat->setFont(font);
 
+    layoutLogin->addWidget(headerLogin);
     layoutLogin->addLayout(containedLayout);
     layoutLogin->addWidget(mailLabel);
     layoutLogin->addWidget(mailLine);
@@ -34,23 +45,6 @@ LoginForm::LoginForm(QWidget* parent) : QWidget{parent} {
 
     setAttribute(Qt::WA_DeleteOnClose, true);
     setLayout(layoutLogin);
-
-    connectToBaseData();
-}
-
-void LoginForm::connectToBaseData() {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
-    db.setHostName("localhost");
-    db.setPort(5432);
-    db.setDatabaseName("SimpleChat");
-    db.setUserName("postgres");
-    db.setPassword("11281215");
-
-    if(!db.open()) {
-        qDebug() << "Error connectiong database: " << db.lastError().text();
-    } else {
-        qDebug() << "Connected to database!";
-    }
 }
 
 void LoginForm::addLogupForm() {
@@ -61,7 +55,9 @@ void LoginForm::addLogupForm() {
         lastNameLine->setFixedSize(300,25);
 
         QLabel* firstNameLabel = new QLabel("Firstname:");
+        firstNameLabel->setFont(font);
         QLabel* lastNameLabel = new QLabel("Lastname:");
+        lastNameLabel->setFont(font);
 
         containedLayout->addWidget(firstNameLabel);
         containedLayout->addWidget(firstNameLine);

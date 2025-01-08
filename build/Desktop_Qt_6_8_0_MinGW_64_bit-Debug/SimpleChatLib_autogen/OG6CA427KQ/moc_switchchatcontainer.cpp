@@ -40,8 +40,8 @@ static constexpr auto qt_meta_stringdata_ZN19SwitchChatContainerE = QtMocHelpers
     "SwitchChatContainer",
     "addSwitchButtons",
     "",
-    "updateStatus",
-    "index",
+    "message",
+    "updateHandler",
     "updateButtons",
     "showChat"
 );
@@ -63,15 +63,15 @@ Q_CONSTINIT static const uint qt_meta_data_ZN19SwitchChatContainerE[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   38,    2, 0x0a,    1 /* Public */,
-       3,    1,   39,    2, 0x08,    2 /* Private */,
-       5,    0,   42,    2, 0x08,    4 /* Private */,
-       6,    0,   43,    2, 0x08,    5 /* Private */,
+       1,    1,   38,    2, 0x0a,    1 /* Public */,
+       4,    1,   41,    2, 0x08,    3 /* Private */,
+       5,    1,   44,    2, 0x08,    5 /* Private */,
+       6,    0,   47,    2, 0x08,    7 /* Private */,
 
  // slots: parameters
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    4,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::QJsonObject,    3,
+    QMetaType::Void, QMetaType::QString,    3,
+    QMetaType::Void, QMetaType::QJsonObject,    3,
     QMetaType::Void,
 
        0        // eod
@@ -88,11 +88,13 @@ Q_CONSTINIT const QMetaObject SwitchChatContainer::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<SwitchChatContainer, std::true_type>,
         // method 'addSwitchButtons'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'updateStatus'
+        QtPrivate::TypeAndForceComplete<const QJsonObject &, std::false_type>,
+        // method 'updateHandler'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
         // method 'updateButtons'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QJsonObject &, std::false_type>,
         // method 'showChat'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
@@ -104,9 +106,9 @@ void SwitchChatContainer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
     auto *_t = static_cast<SwitchChatContainer *>(_o);
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: _t->addSwitchButtons(); break;
-        case 1: _t->updateStatus((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 2: _t->updateButtons(); break;
+        case 0: _t->addSwitchButtons((*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[1]))); break;
+        case 1: _t->updateHandler((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 2: _t->updateButtons((*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[1]))); break;
         case 3: _t->showChat(); break;
         default: ;
         }

@@ -925,6 +925,7 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QLineEdit \
 	C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QListView \
 	C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QPushButton \
+	C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QScrollArea \
 	C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QStackedWidget \
 	C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QStyledItemDelegate \
 	C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QTextEdit \
@@ -946,6 +947,7 @@ SimpleChat_autogen/timestamp: \
 	C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qlistview.h \
 	C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qpushbutton.h \
 	C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qrubberband.h \
+	C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qscrollarea.h \
 	C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qsizepolicy.h \
 	C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qslider.h \
 	C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qstackedwidget.h \
@@ -1183,8 +1185,6 @@ SimpleChat_autogen/timestamp: \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/SwitchChatContainer/switchchatcontainer.h \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/UserChoiceContainer/userchoice.cpp \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/UserChoiceContainer/userchoice.h \
-	C:/cpp/projectsQt/SimpleChat/ChatForm/UserChoiceContainer/userchoicebutton.cpp \
-	C:/cpp/projectsQt/SimpleChat/ChatForm/UserChoiceContainer/userchoicebutton.h \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/UserChoiceContainer/userchoicemodel.cpp \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/UserChoiceContainer/userchoicemodel.h \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/UserChoiceContainer/useritemdelegate.cpp \

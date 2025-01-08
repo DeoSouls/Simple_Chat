@@ -13,19 +13,20 @@
 class Mainwindow : public QWidget {
         Q_OBJECT
     public:
-        explicit Mainwindow(const QUrl &url, QWidget* parent = nullptr);
-
-        QSqlQuery executeQuery(const QString& queryStr, const QVariantMap& params = {});
+        explicit Mainwindow(const QUrl& url, QWidget* parent = nullptr);
     private slots:
         void onLoginClicked(LoginForm* login);
         void onLogupClicked(LoginForm* log);
-
+        void connectToServer(const QUrl& url);
+        void handlerLogin(const QString& message);
     private:
         QStackedWidget* stackedWidget;
         QVBoxLayout* layoutMain;
         QWebSocket* m_socket;
+        QUrl url;
 
-        void setupChatInterface(int userid, const QString& firstname, const QString& lastname);
+        void connectToBaseData();
+        void setupChatInterface(const QJsonObject& message);
         QString hashPassword(const QString& password);
         void switchToWidget(QWidget* widget);
         void showError(const QString& message);

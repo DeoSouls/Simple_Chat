@@ -8,7 +8,6 @@
 #include <QDateTime>
 
 struct ChatMessage {
-    int id;
     QString username;
     QString message;
     bool isMine;
@@ -33,7 +32,6 @@ class ChatMessageModel : public QAbstractListModel {
             UsernameRole,
             IsMineRole,
             TimestampRole,
-            MessageIdRole,
             HasImageRole,
             ImageDataRole
         };

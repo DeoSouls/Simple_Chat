@@ -8,7 +8,6 @@
 #include "OG6CA427KQ/moc_switchchatbutton.cpp"
 #include "OG6CA427KQ/moc_switchchatcontainer.cpp"
 #include "M6XKVLCEAZ/moc_userchoice.cpp"
-#include "M6XKVLCEAZ/moc_userchoicebutton.cpp"
 #include "M6XKVLCEAZ/moc_userchoicemodel.cpp"
 #include "M6XKVLCEAZ/moc_useritemdelegate.cpp"
 #include "AOVY3JPGGQ/moc_chatform.cpp"

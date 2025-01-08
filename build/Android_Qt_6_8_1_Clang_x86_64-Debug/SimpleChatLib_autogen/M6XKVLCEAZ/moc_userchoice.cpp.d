@@ -896,6 +896,7 @@ C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleCha
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QFrame \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QListView \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QPushButton \
+  C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QScrollArea \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QStackedWidget \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QVBoxLayout \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/QWidget \
@@ -913,6 +914,7 @@ C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleCha
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qlistview.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qpushbutton.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qrubberband.h \
+  C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qscrollarea.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qsizepolicy.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qslider.h \
   C:/Qt/6.8.1/android_x86_64/include/QtWidgets/qstackedwidget.h \

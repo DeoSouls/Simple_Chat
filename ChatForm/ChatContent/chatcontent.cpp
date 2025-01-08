@@ -5,19 +5,22 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QTextEdit>
-#include <QFontMetrics>
+#include <QJsonValue>
 #include <QScrollBar>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QClipboard>
 #include <QDebug>
 #include <QListView>
-#include <QMessageBox>
 #include <QFileDialog>
 #include <QApplication>
 #include <QBuffer>
+#include <QMessageBox>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
 
-ChatContent::ChatContent(const QString& chatName, int index, int id, QWebSocket* m_client, QWidget *parent) : QWidget{parent}, chatIndex(index), userId(id), m_socket(m_client) {
+ChatContent::ChatContent(const QString& chatName, const QString& email, bool status, int index, int id, QWebSocket* m_client, QWidget *parent) : QWidget{parent}, chatIndex(index), userId(id), m_socket(m_client) {
     chatContentLayout = new QVBoxLayout(this);
     chatContentLayout->setContentsMargins(0,0,0,0);
     chatContentLayout->setAlignment(Qt::AlignTop);
@@ -25,16 +28,21 @@ ChatContent::ChatContent(const QString& chatName, int index, int id, QWebSocket*
     setStyleSheet("QWidget { background-color: #444; }");
 
     messageModel = new ChatMessageModel(this);
-    loadMessagesFromDatabase();
+    // loadMessagesFromDatabase();
 
     // WebSocket
     connect(m_socket, &QWebSocket::textMessageReceived, this, &ChatContent::addMessageToChat);
 
     font1 = QFont("Segoe UI", 12);
-    font3 = QFont("Arial", 11, QFont::Expanded);
 
+    QJsonObject aboutChat;
+    aboutChat["action"] = "chat_messages";
+    aboutChat["chatid"] = chatIndex;
+    QJsonDocument doc(aboutChat);
+
+    m_socket->sendTextMessage(QString::fromUtf8(doc.toJson(QJsonDocument::Compact)));
     // инфо о чате (верхняя панель)
-    InfoPanelChat* infoPanelChat = new InfoPanelChat(index, chatName);
+    InfoPanelChat* infoPanelChat = new InfoPanelChat(index, email, status, chatName);
 
     // поле для ввода сообщения и его отправки
     inputField = new QWidget(this);
@@ -44,15 +52,18 @@ ChatContent::ChatContent(const QString& chatName, int index, int id, QWebSocket*
     inputField->setFixedHeight(50);
     inputField->setStyleSheet("QWidget {border-top: 1px solid #444; "
                               "border-left: 1px solid #444; background-color: #222; }"
-                              "QPushButton { width: 60px; height: 30px; border: 1px solid #333; "
-                              "border-radius: 8px; font-family: Arial; "
+                              "QPushButton { width: 40px; height: 40px; border: 1px solid #222; "
+                              "border-radius: 20px; font-family: Arial; "
                               "font-size: 12px; margin-right: 15px }"
                               "QPushButton::hover { background-color: #555; }"
-                              "QTextEdit { border: 0px; border-radius: 8px; margin-left: 15px}");
+                              "QTextEdit { border: 0px; border-radius: 8px; "
+                              "margin-left: 15px; padding-top:5px;}");
 
 
-    QPushButton* btnToAttachImage = new QPushButton("Image");
-    btnToAttachImage->setStyleSheet("QPushButton {margin: 0px; margin-left: 5px;}");
+    QPushButton* btnToAttachImage = new QPushButton(this);
+    btnToAttachImage->setStyleSheet("QPushButton {margin: 0px; margin-left: 15px;}");
+    btnToAttachImage->setIcon(QIcon("C://Users//Purik//Downloads//iconPhotoAp.png"));
+    btnToAttachImage->setIconSize(QSize(25,25));
     connect(btnToAttachImage, &QPushButton::clicked, this, &ChatContent::onAttachImageButtonClicked);
 
     m_imagePreviewLabel = new QLabel();
@@ -61,14 +72,16 @@ ChatContent::ChatContent(const QString& chatName, int index, int id, QWebSocket*
     m_imagePreviewLabel->setScaledContents(true);
 
     inputMessage = new InputMessage();
-    inputMessage->setFont(font3);
+    inputMessage->setFont(font1);
     inputMessage->setFixedHeight(40);
     inputMessage->setPlaceholderText("Введите текст...");
     connect(inputMessage, &InputMessage::textChanged, this, &ChatContent::resizeInputField);
 
-    QPushButton* btnToSendMessage = new QPushButton("Send >>");
+    QPushButton* btnToSendMessage = new QPushButton(this);
     btnToSendMessage->setFont(font1);
-    connect(btnToSendMessage, SIGNAL(clicked()), SLOT(sendMessage()));
+    btnToSendMessage->setIcon(QIcon("C://Users//Purik//Downloads//iconSend.png"));
+    btnToSendMessage->setIconSize(QSize(20,20));
+    connect(btnToSendMessage, &QPushButton::clicked, this, &ChatContent::sendMessage);
 
     inputFieldLayout->addWidget(btnToAttachImage);
     inputFieldLayout->addWidget(inputMessage);
@@ -81,6 +94,7 @@ ChatContent::ChatContent(const QString& chatName, int index, int id, QWebSocket*
 
     messageView->setStyleSheet(
         "QListView {"
+        "background-image: url(C://Users//Purik//Downloads//phoneZoom.jpg);"
         "background-color: #222;"
         "color: #252424;"
         "border: none;"
@@ -137,52 +151,80 @@ ChatContent::ChatContent(const QString& chatName, int index, int id, QWebSocket*
     setLayout(chatContentLayout);
 }
 
-void ChatContent::loadMessagesFromDatabase() {
-    messageModel->clearMessage();
+void ChatContent::loadMessagesFromDatabase(const QString &message) {
 
-    QSqlQuery selectQuery;
-    selectQuery.prepare("SELECT users.firstname, messages.user_id, messages.body, messages.created_at, messages.id, messages.image_data "
-                        "FROM users "
-                        "INNER JOIN messages ON users.id = messages.user_id "
-                        "WHERE messages.chat_id = :chatid "
-                        "ORDER BY messages.created_at ASC;");
-    selectQuery.bindValue(":chatid", chatIndex);
+    QJsonDocument message_doc = QJsonDocument::fromJson(message.toUtf8());
+    QJsonObject response = message_doc.object();
+    QString type = response.value("type").toString();
 
-    if (!selectQuery.exec()) {
-        qDebug() << "Ошибка выборки сообщений:" << selectQuery.lastError().text();
-        QMessageBox::critical(this, "Ошибка", "Не удалось загрузить сообщения.");
-        return;
-    }
+    QJsonArray messagesArray;
+    if(type.contains("chat_info")) {
+        messagesArray = response["data"].toArray();
+        for(const QJsonValue& value : messagesArray) {
+            QJsonObject messageObj = value.toObject();
 
-    while(selectQuery.next()) {
-        int id = selectQuery.value("id").toInt();
-        QString firstname = selectQuery.value("firstname").toString();
-        int user_id = selectQuery.value("user_id").toInt();
-        QString body = selectQuery.value("body").toString();
-        QDateTime created_at = selectQuery.value("created_at").toDateTime();
-        QByteArray image_data = selectQuery.value("image_data").toByteArray();
+            QString firstname = messageObj["firstname"].toString();
+            int user_id = messageObj["user_id"].toInt();
+            QString body = messageObj["body"].toString();
+            QString created_at = messageObj["created_at"].toString();
+            QString image_data = messageObj["image_data"].toString();
+
+            ChatMessage msg;
+            msg.username = firstname;
+            msg.message = body;
+            msg.isMine = (user_id == userId);
+            msg.timestamp = QDateTime::fromString(created_at, Qt::ISODateWithMs);
+            msg.hasImage = !image_data.isEmpty();
+
+            if(msg.hasImage) {
+                QByteArray image = QByteArray::fromBase64(image_data.toUtf8());
+                msg.imageData = image;
+            }
+
+            messageModel->addMessage(msg);
+        }
+    } else if (type.contains("send")) {
+        QString firstname = response["firstname"].toString();
+        int user_id = response["user_id"].toInt();
+        QString body = response["body"].toString();
+        QString created_at = response["created_at"].toString();
+        QString image_data = response["image_data"].toString();
 
         ChatMessage msg;
-        msg.id = id;
         msg.username = firstname;
         msg.message = body;
         msg.isMine = (user_id == userId);
-        msg.timestamp = created_at;
+        qDebug() << created_at;
+        msg.timestamp = QDateTime::fromString(created_at, Qt::ISODateWithMs);
         msg.hasImage = !image_data.isEmpty();
 
         if(msg.hasImage) {
-            msg.imageData = image_data;
+            QByteArray image = QByteArray::fromBase64(image_data.toUtf8());
+            msg.imageData = image;
         }
 
         messageModel->addMessage(msg);
-    }
 
+        QJsonObject messageObj;
+        messageObj["action"] = "update_chats";
+        messageObj["userid"] = userId;
+
+        QJsonDocument mesDoc(messageObj);
+        QString jsonString2 = mesDoc.toJson(QJsonDocument::Compact);
+
+        m_socket->sendTextMessage(jsonString2);
+    }
 }
 
 void ChatContent::addMessageToChat(const QString &message) {
-    Q_UNUSED(message);
+    QJsonDocument message_doc = QJsonDocument::fromJson(message.toUtf8());
+    QJsonObject message_obj = message_doc.object();
 
-    loadMessagesFromDatabase();
+    QString typeMessage = message_obj.value("type").toString();
+    int chatidFromResponse = message_obj.value("chatid").toInt();
+    if((typeMessage.contains("chat_info") || typeMessage.contains("send")) && chatidFromResponse == chatIndex) {
+        loadMessagesFromDatabase(message);
+    }
     messageView->scrollToBottom();
 }
 
@@ -193,89 +235,42 @@ void ChatContent::sendMessage() {
         return;
     }
 
-    QSqlDatabase db = QSqlDatabase::database();
-    if(!db.transaction()) {
-        qDebug() << "Не удалось начать транзакцию:" << db.lastError().text();
-        QMessageBox::critical(this, "Ошибка", "Не удалось отправить сообщение.");
-        return;
-    }
-
     QByteArray pixmapBytes;
     if(!m_attachedImage.isNull()) {
         QBuffer buffer(&pixmapBytes);
         buffer.open(QIODevice::WriteOnly);
 
         // Сохраняем pixmap в формате PNG (можно выбрать другой формат, напр. JPG)
-        m_attachedImage.save(&buffer, "PNG", 90);
+        m_attachedImage.save(&buffer, "PNG", 100);
 
         // Закрываем buffer, хотя после выхода из области видимости он сам закроется
         buffer.close();
     }
 
-
-    QSqlQuery query;
-    query.prepare("INSERT INTO messages (user_id, body, chat_id, created_at, image_data) "
-                  "VALUES (:user_id, :body, :chat_id, :created_at, :image_data) RETURNING id");
-    query.bindValue(":user_id", userId);
-    query.bindValue(":body", text);
-    query.bindValue(":chat_id", chatIndex);
-    query.bindValue(":created_at", QDateTime::currentDateTime());
-    query.bindValue(":image_data", pixmapBytes);
-
-    if (!query.exec()) {
-        qDebug() << "Ошибка добавления сообщения:" << query.lastError().text();
-        db.rollback();
-        QMessageBox::critical(this, "Ошибка", "Не удалось отправить сообщение.");
-        return;
-    }
-
-    query.next();
-    int message_id = query.value("id").toInt();
-
-    query.prepare("SELECT CASE WHEN user1_id != :userid THEN user1_id ELSE user2_id "
-                  "END AS result FROM chats WHERE (user1_id != :userid OR user2_id != :userid)");
-    query.bindValue(":userid", userId);
-
-    if (!query.exec()) {
-        qDebug() << "Ошибка добавления сообщения:" << query.lastError().text();
-        db.rollback();
-        QMessageBox::critical(this, "Ошибка", "Не удалось отправить сообщение.");
-        return;
-    }
-
-    query.next();
-    int user2_id = query.value("result").toInt();
-
-    query.prepare("INSERT INTO message_read_status (message_id, user_id, is_read) "
-                  "VALUES (:message_id, :user_id, :is_read)");
-    query.bindValue(":message_id", message_id);
-    query.bindValue(":user_id", user2_id);
-    query.bindValue(":is_read", false);
-
-    if (!query.exec()) {
-        qDebug() << "Ошибка добавления сообщения:" << query.lastError().text();
-        db.rollback();
-        QMessageBox::critical(this, "Ошибка", "Не удалось отправить сообщение.");
-        return;
-    }
-
-    db.commit();
-
     ChatMessage msg;
-    msg.id = message_id;
     msg.username = "Me";
     msg.message = text;
     msg.isMine = true;
     msg.timestamp = QDateTime::currentDateTime();
     msg.hasImage = !pixmapBytes.isEmpty();
-
     if(msg.hasImage) {
         msg.imageData = pixmapBytes;
     }
-
     messageModel->addMessage(msg);
 
-    m_socket->sendTextMessage(text);
+    QJsonObject messageObject;
+    messageObject["action"] = "send_message";
+    messageObject["user_id"] = userId;
+    messageObject["body"] = text;
+    messageObject["chat_id"] = chatIndex;
+    if (!pixmapBytes.isEmpty()) {
+        messageObject["image_data"] = QString::fromUtf8(pixmapBytes.toBase64());
+    }
+    QJsonDocument messageDoc(messageObject);
+    QString jsonString = messageDoc.toJson();
+
+    m_socket->sendTextMessage(jsonString);
+
     messageView->scrollToBottom();
     inputMessage->clear();
 

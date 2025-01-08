@@ -5,22 +5,15 @@
 #include <QPushButton>
 #include <QWebSocket>
 #include <QMessageBox>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QEventLoop>
 #include <QDebug>
 
-Mainwindow::Mainwindow(const QUrl &url, QWidget* parent) : QWidget{parent} {
-    m_socket = new QWebSocket();
-    connect(m_socket, &QWebSocket::connected, this, []() {
-        qDebug() << "Подключено к серверу.";
-    });
-    connect(m_socket, &QWebSocket::disconnected, this, []() {
-        qDebug() << "Соединение разорвано.";
-    });
-    connect(m_socket, QOverload<QAbstractSocket::SocketError>::of(&QWebSocket::error), this, [this](QAbstractSocket::SocketError error) {
-        QString errorMsg = "Ошибка WebSocket: " + m_socket->errorString();
-        qDebug() << errorMsg;
-        showError(errorMsg);
-    });
-
+Mainwindow::Mainwindow(const QUrl& url, QWidget* parent) : QWidget{parent}, url(url) {
+    connectToServer(url);
+    connectToBaseData();
+    connect(m_socket, &QWebSocket::textMessageReceived, this, &Mainwindow::handlerLogin);
     LoginForm* login = new LoginForm();
 
     stackedWidget = new QStackedWidget();
@@ -43,29 +36,47 @@ Mainwindow::Mainwindow(const QUrl &url, QWidget* parent) : QWidget{parent} {
         onLogupClicked(login);
     });
 
-    m_socket->open(url);
     setMinimumWidth(640);
     setMinimumHeight(480);
+    setWindowIcon(QIcon("C://Users//Purik//Downloads//iconWindow.png"));
     setWindowTitle("SimpleChat");
     resize(1050,550);
+}
+
+void Mainwindow::connectToBaseData() {
+    QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
+    db.setHostName("localhost");
+    db.setPort(5432);
+    db.setDatabaseName("SimpleChat");
+    db.setUserName("postgres");
+    db.setPassword("11281215");
+
+    if(!db.open()) {
+        qDebug() << "Error connectiong database: " << db.lastError().text();
+    } else {
+        qDebug() << "Connected to database!";
+    }
+}
+
+void Mainwindow::handlerLogin(const QString& message) {
+    QJsonDocument response_doc = QJsonDocument::fromJson(message.toUtf8());
+    QJsonObject response_obj = response_doc.object();
+    QString type = response_obj.value("type").toString();
+
+    if(type.contains("error")) {
+        QMessageBox::critical(this, "Ошибка: ", response_obj.value("message").toString());
+        return;
+    }
+    qDebug() << type;
+    if(type.contains("login") || type.contains("register")) {
+        setupChatInterface(response_obj);
+    }
 }
 
 QString Mainwindow::hashPassword(const QString& password) {
     return QString(QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256).toHex());
 }
 
-QSqlQuery Mainwindow::executeQuery(const QString& queryStr, const QVariantMap& params) {
-    QSqlQuery query(QSqlDatabase::database());
-    query.prepare(queryStr);
-    for (auto it = params.begin(); it != params.end(); ++it) {
-        query.bindValue(it.key(), it.value());
-    }
-    if (!query.exec()) {
-        qDebug() << "Ошибка выполнения запроса:" << query.lastError().text();
-        showError(query.lastError().text());
-    }
-    return query;
-}
 
 void Mainwindow::switchToWidget(QWidget* widget) {
     if (stackedWidget->currentWidget() != widget) {
@@ -81,31 +92,52 @@ void Mainwindow::onLoginClicked(LoginForm* login) {
 
     if (login->mailLine->text().isEmpty() || login->passLine->text().isEmpty()) {
         showError("Пожалуйста, заполните все поля.");
+        login->headerLogin->setText("Sign in");
         return;
     }
 
-    QString password = login->passLine->text();
+    QString password = hashPassword(login->passLine->text());
 
-    QSqlQuery query = executeQuery("SELECT id, firstname, lastname, email, password FROM users WHERE email = :email",
-                                   {{":email", login->mailLine->text()}});
+    QJsonObject messageObj;
+    messageObj["action"] = "login";
+    messageObj["email"] = login->mailLine->text();
+    messageObj["password"] = password;
 
-    if(query.next()) {
-        int userid = query.value("id").toInt();
-        QString userFirstname = query.value("firstname").toString();
-        QString userLastname = query.value("lastname").toString();
-        QString userPassword = query.value("password").toString();
+    QJsonDocument mesDoc(messageObj);
+    QString jsonString = mesDoc.toJson(QJsonDocument::Compact);
 
-        if(userPassword == hashPassword(password)) {
-            setupChatInterface(userid, userFirstname, userLastname);
-        }
-    }
+    m_socket->sendTextMessage(jsonString);
+
     login->mailLine->clear();
     login->passLine->clear();
+}
+
+void Mainwindow::connectToServer(const QUrl& url) {
+    QEventLoop eloop;
+    m_socket = new QWebSocket();
+    connect(m_socket, &QWebSocket::connected, &eloop, [&eloop]() {
+        qDebug() << "Подключено к серверу.";
+        eloop.quit();
+    });
+    connect(m_socket, &QWebSocket::disconnected, &eloop, [&eloop]() {
+        qDebug() << "Соединение разорвано.";
+        eloop.quit();
+    });
+    connect(m_socket, QOverload<QAbstractSocket::SocketError>::of(&QWebSocket::error), this, [this](QAbstractSocket::SocketError error) {
+        QString errorMsg = "Ошибка WebSocket: " + m_socket->errorString();
+        qDebug() << errorMsg;
+        showError(errorMsg);
+    });
+
+    m_socket->open(url);
+
+    eloop.exec();
 }
 
 void Mainwindow::onLogupClicked(LoginForm* login) {
     if(login->temporaryWidgets.isEmpty()) {
         login->addLogupForm();
+        login->headerLogin->setText("Sign up");
         return;
     }
 
@@ -117,21 +149,17 @@ void Mainwindow::onLogupClicked(LoginForm* login) {
 
     QString hashPass = hashPassword(login->passLine->text());
 
-    QSqlQuery query = executeQuery("INSERT INTO users (firstname, lastname, email, password) "
-                                   "VALUES (:firstname, :lastname, :email, :password) RETURNING id, firstname, lastname",
-                                   {
-                                       {":firstname", login->firstNameLine->text()},
-                                       {":lastname", login->lastNameLine->text()},
-                                       {":email", login->mailLine->text()},
-                                       {":password", hashPass}
-                                   });
-    if (query.next()) {
-        int userid = query.value("id").toInt();
-        QString userFirstname = query.value("firstname").toString();
-        QString userLastname = query.value("lastname").toString();
+    QJsonObject messageObj;
+    messageObj["action"] = "register";
+    messageObj["firstname"] = login->firstNameLine->text();
+    messageObj["lastname"] = login->lastNameLine->text();
+    messageObj["email"] = login->mailLine->text();
+    messageObj["password"] = hashPass;
 
-        setupChatInterface(userid, userFirstname, userLastname);
-    }
+    QJsonDocument mesDoc(messageObj);
+    QString jsonString = mesDoc.toJson(QJsonDocument::Compact);
+
+    m_socket->sendTextMessage(jsonString);
 
     login->firstNameLine->clear();
     login->lastNameLine->clear();
@@ -139,11 +167,16 @@ void Mainwindow::onLogupClicked(LoginForm* login) {
     login->passLine->clear();
 }
 
-void Mainwindow::setupChatInterface(int userid, const QString& firstname, const QString& lastname) {
+void Mainwindow::setupChatInterface(const QJsonObject& message) {
+
+    int userid = message.value("userid").toInt();
+    QString firstname = message.value("firstname").toString();
+    QString lastname = message.value("lastname").toString();
+
     ChatForm* chat = new ChatForm(userid, firstname, lastname, m_socket, stackedWidget);
     stackedWidget->addWidget(chat);
 
-    UserChoice* choice = new UserChoice(userid, chat, stackedWidget);
+    UserChoice* choice = new UserChoice(userid, chat, m_socket, stackedWidget);
     stackedWidget->addWidget(choice);
 
     connect(chat->startChatting, &QPushButton::clicked, [this, choice]() {
@@ -156,6 +189,9 @@ void Mainwindow::setupChatInterface(int userid, const QString& firstname, const 
         stackedWidget->removeWidget(chat);
         stackedWidget->removeWidget(choice);
         chat->deleteLater();
+
+        m_socket->close();
+        m_socket->open(url);
     });
 
     switchToWidget(chat);

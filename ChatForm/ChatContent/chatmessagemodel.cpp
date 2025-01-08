@@ -23,8 +23,6 @@ QVariant ChatMessageModel::data(const QModelIndex& index,int role) const {
             return msg.isMine;
         case TimestampRole:
             return msg.timestamp;
-        case MessageIdRole:
-            return msg.id;
         case HasImageRole:
             return msg.hasImage;
         case ImageDataRole:
@@ -40,7 +38,6 @@ QHash<int, QByteArray> ChatMessageModel::roleNames() const {
     roles[UsernameRole] = "username";
     roles[IsMineRole] = "isMine";
     roles[TimestampRole] = "timestamp";
-    roles[MessageIdRole] = "id";
     roles[HasImageRole] = "hasImage";
     roles[ImageDataRole] = "imageData";
     return roles;

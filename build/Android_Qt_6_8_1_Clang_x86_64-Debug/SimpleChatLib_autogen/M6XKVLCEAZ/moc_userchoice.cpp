@@ -31,13 +31,13 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
-struct qt_meta_tag_ZN10userChoiceE_t {};
+struct qt_meta_tag_ZN10UserChoiceE_t {};
 } // unnamed namespace
 
 
 #ifdef QT_MOC_HAS_STRINGDATA
-static constexpr auto qt_meta_stringdata_ZN10userChoiceE = QtMocHelpers::stringData(
-    "userChoice",
+static constexpr auto qt_meta_stringdata_ZN10UserChoiceE = QtMocHelpers::stringData(
+    "UserChoice",
     "addMenuUser",
     "",
     "returnChat",
@@ -49,7 +49,7 @@ static constexpr auto qt_meta_stringdata_ZN10userChoiceE = QtMocHelpers::stringD
 #error "qtmochelpers.h not found or too old."
 #endif // !QT_MOC_HAS_STRINGDATA
 
-Q_CONSTINIT static const uint qt_meta_data_ZN10userChoiceE[] = {
+Q_CONSTINIT static const uint qt_meta_data_ZN10UserChoiceE[] = {
 
  // content:
       12,       // revision
@@ -75,15 +75,15 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10userChoiceE[] = {
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject userChoice::staticMetaObject = { {
+Q_CONSTINIT const QMetaObject UserChoice::staticMetaObject = { {
     QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
-    qt_meta_stringdata_ZN10userChoiceE.offsetsAndSizes,
-    qt_meta_data_ZN10userChoiceE,
+    qt_meta_stringdata_ZN10UserChoiceE.offsetsAndSizes,
+    qt_meta_data_ZN10UserChoiceE,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_tag_ZN10userChoiceE_t,
+    qt_incomplete_metaTypeArray<qt_meta_tag_ZN10UserChoiceE_t,
         // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<userChoice, std::true_type>,
+        QtPrivate::TypeAndForceComplete<UserChoice, std::true_type>,
         // method 'addMenuUser'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'returnChat'
@@ -95,9 +95,9 @@ Q_CONSTINIT const QMetaObject userChoice::staticMetaObject = { {
     nullptr
 } };
 
-void userChoice::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void UserChoice::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    auto *_t = static_cast<userChoice *>(_o);
+    auto *_t = static_cast<UserChoice *>(_o);
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->addMenuUser(); break;
@@ -108,20 +108,20 @@ void userChoice::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     }
 }
 
-const QMetaObject *userChoice::metaObject() const
+const QMetaObject *UserChoice::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *userChoice::qt_metacast(const char *_clname)
+void *UserChoice::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_ZN10userChoiceE.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_ZN10UserChoiceE.stringdata0))
         return static_cast<void*>(this);
     return QWidget::qt_metacast(_clname);
 }
 
-int userChoice::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int UserChoice::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)

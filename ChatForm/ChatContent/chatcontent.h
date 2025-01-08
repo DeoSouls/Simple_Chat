@@ -14,10 +14,10 @@
 class ChatContent : public QWidget {
         Q_OBJECT
     public:
-        ChatContent(const QString& chatName, int index, int id, QWebSocket* m_client, QWidget *parent = nullptr);
+        ChatContent(const QString& chatName, const QString& email, bool status, int index, int id, QWebSocket* m_client, QWidget *parent = nullptr);
 
     private:
-        void loadMessagesFromDatabase();
+        void loadMessagesFromDatabase(const QString &message);
 
         int chatIndex;
         int userId;

@@ -8,6 +8,7 @@
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlError>
 #include <QDebug>
+#include <QLabel>
 
 class LoginForm : public QWidget {
         Q_OBJECT
@@ -22,6 +23,7 @@ class LoginForm : public QWidget {
         QLineEdit* mailLine;
         QLineEdit* passLine;
 
+        QLabel* headerLogin;
         void removeLogupForm();
 
         ~LoginForm();
@@ -29,10 +31,10 @@ class LoginForm : public QWidget {
         void addLogupForm();
     private slots:
         void login();
-        void connectToBaseData();
     private:
         QVBoxLayout* layoutLogin;
         QVBoxLayout* containedLayout;
+        QFont font;
 };
 
 #endif // LOGINFORM_H

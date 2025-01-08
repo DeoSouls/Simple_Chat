@@ -22,7 +22,6 @@ class SwitchChatContainer : public QWidget {
         QString userLastname;
         QWebSocket* m_socket;
         int chatIndex;
-        void clearLayout(QLayout *layout);
     private:
         QVBoxLayout* switchLayout;
         QMap<int, SwitchChatButton*> switchButtons;
@@ -31,12 +30,11 @@ class SwitchChatContainer : public QWidget {
         QVBoxLayout* buttonLayout;
 
         QSqlQuery executeQuery(const QString& queryStr, const QVariantMap& params = {});
-        // QString formatButtonText(const QString& chatName, const QString& lastMessage);
     public slots:
-        void addSwitchButtons();
+        void addSwitchButtons(const QJsonObject& message);
     private slots:
-        void updateStatus(int index);
-        void updateButtons();
+        void updateHandler(const QString& message);
+        void updateButtons(const QJsonObject& message);
         void showChat();
 };
 
