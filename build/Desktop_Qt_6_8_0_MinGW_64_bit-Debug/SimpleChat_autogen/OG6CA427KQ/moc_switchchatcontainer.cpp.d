@@ -146,12 +146,17 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtGui/qkeysequence.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpaintdevice.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpalette.h \
+  C:/Qt/6.8.1/mingw_64/include/QtGui/qpen.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpixelformat.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpixmap.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpolygon.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qregion.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qrgb.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qrgba64.h \
+  C:/Qt/6.8.1/mingw_64/include/QtGui/qtextcursor.h \
+  C:/Qt/6.8.1/mingw_64/include/QtGui/qtextdocument.h \
+  C:/Qt/6.8.1/mingw_64/include/QtGui/qtextformat.h \
+  C:/Qt/6.8.1/mingw_64/include/QtGui/qtextoption.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qtgui-config.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qtguiexports.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qtguiglobal.h \
@@ -190,6 +195,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsocket.h \
   C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsocketprotocol.h \
   C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsockets_global.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/QLineEdit \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QPushButton \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QScrollArea \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QStackedWidget \
@@ -202,6 +208,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qgridlayout.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qlayout.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qlayoutitem.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qlineedit.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qpushbutton.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qscrollarea.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qsizepolicy.h \

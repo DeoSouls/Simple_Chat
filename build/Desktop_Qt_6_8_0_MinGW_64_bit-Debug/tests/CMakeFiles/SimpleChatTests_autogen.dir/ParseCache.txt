@@ -717,6 +717,7 @@ C:/cpp/projectsQt/SimpleChat/tests/test_chatcontent.cpp
  mdp:C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsocket.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsocketprotocol.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsockets_global.h
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtWidgets/QHBoxLayout
  mdp:C:/Qt/6.8.1/mingw_64/include/QtWidgets/QLabel
  mdp:C:/Qt/6.8.1/mingw_64/include/QtWidgets/QLineEdit
  mdp:C:/Qt/6.8.1/mingw_64/include/QtWidgets/QListView
@@ -1101,6 +1102,9 @@ C:/cpp/projectsQt/SimpleChat/tests/test_chatcontent.cpp
  mdp:C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/MessageContainer/messagecontainer.h
  mdp:C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatcontent.h
  mdp:C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatmessagemodel.h
+ mdp:C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/hoverlabel.h
+ mdp:C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopanelchat.h
+ mdp:C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopopup.h
  mdp:C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/messageitemdelegate.h
  mdp:C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/tests/SimpleChatTests_autogen/moc_predefs.h
  mdp:C:/cpp/projectsQt/SimpleChat/tests/test_chatcontent.cpp

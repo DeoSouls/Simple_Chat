@@ -59,7 +59,6 @@ void UserItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
 
 
 QSize UserItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const {
-
     // Общий размер элемента
     return QSize(option.rect.width(), 50); // Добавляем отступы
 }

@@ -12,21 +12,16 @@
 
 Mainwindow::Mainwindow(const QUrl& url, QWidget* parent) : QWidget{parent}, url(url) {
     connectToServer(url);
-    connectToBaseData();
     connect(m_socket, &QWebSocket::textMessageReceived, this, &Mainwindow::handlerLogin);
     LoginForm* login = new LoginForm();
 
+    // Добавляем функцию страницы к чату
     stackedWidget = new QStackedWidget();
     stackedWidget->addWidget(login);
 
     layoutMain = new QVBoxLayout(this);
     layoutMain->addWidget(stackedWidget);
     layoutMain->setContentsMargins(0,0,0,0);
-
-    if (!QSqlDatabase::database().isOpen()) {
-        showError("Не удалось подключиться к базе данных.");
-        return;
-    }
 
     connect(login->btnToChat, &QPushButton::clicked, [this, login]() {
         onLoginClicked(login);
@@ -43,31 +38,16 @@ Mainwindow::Mainwindow(const QUrl& url, QWidget* parent) : QWidget{parent}, url(
     resize(1050,550);
 }
 
-void Mainwindow::connectToBaseData() {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
-    db.setHostName("localhost");
-    db.setPort(5432);
-    db.setDatabaseName("SimpleChat");
-    db.setUserName("postgres");
-    db.setPassword("11281215");
-
-    if(!db.open()) {
-        qDebug() << "Error connectiong database: " << db.lastError().text();
-    } else {
-        qDebug() << "Connected to database!";
-    }
-}
-
 void Mainwindow::handlerLogin(const QString& message) {
     QJsonDocument response_doc = QJsonDocument::fromJson(message.toUtf8());
     QJsonObject response_obj = response_doc.object();
     QString type = response_obj.value("type").toString();
 
-    if(type.contains("error")) {
+    if(type.contains("error_login")) {
         QMessageBox::critical(this, "Ошибка: ", response_obj.value("message").toString());
         return;
     }
-    qDebug() << type;
+
     if(type.contains("login") || type.contains("register")) {
         setupChatInterface(response_obj);
     }

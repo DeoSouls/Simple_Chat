@@ -11,8 +11,10 @@ LoginForm::LoginForm(QWidget* parent) : QWidget{parent} {
     font = QFont("Segoe UI", 11, 300);
 
     mailLine = new QLineEdit();
-    passLine = new QLineEdit();
+    mailLine->setFont(font);
     mailLine->setFixedSize(300, 25);
+    passLine = new QLineEdit();
+    passLine->setFont(font);
     passLine->setFixedSize(300, 25);
 
     headerLogin = new QLabel("Sign in");
@@ -80,10 +82,4 @@ void LoginForm::removeLogupForm() {
         }
         temporaryWidgets.clear();
     }
-}
-
-void LoginForm::login() {
-}
-
-LoginForm::~LoginForm() {
 }

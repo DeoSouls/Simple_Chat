@@ -197,12 +197,15 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsocket.h \
   C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsocketprotocol.h \
   C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsockets_global.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/QHBoxLayout \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QLabel \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QListView \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/QPushButton \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QStyledItemDelegate \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QTextEdit \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QVBoxLayout \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QWidget \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qabstractbutton.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qabstractitemdelegate.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qabstractitemview.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qabstractscrollarea.h \
@@ -215,6 +218,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qlayout.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qlayoutitem.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qlistview.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qpushbutton.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qrubberband.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qsizepolicy.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qslider.h \
@@ -437,4 +441,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/InputMessage/inputmessage.h \
   C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/MessageContainer/messagecontainer.h \
   C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatmessagemodel.h \
+  C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/hoverlabel.h \
+  C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopanelchat.h \
+  C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopopup.h \
   C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/messageitemdelegate.h

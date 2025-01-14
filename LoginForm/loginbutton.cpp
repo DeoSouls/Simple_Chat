@@ -4,6 +4,3 @@ LoginButton::LoginButton(const QString text, QWidget* parent) : QPushButton{pare
     setText(text);
     setFixedSize(300, 28);
 }
-
-LoginButton::~LoginButton() {
-}

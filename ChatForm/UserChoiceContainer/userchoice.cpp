@@ -1,14 +1,10 @@
 #include "userchoice.h"
 #include "useritemdelegate.h"
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QSqlError>
 #include <QPushButton>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QMessageBox>
-#include <QDebug>
 
 UserChoice::UserChoice(int id, ChatForm* chatform, QWebSocket* m_client, QStackedWidget* stackedWidget, QWidget *parent)
     : currentUserId(id), chatform(chatform), m_socket(m_client), stackedWidget(stackedWidget), QWidget{parent} {
@@ -28,7 +24,7 @@ void UserChoice::handlerCommand(const QString& message) {
     QJsonObject response_obj = response_doc.object();
     QString type = response_obj.value("type").toString();
 
-    if(type.contains("error")) {
+    if(type.contains("error_choice")) {
         QMessageBox::critical(this, "Ошибка: ", response_obj.value("message").toString());
         return;
     }

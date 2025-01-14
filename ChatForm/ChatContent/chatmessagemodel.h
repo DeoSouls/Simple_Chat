@@ -39,6 +39,12 @@ class ChatMessageModel : public QAbstractListModel {
         // Метод для добавления сообщения
         void addMessage(const ChatMessage& msg);
 
+        // Метод для подгрузки сообщений
+        void prependMessages(const QVector<ChatMessage>& newMessages);
+
+        // Метод получения сообщений
+        QVector<ChatMessage> getMessages() const;
+
         // Метод для загрузки сообщений из базы данных
         void loadMessages(const QVector<ChatMessage>& msgs);
 

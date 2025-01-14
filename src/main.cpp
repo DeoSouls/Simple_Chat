@@ -1,16 +1,11 @@
 #include <QApplication>
 #include "../MainWindow/mainwindow.h"
 #include "chatserver.h"
-#include "../ChatForm/ChatContent/chatmessagemodel.h"
 
 using namespace std;
-Q_DECLARE_METATYPE(ChatMessage)
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
-
-    // Регистрация мета-типа
-    qRegisterMetaType<ChatMessage>("ChatMessage");
 
     quint16 port = 12345;
 

@@ -1,10 +1,20 @@
 C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleChat_autogen/PVAUTHT5OE/moc_infopanelchat.cpp: C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopanelchat.h \
   C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleChat_autogen/moc_predefs.h \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/QAbstractListModel \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/QDateTime \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/QFlags \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/QSharedDataPointer \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/QString \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/QUrl \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/QVariant \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/QVector \
   C:/Qt/6.8.1/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/q20iterator.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/q20memory.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/q20type_traits.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/q23utility.h \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/q26numeric.h \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/qabstractitemmodel.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qalgorithms.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qanystringview.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qarraydata.h \
@@ -19,6 +29,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtCore/qbytearrayalgorithms.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qbytearraylist.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qbytearrayview.h \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/qcalendar.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qchar.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qcompare.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qcompare_impl.h \
@@ -30,8 +41,10 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtCore/qcontainerinfo.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qcontainertools_impl.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qcontiguouscache.h \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/qcryptographichash.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qdarwinhelpers.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qdatastream.h \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/qdatetime.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qdebug.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qendian.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qexceptionhandling.h \
@@ -52,6 +65,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtCore/qlatin1stringview.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qline.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qlist.h \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/qlocale.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qlogging.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qmalloc.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qmap.h \
@@ -72,6 +86,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtCore/qprocessordetection.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qrect.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qrefcount.h \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/qregularexpression.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qscopedpointer.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qscopeguard.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qset.h \
@@ -119,9 +134,11 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtCore/qutf8stringview.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qvariant.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qvarlengtharray.h \
+  C:/Qt/6.8.1/mingw_64/include/QtCore/qvector.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qversiontagging.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qxptype_traits.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/qyieldcpu.h \
+  C:/Qt/6.8.1/mingw_64/include/QtGui/QFont \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qaction.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qbitmap.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qbrush.h \
@@ -135,6 +152,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtGui/qkeysequence.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpaintdevice.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpalette.h \
+  C:/Qt/6.8.1/mingw_64/include/QtGui/qpen.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpicture.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpixelformat.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qpixmap.h \
@@ -142,23 +160,68 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/6.8.1/mingw_64/include/QtGui/qregion.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qrgb.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qrgba64.h \
+  C:/Qt/6.8.1/mingw_64/include/QtGui/qtextcursor.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qtextdocument.h \
+  C:/Qt/6.8.1/mingw_64/include/QtGui/qtextformat.h \
+  C:/Qt/6.8.1/mingw_64/include/QtGui/qtextoption.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qtgui-config.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qtguiexports.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qtguiglobal.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qtransform.h \
+  C:/Qt/6.8.1/mingw_64/include/QtGui/qvalidator.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qwindowdefs.h \
   C:/Qt/6.8.1/mingw_64/include/QtGui/qwindowdefs_win.h \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/QAbstractSocket \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/QNetworkProxy \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/QNetworkRequest \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/QSslConfiguration \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/QSslError \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/qabstractsocket.h \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/qhostaddress.h \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/qhttpheaders.h \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/qnetworkproxy.h \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/qnetworkrequest.h \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/qssl.h \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/qsslcertificate.h \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/qsslconfiguration.h \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/qsslerror.h \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/qsslsocket.h \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/qtcpsocket.h \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/qtnetwork-config.h \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/qtnetworkexports.h \
+  C:/Qt/6.8.1/mingw_64/include/QtNetwork/qtnetworkglobal.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWebSockets/QWebSocket \
+  C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qtwebsocketsexports.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsocket.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsocketprotocol.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsockets_global.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QHBoxLayout \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QLabel \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/QPushButton \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/QStyledItemDelegate \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/QTextEdit \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/QWidget \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qabstractbutton.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qabstractitemdelegate.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qabstractscrollarea.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qabstractslider.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qabstractspinbox.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qboxlayout.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qframe.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qgridlayout.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qlabel.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qlayout.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qlayoutitem.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qpushbutton.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qrubberband.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qsizepolicy.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qslider.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qstyle.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qstyleditemdelegate.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qstyleoption.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qtabbar.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qtabwidget.h \
+  C:/Qt/6.8.1/mingw_64/include/QtWidgets/qtextedit.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qtwidgets-config.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qtwidgetsexports.h \
   C:/Qt/6.8.1/mingw_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -369,5 +432,7 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/time.h \
   C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/vadefs.h \
   C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h \
+  C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatmessagemodel.h \
   C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/hoverlabel.h \
-  C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopopup.h
+  C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopopup.h \
+  C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/messageitemdelegate.h

@@ -9,6 +9,7 @@
 #include <QSqlError>
 #include <QWebSocket>
 #include <QScrollArea>
+#include <QLineEdit>
 
 class SwitchChatContainer : public QWidget {
     Q_OBJECT
@@ -28,14 +29,15 @@ class SwitchChatContainer : public QWidget {
         QScrollArea* scrollArea;
         QWidget* buttonContainer;
         QVBoxLayout* buttonLayout;
-
-        QSqlQuery executeQuery(const QString& queryStr, const QVariantMap& params = {});
+        QLineEdit* searchLine;
+        QPushButton* searchOnTopPanel;
     public slots:
         void addSwitchButtons(const QJsonObject& message);
     private slots:
         void updateHandler(const QString& message);
         void updateButtons(const QJsonObject& message);
         void showChat();
+        void openSearch();
 };
 
 #endif // SWITCHCHATCONTAINER_H

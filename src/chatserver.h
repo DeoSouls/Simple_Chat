@@ -27,11 +27,13 @@ class ChatServer : public QObject {
         void handleUpdateStatusMessages(QWebSocket* senderClient, const QJsonObject &message);
         void handleAddUsers(QWebSocket* senderClient, const QJsonObject &message);
         void handleCreateChat(QWebSocket* senderClient, const QJsonObject &message);
-        QSqlQuery executeQuery(const QString& command, const QVariantMap& params, const QString& errorMessage, QWebSocket* senderClient);
+        void handleSearching(QWebSocket* senderClient, const QJsonObject &message);
+        QSqlQuery executeQuery(const QString& command, const QVariantMap& params, const QString& errorMessage, const QString& error_type, QWebSocket* senderClient);
     private:
         QWebSocketServer* m_server;
         QSet<QWebSocket*> m_clients;
         QMap<int, QWebSocket*> m_autorizedClients;
+        void connectToDatabase();
 
 };
 

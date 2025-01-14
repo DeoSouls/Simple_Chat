@@ -25,12 +25,8 @@ class LoginForm : public QWidget {
 
         QLabel* headerLogin;
         void removeLogupForm();
-
-        ~LoginForm();
     public slots:
         void addLogupForm();
-    private slots:
-        void login();
     private:
         QVBoxLayout* layoutLogin;
         QVBoxLayout* containedLayout;

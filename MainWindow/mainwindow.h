@@ -25,7 +25,6 @@ class Mainwindow : public QWidget {
         QWebSocket* m_socket;
         QUrl url;
 
-        void connectToBaseData();
         void setupChatInterface(const QJsonObject& message);
         QString hashPassword(const QString& password);
         void switchToWidget(QWidget* widget);

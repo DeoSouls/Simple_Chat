@@ -26,6 +26,7 @@ SwitchChatContainer::SwitchChatContainer(int userId, QString userFirstname, QStr
     switchLayout->setAlignment(Qt::AlignTop);
     switchLayout->setSpacing(0);
 
+    // Верхняя панель для поиска и меню
     QWidget* topPanel = new QWidget(this);
     QHBoxLayout* panelLayout = new QHBoxLayout(topPanel);
     topPanel->setFixedHeight(40);
@@ -33,19 +34,28 @@ SwitchChatContainer::SwitchChatContainer(int userId, QString userFirstname, QStr
                             "border-bottom: 1px solid #333; }"
                             "QPushButton { border: 1px solid #444; background-color: #222; "
                             "color: white; border-radius: 8px;}"
-                            "QPushButton::hover { background-color: #444; }");
+                            "QPushButton::hover { background-color: #444; }"
+                            "QLineEdit { background-color: #444; border-radius: 10px; "
+                            "margin-left: 5px; color: white; padding-left: 5px;}");
     panelLayout->setAlignment(Qt::AlignRight);
     panelLayout->setContentsMargins(0,0,8,0);
 
-    QPushButton* searchOnTopPanel = new QPushButton();
+    searchLine = new QLineEdit();
+    searchLine->setFixedHeight(30);
+    searchLine->setFont(QFont("Segoe UI", 12, 300));
+    searchLine->setPlaceholderText("Введите текст...");
+    panelLayout->addWidget(searchLine,1);
+
+    searchOnTopPanel = new QPushButton();
     searchOnTopPanel->setFixedSize(30,30);
-    searchOnTopPanel->setIcon(QIcon("C://Users//Purik//Downloads//iconSearch.png"));
+    searchOnTopPanel->setIcon(QIcon("C://cpp//projectsQt//SimpleChat//resources//iconSearch.png"));
     searchOnTopPanel->setIconSize(QSize(17,17));
     panelLayout->addWidget(searchOnTopPanel);
+    connect(searchOnTopPanel, &QPushButton::clicked, this, &SwitchChatContainer::openSearch);
 
     toggleButton = new QPushButton();
     toggleButton->setFixedSize(30,30);
-    toggleButton->setIcon(QIcon("C://Users//Purik//Downloads//iconsMenu.png"));
+    toggleButton->setIcon(QIcon("C://cpp//projectsQt//SimpleChat//resources//iconsMenu.png"));
     toggleButton->setIconSize(QSize(17,17));
     panelLayout->addWidget(toggleButton);
 
@@ -68,7 +78,6 @@ SwitchChatContainer::SwitchChatContainer(int userId, QString userFirstname, QStr
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scrollArea->setStyleSheet(
         "QScrollArea {"
-        "background-image: url(C://Users//Purik//Downloads//phoneTab.jpg);"
         "border: none;"
         "}"
         "QScrollBar:vertical {"
@@ -103,8 +112,6 @@ SwitchChatContainer::SwitchChatContainer(int userId, QString userFirstname, QStr
 
     // Добавляем QScrollArea в switchLayout
     switchLayout->addWidget(scrollArea);
-
-    // addSwitchButtons();
     setLayout(switchLayout);
 }
 
@@ -113,7 +120,7 @@ void SwitchChatContainer::updateHandler(const QString& message) {
     QJsonObject response_obj = response_doc.object();
     QString type = response_obj.value("type").toString();
 
-    if(type.contains("error")) {
+    if(type.contains("error_chat")) {
         QMessageBox::critical(this, "Ошибка: ", response_obj.value("message").toString());
         return;
     }
@@ -143,7 +150,6 @@ void SwitchChatContainer::addSwitchButtons(const QJsonObject& message) {
             switchButtons[chatId] = button;
 
             button->setLastMessage(0,lastMessage);
-
             buttonLayout->addWidget(button); // Добавляем кнопку в buttonLayout
 
             auto chatContent = new ChatContent(userName, email, status, chatId, userId, m_socket, this);
@@ -200,17 +206,21 @@ void SwitchChatContainer::updateButtons(const QJsonObject& message) {
     }
 }
 
-QSqlQuery SwitchChatContainer::executeQuery(const QString& queryStr, const QVariantMap& params) {
-    QSqlQuery query(QSqlDatabase::database());
-    query.prepare(queryStr);
-    for (auto it = params.begin(); it != params.end(); ++it) {
-        query.bindValue(it.key(), it.value());
+void SwitchChatContainer::openSearch() {
+    QString searchText = searchLine->text().toLower();
+    for(int i = 0; i < buttonLayout->count(); ++i) {
+        QWidget* widget = buttonLayout->itemAt(i)->widget();
+        SwitchChatButton* button = qobject_cast<SwitchChatButton*>(widget);
+        if(button) {
+            QString btnText = button->m_chatName.toLower();
+            if(!btnText.contains(searchText)) {
+                button->hide();
+                qDebug() << button->m_chatName;
+            } else {
+                button->show();
+            }
+        }
     }
-    if (!query.exec()) {
-        qDebug() << "Ошибка выполнения запроса:" << query.lastError().text();
-        QMessageBox::critical(nullptr, "Ошибка", query.lastError().text());
-    }
-    return query;
 }
 
 void SwitchChatContainer::showChat() {

@@ -1,5 +1,4 @@
 #include "chatmessagemodel.h"
-#include <QListView>
 
 ChatMessageModel::ChatMessageModel(QObject* parent) : QAbstractListModel(parent) {}
 
@@ -49,11 +48,25 @@ void ChatMessageModel::addMessage(const ChatMessage& msg) {
     endInsertRows();
 }
 
+void ChatMessageModel::prependMessages(const QVector<ChatMessage>& newMessages) {
+    beginInsertRows(QModelIndex(), 0, newMessages.size() - 1);
+    // Итерируемся по newMessages в обратном порядке
+    for (int i = newMessages.size() - 1; i >= 0; --i) {
+        messages.prepend(newMessages[i]);
+    }
+    endInsertRows();
+}
+
 void ChatMessageModel::loadMessages(const QVector<ChatMessage>& msgs) {
     beginResetModel();
     messages = msgs;
     endResetModel();
 }
+
+QVector<ChatMessage> ChatMessageModel::getMessages() const {
+    return messages;
+}
+
 void ChatMessageModel::clearMessage() {
     beginResetModel();
     messages.clear();

@@ -15,6 +15,9 @@ class MessageItemDelegate : public QStyledItemDelegate {
 
         // Переопределяем размер элемента
         QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+
+        // Проверка на текущий день
+        bool isFirstMessageOfDay(const QModelIndex& index) const;
     private:
         QFont messageFont;
 };

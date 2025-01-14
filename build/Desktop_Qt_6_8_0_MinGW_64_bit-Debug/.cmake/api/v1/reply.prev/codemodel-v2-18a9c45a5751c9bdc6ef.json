@@ -11,7 +11,7 @@
 						1
 					],
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-20559604019ad9fe9a0e.json",
+					"jsonFile" : "directory-.-Debug-5e1e86bb7c2c41f1834c.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -24,8 +24,11 @@
 						1,
 						2,
 						3,
-						7,
-						8
+						4,
+						5,
+						6,
+						10,
+						11
 					]
 				},
 				{
@@ -40,9 +43,9 @@
 					"source" : "tests",
 					"targetIndexes" : 
 					[
-						4,
-						5,
-						6
+						7,
+						8,
+						9
 					]
 				}
 			],
@@ -66,7 +69,10 @@
 						5,
 						6,
 						7,
-						8
+						8,
+						9,
+						10,
+						11
 					]
 				}
 			],
@@ -74,15 +80,36 @@
 			[
 				{
 					"directoryIndex" : 0,
+					"id" : "ChatServer::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ChatServer-Debug-c0e779638aadbf08e6cd.json",
+					"name" : "ChatServer",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ChatServer_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ChatServer_autogen-Debug-9adefa013226752e126a.json",
+					"name" : "ChatServer_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ChatServer_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ChatServer_autogen_timestamp_deps-Debug-a561f33c087aa3a1ddbd.json",
+					"name" : "ChatServer_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "SimpleChat::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-SimpleChat-Debug-a88cded92507bb13390c.json",
+					"jsonFile" : "target-SimpleChat-Debug-5c4d3c36878c8bc80856.json",
 					"name" : "SimpleChat",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "SimpleChatLib::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-SimpleChatLib-Debug-d33c426279c6546a7859.json",
+					"jsonFile" : "target-SimpleChatLib-Debug-38767538c89918dc37c8.json",
 					"name" : "SimpleChatLib",
 					"projectIndex" : 0
 				},
@@ -103,7 +130,7 @@
 				{
 					"directoryIndex" : 1,
 					"id" : "SimpleChatTests::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-SimpleChatTests-Debug-76e66f139788616bbe5b.json",
+					"jsonFile" : "target-SimpleChatTests-Debug-9e596a958980cfb4ca05.json",
 					"name" : "SimpleChatTests",
 					"projectIndex" : 0
 				},

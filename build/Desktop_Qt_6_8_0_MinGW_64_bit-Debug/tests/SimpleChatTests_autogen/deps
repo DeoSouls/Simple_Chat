@@ -407,6 +407,7 @@ SimpleChatTests_autogen/timestamp: \
 	C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsocket.h \
 	C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsocketprotocol.h \
 	C:/Qt/6.8.1/mingw_64/include/QtWebSockets/qwebsockets_global.h \
+	C:/Qt/6.8.1/mingw_64/include/QtWidgets/QHBoxLayout \
 	C:/Qt/6.8.1/mingw_64/include/QtWidgets/QLabel \
 	C:/Qt/6.8.1/mingw_64/include/QtWidgets/QLineEdit \
 	C:/Qt/6.8.1/mingw_64/include/QtWidgets/QListView \
@@ -799,6 +800,9 @@ SimpleChatTests_autogen/timestamp: \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/MessageContainer/messagecontainer.h \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatcontent.h \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatmessagemodel.h \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/hoverlabel.h \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopanelchat.h \
+	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopopup.h \
 	C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/messageitemdelegate.h \
 	C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/tests/SimpleChatTests_autogen/moc_predefs.h \
 	C:/cpp/projectsQt/SimpleChat/tests/CMakeLists.txt \

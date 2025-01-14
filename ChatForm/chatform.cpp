@@ -1,8 +1,6 @@
 #include "chatform.h"
-#include "SwitchChatContainer/switchchatbutton.h"
 #include "SwitchChatContainer/switchchatcontainer.h"
 #include <QPropertyAnimation>
-#include <QSplitter>
 #include <QHBoxLayout>
 
 ChatForm::ChatForm(int userId, QString userFirstname, QString userLastname, QWebSocket* m_client, QWidget *parent)

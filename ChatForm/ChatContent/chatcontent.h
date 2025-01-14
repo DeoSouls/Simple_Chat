@@ -10,6 +10,7 @@
 #include "InputMessage/inputmessage.h"
 #include "MessageContainer/messagecontainer.h"
 #include "chatmessagemodel.h"
+#include "infopanelchat.h"
 
 class ChatContent : public QWidget {
         Q_OBJECT
@@ -18,6 +19,7 @@ class ChatContent : public QWidget {
 
     private:
         void loadMessagesFromDatabase(const QString &message);
+        template <typename T> QVector<QVector<T>> splitArray(const QVector<T>& vector, int chunkSize);
 
         int chatIndex;
         int userId;
@@ -32,21 +34,30 @@ class ChatContent : public QWidget {
 
         QWebSocket* m_socket;
         InputMessage* inputMessage;
+        InfoPanelChat* infoPanelChat;
         QFont font3;
         QFont font1;
 
+        QWidget* imagePrev;
         ChatMessageModel* messageModel;
+        MessageItemDelegate* messageDelegate;
+        QVector<ChatMessage> allMessages;
         QListView* messageView;
+        QPixmap m_sendImage;
         QPixmap m_attachedImage;
         QLabel* m_imagePreviewLabel;
         QHBoxLayout* inputFieldLayout;
+        // Пагинация
+        QVector<QVector<ChatMessage>> pagination;
 
     public slots:
         void sendMessage();
         void resizeInputField();
     private slots:
+        void searchingMessage();
         void addMessageToChat(const QString &message);
         void onAttachImageButtonClicked();
+        void scrollOnTop(int value);
 };
 
 #endif // CHATCONTENT_H
