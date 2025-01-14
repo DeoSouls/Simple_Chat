@@ -1,0 +1,44 @@
+{
+    "classes": [
+        {
+            "className": "UserChoice",
+            "lineNumber": 10,
+            "object": true,
+            "qualifiedClassName": "UserChoice",
+            "slots": [
+                {
+                    "access": "public",
+                    "index": 0,
+                    "name": "addMenuUser",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 1,
+                    "name": "returnChat",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "current",
+                            "type": "QModelIndex"
+                        }
+                    ],
+                    "index": 2,
+                    "name": "createChat",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QWidget"
+                }
+            ]
+        }
+    ],
+    "inputFile": "userchoice.h",
+    "outputRevision": 68
+}

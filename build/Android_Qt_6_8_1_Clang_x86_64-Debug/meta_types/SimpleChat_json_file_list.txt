@@ -1,0 +1,16 @@
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../AOVY3JPGGQ/moc_chatform.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../GCSBWPHYNB/moc_messagecontainer.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../M6XKVLCEAZ/moc_userchoice.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../M6XKVLCEAZ/moc_userchoicemodel.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../M6XKVLCEAZ/moc_useritemdelegate.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../OG6CA427KQ/moc_switchchatbutton.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../OG6CA427KQ/moc_switchchatcontainer.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../OPI2EOJSNA/moc_loginbutton.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../OPI2EOJSNA/moc_loginform.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../PVAUTHT5OE/moc_chatcontent.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../PVAUTHT5OE/moc_chatmessagemodel.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../PVAUTHT5OE/moc_infopanelchat.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../PVAUTHT5OE/moc_messageitemdelegate.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../UVLADIE3JM/moc_chatserver.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../VIH56DTC5N/moc_inputmessage.cpp.json
+C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/SimpleChat_autogen/include/../WCPGUQ57CZ/moc_mainwindow.cpp.json

@@ -1,0 +1,50 @@
+{
+    "classes": [
+        {
+            "className": "SwitchChatContainer",
+            "lineNumber": 13,
+            "object": true,
+            "qualifiedClassName": "SwitchChatContainer",
+            "slots": [
+                {
+                    "access": "public",
+                    "index": 0,
+                    "name": "addSwitchButtons",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "index",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 1,
+                    "name": "updateStatus",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 2,
+                    "name": "updateButtons",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "index": 3,
+                    "name": "showChat",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QWidget"
+                }
+            ]
+        }
+    ],
+    "inputFile": "switchchatcontainer.h",
+    "outputRevision": 68
+}

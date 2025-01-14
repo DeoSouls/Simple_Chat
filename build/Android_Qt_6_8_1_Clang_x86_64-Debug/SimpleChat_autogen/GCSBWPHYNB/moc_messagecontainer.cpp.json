@@ -1,0 +1,18 @@
+{
+    "classes": [
+        {
+            "className": "MessageContainer",
+            "lineNumber": 8,
+            "object": true,
+            "qualifiedClassName": "MessageContainer",
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QWidget"
+                }
+            ]
+        }
+    ],
+    "inputFile": "messagecontainer.h",
+    "outputRevision": 68
+}

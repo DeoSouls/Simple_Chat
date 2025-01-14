@@ -1,0 +1,6 @@
+set(__QT_DEPLOY_TARGET_SimpleChatTests_FILE C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/tests/libSimpleChatTests_x86_64.so)
+set(__QT_DEPLOY_TARGET_SimpleChatTests_TYPE MODULE_LIBRARY)
+set(__QT_DEPLOY_TARGET_SimpleChat_FILE C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/libSimpleChat_x86_64.so)
+set(__QT_DEPLOY_TARGET_SimpleChat_TYPE MODULE_LIBRARY)
+set(__QT_DEPLOY_TARGET_SimpleChatLib_FILE C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug/libSimpleChatLib.a)
+set(__QT_DEPLOY_TARGET_SimpleChatLib_TYPE STATIC_LIBRARY)

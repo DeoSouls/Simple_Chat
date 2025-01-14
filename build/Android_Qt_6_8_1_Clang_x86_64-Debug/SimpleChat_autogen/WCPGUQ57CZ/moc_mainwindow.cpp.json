@@ -1,0 +1,44 @@
+{
+    "classes": [
+        {
+            "className": "Mainwindow",
+            "lineNumber": 13,
+            "object": true,
+            "qualifiedClassName": "Mainwindow",
+            "slots": [
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "login",
+                            "type": "LoginForm*"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "onLoginClicked",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "log",
+                            "type": "LoginForm*"
+                        }
+                    ],
+                    "index": 1,
+                    "name": "onLogupClicked",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QWidget"
+                }
+            ]
+        }
+    ],
+    "inputFile": "mainwindow.h",
+    "outputRevision": 68
+}

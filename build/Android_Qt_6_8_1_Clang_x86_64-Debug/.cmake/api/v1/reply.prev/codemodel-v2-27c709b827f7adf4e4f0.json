@@ -1,0 +1,251 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-065773968a0a23e841df.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19
+					]
+				},
+				{
+					"build" : "tests",
+					"jsonFile" : "directory-tests-Debug-70e4927a02b591d5c1f8.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "tests",
+					"targetIndexes" : 
+					[
+						4,
+						5,
+						6
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "SimpleChat",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChat::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChat-Debug-c44c7257d9c1470a440b.json",
+					"name" : "SimpleChat",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChatLib::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChatLib-Debug-6c4786dab8f3d0b07336.json",
+					"name" : "SimpleChatLib",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChatLib_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChatLib_autogen-Debug-e97763f2e6019276b825.json",
+					"name" : "SimpleChatLib_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChatLib_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChatLib_autogen_timestamp_deps-Debug-85cb106b5a20013e9384.json",
+					"name" : "SimpleChatLib_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "SimpleChatTests::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-SimpleChatTests-Debug-c6e782533f066f99fc04.json",
+					"name" : "SimpleChatTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "SimpleChatTests_autogen::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-SimpleChatTests_autogen-Debug-7103508288a8571706ce.json",
+					"name" : "SimpleChatTests_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "SimpleChatTests_autogen_timestamp_deps::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-SimpleChatTests_autogen_timestamp_deps-Debug-13da33ef1bfb2237cc9c.json",
+					"name" : "SimpleChatTests_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChat_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChat_autogen-Debug-007e99459eb2a1f7df18.json",
+					"name" : "SimpleChat_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChat_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChat_autogen_timestamp_deps-Debug-fc9d4d67597a9555b01d.json",
+					"name" : "SimpleChat_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChat_copy_apk_dependencies::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChat_copy_apk_dependencies-Debug-2332ccd32ce7099bb63b.json",
+					"name" : "SimpleChat_copy_apk_dependencies",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChat_make_aab::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChat_make_aab-Debug-13ebb37bed6243e883c6.json",
+					"name" : "SimpleChat_make_aab",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChat_make_aar::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChat_make_aar-Debug-6ce1b925a857aab34387.json",
+					"name" : "SimpleChat_make_aar",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChat_make_apk::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChat_make_apk-Debug-9b5a1f16d6ebaad8b82b.json",
+					"name" : "SimpleChat_make_apk",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChat_prepare_apk_dir::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChat_prepare_apk_dir-Debug-0b4ff8be6fe4ff97d662.json",
+					"name" : "SimpleChat_prepare_apk_dir",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "_qt_internal_apk_dependencies::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-_qt_internal_apk_dependencies-Debug-abb5f1f5e4b7bc3d7791.json",
+					"name" : "_qt_internal_apk_dependencies",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "aab::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-aab-Debug-489cc2c603b0ca4105f1.json",
+					"name" : "aab",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "aar::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-aar-Debug-73d0be8d86b8419e22ee.json",
+					"name" : "aar",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "apk::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-apk-Debug-bfb1699e043199404c45.json",
+					"name" : "apk",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "apk_all::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-apk_all-Debug-03f336be2a79cbe5f26d.json",
+					"name" : "apk_all",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qt_internal_plugins::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qt_internal_plugins-Debug-71a095ba2add7aad81de.json",
+					"name" : "qt_internal_plugins",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Debug",
+		"source" : "C:/cpp/projectsQt/SimpleChat"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

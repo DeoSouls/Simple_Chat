@@ -1,0 +1,18 @@
+{
+    "classes": [
+        {
+            "className": "SwitchChatButton",
+            "lineNumber": 6,
+            "object": true,
+            "qualifiedClassName": "SwitchChatButton",
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QPushButton"
+                }
+            ]
+        }
+    ],
+    "inputFile": "switchchatbutton.h",
+    "outputRevision": 68
+}

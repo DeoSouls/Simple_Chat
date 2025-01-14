@@ -1,0 +1,179 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-5e1e86bb7c2c41f1834c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						10,
+						11
+					]
+				},
+				{
+					"build" : "tests",
+					"jsonFile" : "directory-tests-Debug-70e4927a02b591d5c1f8.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "tests",
+					"targetIndexes" : 
+					[
+						7,
+						8,
+						9
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "SimpleChat",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ChatServer::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ChatServer-Debug-c0e779638aadbf08e6cd.json",
+					"name" : "ChatServer",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ChatServer_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ChatServer_autogen-Debug-9adefa013226752e126a.json",
+					"name" : "ChatServer_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ChatServer_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ChatServer_autogen_timestamp_deps-Debug-a561f33c087aa3a1ddbd.json",
+					"name" : "ChatServer_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChat::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChat-Debug-5c4d3c36878c8bc80856.json",
+					"name" : "SimpleChat",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChatLib::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChatLib-Debug-38767538c89918dc37c8.json",
+					"name" : "SimpleChatLib",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChatLib_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChatLib_autogen-Debug-267eff2f94aa4edfcaea.json",
+					"name" : "SimpleChatLib_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChatLib_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChatLib_autogen_timestamp_deps-Debug-85cb106b5a20013e9384.json",
+					"name" : "SimpleChatLib_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "SimpleChatTests::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-SimpleChatTests-Debug-9e596a958980cfb4ca05.json",
+					"name" : "SimpleChatTests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "SimpleChatTests_autogen::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-SimpleChatTests_autogen-Debug-cf2ea4cbee968317a09a.json",
+					"name" : "SimpleChatTests_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "SimpleChatTests_autogen_timestamp_deps::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-SimpleChatTests_autogen_timestamp_deps-Debug-13da33ef1bfb2237cc9c.json",
+					"name" : "SimpleChatTests_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChat_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChat_autogen-Debug-92324bd327bba408830e.json",
+					"name" : "SimpleChat_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SimpleChat_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SimpleChat_autogen_timestamp_deps-Debug-fc9d4d67597a9555b01d.json",
+					"name" : "SimpleChat_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug",
+		"source" : "C:/cpp/projectsQt/SimpleChat"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

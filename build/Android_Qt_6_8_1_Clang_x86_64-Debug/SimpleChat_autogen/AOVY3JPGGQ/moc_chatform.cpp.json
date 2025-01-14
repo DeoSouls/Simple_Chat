@@ -1,0 +1,26 @@
+{
+    "classes": [
+        {
+            "className": "ChatForm",
+            "lineNumber": 12,
+            "object": true,
+            "qualifiedClassName": "ChatForm",
+            "slots": [
+                {
+                    "access": "private",
+                    "index": 0,
+                    "name": "toggleMenu",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QWidget"
+                }
+            ]
+        }
+    ],
+    "inputFile": "chatform.h",
+    "outputRevision": 68
+}

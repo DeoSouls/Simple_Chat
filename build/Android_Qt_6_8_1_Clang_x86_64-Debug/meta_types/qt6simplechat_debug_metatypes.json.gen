@@ -1,0 +1,476 @@
+[
+    {
+        "classes": [
+            {
+                "className": "ChatForm",
+                "lineNumber": 12,
+                "object": true,
+                "qualifiedClassName": "ChatForm",
+                "slots": [
+                    {
+                        "access": "private",
+                        "index": 0,
+                        "name": "toggleMenu",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QWidget"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "chatform.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "MessageContainer",
+                "lineNumber": 8,
+                "object": true,
+                "qualifiedClassName": "MessageContainer",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QWidget"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "messagecontainer.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "UserChoice",
+                "lineNumber": 10,
+                "object": true,
+                "qualifiedClassName": "UserChoice",
+                "slots": [
+                    {
+                        "access": "public",
+                        "index": 0,
+                        "name": "addMenuUser",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 1,
+                        "name": "returnChat",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "current",
+                                "type": "QModelIndex"
+                            }
+                        ],
+                        "index": 2,
+                        "name": "createChat",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QWidget"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "userchoice.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "UserChoiceModel",
+                "lineNumber": 13,
+                "object": true,
+                "qualifiedClassName": "UserChoiceModel",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QAbstractListModel"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "userchoicemodel.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "UserItemDelegate",
+                "lineNumber": 7,
+                "object": true,
+                "qualifiedClassName": "UserItemDelegate",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QStyledItemDelegate"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "useritemdelegate.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "SwitchChatButton",
+                "lineNumber": 6,
+                "object": true,
+                "qualifiedClassName": "SwitchChatButton",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QPushButton"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "switchchatbutton.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "SwitchChatContainer",
+                "lineNumber": 13,
+                "object": true,
+                "qualifiedClassName": "SwitchChatContainer",
+                "slots": [
+                    {
+                        "access": "public",
+                        "index": 0,
+                        "name": "addSwitchButtons",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "index",
+                                "type": "int"
+                            }
+                        ],
+                        "index": 1,
+                        "name": "updateStatus",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 2,
+                        "name": "updateButtons",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 3,
+                        "name": "showChat",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QWidget"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "switchchatcontainer.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "LoginButton",
+                "lineNumber": 8,
+                "object": true,
+                "qualifiedClassName": "LoginButton",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QPushButton"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "loginbutton.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "LoginForm",
+                "lineNumber": 12,
+                "object": true,
+                "qualifiedClassName": "LoginForm",
+                "slots": [
+                    {
+                        "access": "public",
+                        "index": 0,
+                        "name": "addLogupForm",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 1,
+                        "name": "login",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 2,
+                        "name": "connectToBaseData",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QWidget"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "loginform.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "ChatContent",
+                "lineNumber": 14,
+                "object": true,
+                "qualifiedClassName": "ChatContent",
+                "slots": [
+                    {
+                        "access": "public",
+                        "index": 0,
+                        "name": "sendMessage",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 1,
+                        "name": "resizeInputField",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "message",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 2,
+                        "name": "addMessageToChat",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 3,
+                        "name": "onAttachImageButtonClicked",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QWidget"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "chatcontent.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "ChatMessageModel",
+                "lineNumber": 22,
+                "object": true,
+                "qualifiedClassName": "ChatMessageModel",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QAbstractListModel"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "chatmessagemodel.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "InfoPanelChat",
+                "lineNumber": 7,
+                "object": true,
+                "qualifiedClassName": "InfoPanelChat",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QWidget"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "infopanelchat.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "MessageItemDelegate",
+                "lineNumber": 8,
+                "object": true,
+                "qualifiedClassName": "MessageItemDelegate",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QStyledItemDelegate"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "messageitemdelegate.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "ChatServer",
+                "lineNumber": 9,
+                "object": true,
+                "qualifiedClassName": "ChatServer",
+                "signals": [
+                    {
+                        "access": "public",
+                        "index": 0,
+                        "name": "closed",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "private",
+                        "index": 1,
+                        "name": "onNewConnection",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "message",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 2,
+                        "name": "onTextMessageReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 3,
+                        "name": "onClientDisconnected",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "chatserver.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "InputMessage",
+                "lineNumber": 7,
+                "object": true,
+                "qualifiedClassName": "InputMessage",
+                "slots": [
+                    {
+                        "access": "private",
+                        "index": 0,
+                        "name": "adjustHeight",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QTextEdit"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "inputmessage.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "Mainwindow",
+                "lineNumber": 13,
+                "object": true,
+                "qualifiedClassName": "Mainwindow",
+                "slots": [
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "login",
+                                "type": "LoginForm*"
+                            }
+                        ],
+                        "index": 0,
+                        "name": "onLoginClicked",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "log",
+                                "type": "LoginForm*"
+                            }
+                        ],
+                        "index": 1,
+                        "name": "onLogupClicked",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QWidget"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "mainwindow.h",
+        "outputRevision": 68
+    }
+]

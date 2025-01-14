@@ -1,0 +1,18 @@
+{
+    "classes": [
+        {
+            "className": "ChatMessageModel",
+            "lineNumber": 22,
+            "object": true,
+            "qualifiedClassName": "ChatMessageModel",
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QAbstractListModel"
+                }
+            ]
+        }
+    ],
+    "inputFile": "chatmessagemodel.h",
+    "outputRevision": 68
+}
