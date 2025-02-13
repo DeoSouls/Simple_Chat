@@ -335,9 +335,21 @@
 			null
 		],
 		[
+			"C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/hoverlabel.h",
+			"MU",
+			"PVAUTHT5OE/moc_hoverlabel.cpp",
+			null
+		],
+		[
 			"C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopanelchat.h",
 			"MU",
 			"PVAUTHT5OE/moc_infopanelchat.cpp",
+			null
+		],
+		[
+			"C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopopup.h",
+			"MU",
+			"PVAUTHT5OE/moc_infopopup.cpp",
 			null
 		],
 		[
@@ -506,7 +518,17 @@
 			null
 		],
 		[
+			"C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/hoverlabel.cpp",
+			"MU",
+			null
+		],
+		[
 			"C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopanelchat.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopopup.cpp",
 			"MU",
 			null
 		],

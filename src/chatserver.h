@@ -18,6 +18,7 @@ class ChatServer : public QObject {
         void onNewConnection();
         void onTextMessageReceived(const QString &message);
         void onClientDisconnected();
+
         void handleRegistration(QWebSocket* senderClient, const QJsonObject &message);
         void handleLogin(QWebSocket* senderClient, const QJsonObject &message);
         void handleSendMessage(QWebSocket* senderClient, const QJsonObject &message);
@@ -28,6 +29,7 @@ class ChatServer : public QObject {
         void handleAddUsers(QWebSocket* senderClient, const QJsonObject &message);
         void handleCreateChat(QWebSocket* senderClient, const QJsonObject &message);
         void handleSearching(QWebSocket* senderClient, const QJsonObject &message);
+
         QSqlQuery executeQuery(const QString& command, const QVariantMap& params, const QString& errorMessage, const QString& error_type, QWebSocket* senderClient);
     private:
         QWebSocketServer* m_server;

@@ -6,6 +6,7 @@ enable_testing()
 # Поиск пакета Qt Test
 find_package(Qt${QT_VERSION_MAJOR}Test REQUIRED)
 
+
 # Добавление исполняемого файла для тестов как консольного приложения
 qt_add_executable(SimpleChatTests
     MANUAL_FINALIZATION
