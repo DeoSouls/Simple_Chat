@@ -42,11 +42,11 @@ SimpleChat - это клиент-серверное приложение для 
 
 ## Скриншоты
 
-<img src="https://github.com/user-attachments/assets/93054047-6c0e-4387-b8b5-a973db969408" width="33%" />
-<img src="https://github.com/user-attachments/assets/1fcb284d-9d67-43bd-b848-ca27058b66a0" width="33%" />
-<img src="https://github.com/user-attachments/assets/0ea12b97-030d-43e7-855e-4e768ed0a0d9" width="33%" />
-<img src="https://github.com/user-attachments/assets/77d33660-21aa-455d-9910-f705ddda0c57" width="33%" />
-<img src="https://github.com/user-attachments/assets/9f821cd5-cb31-4eeb-bd0b-fe962d34d619" width="33%" />
+<img src="https://github.com/user-attachments/assets/93054047-6c0e-4387-b8b5-a973db969408" width="30%" />
+<img src="https://github.com/user-attachments/assets/1fcb284d-9d67-43bd-b848-ca27058b66a0" width="30%" />
+<img src="https://github.com/user-attachments/assets/0ea12b97-030d-43e7-855e-4e768ed0a0d9" width="30%" />
+<img src="https://github.com/user-attachments/assets/77d33660-21aa-455d-9910-f705ddda0c57" width="30%" />
+<img src="https://github.com/user-attachments/assets/9f821cd5-cb31-4eeb-bd0b-fe962d34d619" width="30%" />
 
 # Установка и запуск
 
