@@ -16,6 +16,8 @@ class InfoPanelChat : public QWidget {
 
         QPushButton* searchingButton;
         QTextEdit* searchLine;
+        QLabel* labelChatIndex;
+        HoverLabel* nameChat;
     private:
         QHBoxLayout* panelLayout;
         QHBoxLayout* searchLayout;

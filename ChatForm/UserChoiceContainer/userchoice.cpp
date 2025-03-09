@@ -8,32 +8,40 @@
 
 UserChoice::UserChoice(int id, ChatForm* chatform, QWebSocket* m_client, QStackedWidget* stackedWidget, QWidget *parent)
     : currentUserId(id), chatform(chatform), m_socket(m_client), stackedWidget(stackedWidget), QWidget{parent} {
+
+    // Создаем вертикальный layout для размещения виджетов
     mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->setSpacing(0);
     mainLayout->setAlignment(Qt::AlignCenter);
     setStyleSheet("QWidget { background-color: #222; }");
 
+    // Подключаем обработчик входящих сообщений от сервера
     connect(m_socket, &QWebSocket::textMessageReceived, this, &UserChoice::handlerCommand);
 
     setLayout(mainLayout);
 }
 
+// Обработчик команд от сервера
 void UserChoice::handlerCommand(const QString& message) {
+    // Парсим JSON-сообщение
     QJsonDocument response_doc = QJsonDocument::fromJson(message.toUtf8());
     QJsonObject response_obj = response_doc.object();
     QString type = response_obj.value("type").toString();
 
+    // Обработка ошибки выбора пользователя
     if(type.contains("error_choice")) {
         QMessageBox::critical(this, "Ошибка: ", response_obj.value("message").toString());
         return;
     }
 
+    // Добавление пользователей в список
     if(type.contains("add_users")) {
         addUsers(response_obj);
     }
 }
 
+// Функция добавления меню выбора пользователей
 void UserChoice::addMenuUser() {
     clearLayout(mainLayout);
 
@@ -44,9 +52,10 @@ void UserChoice::addMenuUser() {
     returnMain->setFixedHeight(25);
     connect(returnMain, &QPushButton::clicked, this, &UserChoice::returnChat);
 
+    // Создание модели и представления списка пользователей
     userModel = new UserChoiceModel(this);
 
-    // View для пользователей
+    // Использование делегата для кастомного отображения элементов списка
     userView = new QListView(this);
     userView->setModel(userModel);
     userView->setItemDelegate(new UserItemDelegate(this));
@@ -66,6 +75,7 @@ void UserChoice::addMenuUser() {
     mainLayout->addWidget(returnMain);
     mainLayout->addWidget(userView);
 
+    // Запрос списка пользователей у сервера
     QJsonObject mesObj;
     mesObj["action"] = "add_users";
     mesObj["userid"] = currentUserId;
@@ -75,6 +85,7 @@ void UserChoice::addMenuUser() {
     m_socket->sendTextMessage(jsonString);
 }
 
+// Метод добавления пользователей в модель списка из JSON-ответа сервера
 void UserChoice::addUsers(const QJsonObject& message) {
     QJsonArray messageArray = message["data"].toArray();
 
@@ -91,6 +102,7 @@ void UserChoice::addUsers(const QJsonObject& message) {
     }
 }
 
+// Очистка текущего макета перед добавлением новых виджетов
 void UserChoice::clearLayout(QLayout *layout) {
     if (!layout)
         return;
@@ -103,12 +115,14 @@ void UserChoice::clearLayout(QLayout *layout) {
     }
 }
 
+// Создание нового чата при выборе пользователя из списка
 void UserChoice::createChat(const QModelIndex &current) {
     if (!current.isValid()) return;
 
     QVariant data = current.data(UserChoiceModel::UserChatRole);
     Users user = data.value<Users>();
 
+    // Формируем JSON-запрос на сервер для создания нового чата
     QJsonObject messageObj;
     messageObj["action"] = "create_chat";
     messageObj["userid"] = currentUserId;
@@ -128,9 +142,10 @@ void UserChoice::createChat(const QModelIndex &current) {
 
     m_socket->sendTextMessage(jsonString2);
 
-    stackedWidget->setCurrentIndex(1);
+    stackedWidget->setCurrentIndex(1); // переключаем экран на чат после создания
 }
 
+// Возврат на основной экран чата
 void UserChoice::returnChat() {
     stackedWidget->setCurrentIndex(1);
 }

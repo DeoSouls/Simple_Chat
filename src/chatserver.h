@@ -26,6 +26,7 @@ class ChatServer : public QObject {
         void handleAddChats(QWebSocket* senderClient, const QJsonObject &message);
         void handleUpdateChats(QWebSocket* senderClient, const QJsonObject &message);
         void handleUpdateStatusMessages(QWebSocket* senderClient, const QJsonObject &message);
+        void handleUpdateStatusUser(QWebSocket* senderClient, const QJsonObject &message);
         void handleAddUsers(QWebSocket* senderClient, const QJsonObject &message);
         void handleCreateChat(QWebSocket* senderClient, const QJsonObject &message);
         void handleSearching(QWebSocket* senderClient, const QJsonObject &message);

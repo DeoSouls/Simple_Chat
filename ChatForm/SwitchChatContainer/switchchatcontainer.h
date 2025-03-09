@@ -36,6 +36,7 @@ class SwitchChatContainer : public QWidget {
     private slots:
         void updateHandler(const QString& message);
         void updateButtons(const QJsonObject& message);
+        void updateStatus(const QJsonObject& message);
         void showChat();
         void openSearch();
 };

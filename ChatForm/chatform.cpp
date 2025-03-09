@@ -6,15 +6,18 @@
 ChatForm::ChatForm(int userId, QString userFirstname, QString userLastname, QWebSocket* m_client, QWidget *parent)
     : userId(userId), userFirstname(userFirstname), userLastname(userLastname), m_socket(m_client), QWidget{parent} {
 
+    // Горизонтальное выравнивание формы чата
     layoutChat = new QHBoxLayout(this);
     layoutChat->setContentsMargins(0,0,0,0);
     layoutChat->setSpacing(0);
 
+    // Контейнер с чатами пользователя
     sContainer = new SwitchChatContainer(userId, userFirstname, userLastname, m_client);
 
     layoutChat->addWidget(sContainer);
     layoutChat->addWidget(sContainer->switchChats);
 
+    // Выдвижное меню с настройками
     menu = new QFrame(this);
     menu->setStyleSheet("QFrame { background-color: #222; color: white; border-right: 1px solid #444;} "
                         "QPushButton { border: none; border-top: 1px solid #333; font-size: 14px }"
@@ -23,6 +26,7 @@ ChatForm::ChatForm(int userId, QString userFirstname, QString userLastname, QWeb
     menu->setGeometry(-200, 0, 200, height());
     menu->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
+    // Содержимое меню
     QVBoxLayout* menuLayout = new QVBoxLayout(menu);
     startChatting = new QPushButton("Start Chatting");
     startChatting->setFixedSize(150, 35);
@@ -35,6 +39,7 @@ ChatForm::ChatForm(int userId, QString userFirstname, QString userLastname, QWeb
     menuLayout->setAlignment(Qt::AlignCenter);
     menuLayout->setSpacing(30);
 
+    // Анимация выдвижения
     animation = new QPropertyAnimation(menu, "geometry", this);
     animation->setDuration(200);
 
@@ -46,6 +51,7 @@ ChatForm::ChatForm(int userId, QString userFirstname, QString userLastname, QWeb
     setLayout(layoutChat);
 }
 
+// Метод реализует переключение видимости меню через анимацию
 void ChatForm::toggleMenu() {
     if (animation->state() == QAbstractAnimation::Running) {
         return;
@@ -65,6 +71,9 @@ void ChatForm::toggleMenu() {
     animation->start();
 }
 
+// Метод переопределяет обработчик события изменения размера,
+// чтобы боковое меню всегда сохраняло правильную высоту при изменении размера окна.
+// Это необходимо, поскольку меню использует абсолютное позиционирование через setGeometry()
 void ChatForm::resizeEvent(QResizeEvent* event) {
     QWidget::resizeEvent(event);
 

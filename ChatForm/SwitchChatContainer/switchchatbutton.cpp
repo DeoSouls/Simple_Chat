@@ -2,8 +2,8 @@
 #include <QMouseEvent>
 #include <QPainter>
 
-SwitchChatButton::SwitchChatButton(const QString& text, int index, int chatId, QWidget *parent)
-    : QWidget{parent}, m_chatName(text), switchIndex(index), chatId(chatId) {
+SwitchChatButton::SwitchChatButton(const QString& text, const QString& username, int index, int chatId, QWidget *parent)
+    : QWidget{parent}, m_chatName(text), m_userName(username), switchIndex(index), chatId(chatId) {
     m_unreadCount = 0;
     setFixedHeight(70);
     setFont(QFont("Helvetica", 11, 200));
@@ -14,7 +14,8 @@ void SwitchChatButton::setChatName(const QString& chatName) {
     update(); // Перерисовываем кнопку
 }
 
-void SwitchChatButton::setLastMessage(int unreadCount, const QString& lastMessage) {
+void SwitchChatButton::setLastMessage(int unreadCount, const QString& lastMessage, const QString& userName) {
+    m_userName = userName;
     m_lastMessage = lastMessage;
     m_unreadCount = unreadCount;
     update(); // Перерисовываем кнопку
@@ -60,7 +61,7 @@ void SwitchChatButton::paintEvent(QPaintEvent* event){
     int maxRectWidth = rect().width() * 0.4;
     if(!m_lastMessage.isEmpty()) {
         // Прозрачный прямоугольник
-        QString text = "user: "+m_lastMessage+"...";
+        QString text = m_userName+": "+m_lastMessage+"...";
         QRect messageRect = QRect(70, 40, maxRectWidth, 20);
         QColor semiTransparentBlack(245, 245, 245, 40); // Черный цвет с прозрачностью
         painter.setBrush(semiTransparentBlack);

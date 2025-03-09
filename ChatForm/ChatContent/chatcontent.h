@@ -8,21 +8,24 @@
 #include <QListView>
 #include <QWebSocket>
 #include "InputMessage/inputmessage.h"
-#include "MessageContainer/messagecontainer.h"
 #include "chatmessagemodel.h"
 #include "infopanelchat.h"
 
 class ChatContent : public QWidget {
         Q_OBJECT
     public:
-        ChatContent(const QString& chatName, const QString& email, bool status, int index, int id, QWebSocket* m_client, QWidget *parent = nullptr);
+        explicit ChatContent(const QString& chatName, const QString& selfName, const QString& email, bool status, int index, int id, int user2id, QWebSocket* m_client, QWidget *parent = nullptr);
 
+        int user2Id;
+        InfoPanelChat* infoPanelChat;
     private:
         void loadMessagesFromDatabase(const QString &message);
+        void handleMessagesToChat(const QJsonArray& messagesArray, bool hasPag);
         template <typename T> QVector<QVector<T>> splitArray(const QVector<T>& vector, int chunkSize);
 
         int chatIndex;
         int userId;
+        QString selfName;
         // под вопросом
         QList<QString> messages;
         QList<QString> currentUserMesssages;
@@ -34,7 +37,6 @@ class ChatContent : public QWidget {
 
         QWebSocket* m_socket;
         InputMessage* inputMessage;
-        InfoPanelChat* infoPanelChat;
         QFont font3;
         QFont font1;
 

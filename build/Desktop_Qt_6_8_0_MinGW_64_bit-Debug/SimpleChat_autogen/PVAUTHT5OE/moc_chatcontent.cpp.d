@@ -439,7 +439,6 @@ C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/SimpleCha
   C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/vadefs.h \
   C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h \
   C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/InputMessage/inputmessage.h \
-  C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/MessageContainer/messagecontainer.h \
   C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatmessagemodel.h \
   C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/hoverlabel.h \
   C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/infopanelchat.h \

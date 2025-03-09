@@ -17,19 +17,27 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 
-ChatContent::ChatContent(const QString& chatName, const QString& email, bool status, int index, int id, QWebSocket* m_client, QWidget *parent) : QWidget{parent}, chatIndex(index), userId(id), m_socket(m_client) {
+// Конструктор класса ChatContent, создает основной интерфейс чата
+ChatContent::ChatContent(const QString& chatName, const QString& selfName, const QString& email, bool status, int index, int id, int user2id, QWebSocket* m_client, QWidget *parent)
+    : QWidget{parent}, chatIndex(index), selfName(selfName), userId(id), user2Id(user2id), m_socket(m_client) {
+
+    // Создание основного вертикального макета для размещения элементов интерфейса
     chatContentLayout = new QVBoxLayout(this);
     chatContentLayout->setContentsMargins(0,0,0,0);
     chatContentLayout->setAlignment(Qt::AlignTop);
     chatContentLayout->setSpacing(0);
+
+    // Установка стиля для основного виджета
     setStyleSheet("QWidget { background-color: #444; }");
-
-    messageModel = new ChatMessageModel(this);
-
-    connect(m_socket, &QWebSocket::textMessageReceived, this, &ChatContent::addMessageToChat);
-
     font1 = QFont("Segoe UI", 12);
 
+    // Создание модели данных для сообщений
+    messageModel = new ChatMessageModel(this);
+
+    // Подключение обработчика входящих сообщений от сервера
+    connect(m_socket, &QWebSocket::textMessageReceived, this, &ChatContent::addMessageToChat);
+
+    // Запрос на получение сообщений чата с сервера
     QJsonObject aboutChat;
     aboutChat["action"] = "chat_messages";
     aboutChat["chatid"] = chatIndex;
@@ -165,6 +173,7 @@ ChatContent::ChatContent(const QString& chatName, const QString& email, bool sta
         }
     });
 
+    // Добавление всех элементов в основной макет
     chatContentLayout->addWidget(infoPanelChat);
     chatContentLayout->addWidget(messageView);
     chatContentLayout->addWidget(inputField);
@@ -179,40 +188,13 @@ void ChatContent::loadMessagesFromDatabase(const QString &message) {
     QString type = response.value("type").toString();
 
     QJsonArray messagesArray;
-    QVector<ChatMessage> messagesPag;
     if(type.contains("chat_info")) {
         messagesArray = response["data"].toArray();
-
-        for(const QJsonValue& value : messagesArray) {
-            QJsonObject messageObj = value.toObject();
-
-            QString firstname = messageObj["firstname"].toString();
-            int user_id = messageObj["user_id"].toInt();
-            QString body = messageObj["body"].toString();
-            QString created_at = messageObj["created_at"].toString();
-            QString image_data = messageObj["image_data"].toString();
-
-            ChatMessage msg;
-            msg.username = firstname;
-            msg.message = body;
-            msg.isMine = (user_id == userId);
-            msg.timestamp = QDateTime::fromString(created_at, Qt::ISODateWithMs);
-            msg.hasImage = !image_data.isEmpty();
-
-            if(msg.hasImage) {
-                QByteArray image = QByteArray::fromBase64(image_data.toUtf8());
-                msg.imageData = image;
-            }
-
-            messagesPag.push_back(msg);
-            // Реализация без пагинации
-            // messageModel->addMessage(msg);
-        }
-
-        pagination = splitArray(messagesPag, 10);
-
+        // Обработка массива сообщений
+        handleMessagesToChat(messagesArray, true);
         emit messageView->verticalScrollBar()->valueChanged(0);
 
+        // Другой вариант пагинации
         // if (!pagination.isEmpty()) {
         //     QVector<ChatMessage> lastPage = pagination.last();
 
@@ -233,8 +215,8 @@ void ChatContent::loadMessagesFromDatabase(const QString &message) {
         msg.username = firstname;
         msg.message = body;
         msg.isMine = (user_id == userId);
-        qDebug() << created_at;
-        msg.timestamp = QDateTime::fromString(created_at, Qt::ISODateWithMs);
+        msg.timestamp = QDateTime::fromString(created_at);
+        qDebug() << msg.timestamp;
         msg.hasImage = !image_data.isEmpty();
 
         if(msg.hasImage) {
@@ -250,36 +232,48 @@ void ChatContent::loadMessagesFromDatabase(const QString &message) {
 
         QJsonDocument mesDoc(messageObj);
         QString jsonString2 = mesDoc.toJson(QJsonDocument::Compact);
-
         m_socket->sendTextMessage(jsonString2);
     } else if (type.contains("searching")) {
         allMessages = messageModel->getMessages();
         messageModel->clearMessage();
 
         messagesArray = response.value("data").toArray();
-        for(const QJsonValue& value : messagesArray) {
-            QJsonObject messageObj = value.toObject();
+        // Обработка массива сообщений
+        handleMessagesToChat(messagesArray, false);
+    }
+}
 
-            QString firstname = messageObj["firstname"].toString();
-            int user_id = messageObj["user_id"].toInt();
-            QString body = messageObj["body"].toString();
-            QString created_at = messageObj["created_at"].toString();
-            QString image_data = messageObj["image_data"].toString();
+void ChatContent::handleMessagesToChat(const QJsonArray& messagesArray, bool hasPag) {
+    QVector<ChatMessage> messagesPag;
+    for(const QJsonValue& value : messagesArray) {
+        QJsonObject messageObj = value.toObject();
 
-            ChatMessage msg;
-            msg.username = firstname;
-            msg.message = body;
-            msg.isMine = (user_id == userId);
-            msg.timestamp = QDateTime::fromString(created_at, Qt::ISODateWithMs);
-            msg.hasImage = !image_data.isEmpty();
+        QString firstname = messageObj["firstname"].toString();
+        int user_id = messageObj["user_id"].toInt();
+        QString body = messageObj["body"].toString();
+        QString created_at = messageObj["created_at"].toString();
+        QString image_data = messageObj["image_data"].toString();
 
-            if(msg.hasImage) {
-                QByteArray image = QByteArray::fromBase64(image_data.toUtf8());
-                msg.imageData = image;
-            }
+        ChatMessage msg;
+        msg.username = firstname;
+        msg.message = body;
+        msg.isMine = (user_id == userId);
+        msg.timestamp = QDateTime::fromString(created_at, Qt::ISODateWithMs);
+        msg.hasImage = !image_data.isEmpty();
 
+        if(msg.hasImage) {
+            QByteArray image = QByteArray::fromBase64(image_data.toUtf8());
+            msg.imageData = image;
+        }
+
+        if(hasPag) {
+            messagesPag.push_back(msg);
+        } else {
             messageModel->addMessage(msg);
         }
+    }
+    if(hasPag) {
+        pagination = splitArray(messagesPag, 10);
     }
 }
 
@@ -295,6 +289,7 @@ void ChatContent::addMessageToChat(const QString &message) {
     messageView->scrollToBottom();
 }
 
+// Метод для отправки сообщения на сервер
 void ChatContent::sendMessage() {
     QString text = inputMessage->toPlainText().trimmed();
 
@@ -302,6 +297,7 @@ void ChatContent::sendMessage() {
         return;
     }
 
+    // Обработка прикрепленного изображения
     QByteArray pixmapBytes;
     if(!m_attachedImage.isNull()) {
         QBuffer buffer(&pixmapBytes);
@@ -314,8 +310,9 @@ void ChatContent::sendMessage() {
         buffer.close();
     }
 
+    // Создание объекта сообщения для добавления в модель
     ChatMessage msg;
-    msg.username = "Me";
+    msg.username = selfName;
     msg.message = text;
     msg.isMine = true;
     msg.timestamp = QDateTime::currentDateTime();
@@ -323,24 +320,38 @@ void ChatContent::sendMessage() {
     if(msg.hasImage) {
         msg.imageData = pixmapBytes;
     }
+
+    // Добавление сообщения в модель и отправка на сервер
     messageModel->addMessage(msg);
 
+    // Формирование JSON-объекта для отправки на сервер
     QJsonObject messageObject;
     messageObject["action"] = "send_message";
     messageObject["user_id"] = userId;
+    messageObject["selfName"] = selfName;
     messageObject["body"] = text;
     messageObject["chat_id"] = chatIndex;
     if (!pixmapBytes.isEmpty()) {
         messageObject["image_data"] = QString::fromUtf8(pixmapBytes.toBase64());
     }
-    QJsonDocument messageDoc(messageObject);
-    QString jsonString = messageDoc.toJson();
 
+    // Отправка сообщения на сервер
+    QJsonDocument messageDoc(messageObject);
+    QString jsonString = messageDoc.toJson();    
     m_socket->sendTextMessage(jsonString);
 
-    messageView->scrollToBottom();
-    inputMessage->clear();
+    // Отправка запроса на обновление переключателей чатов
+    QJsonObject messageObject2;
+    messageObject2["action"] = "update_chats";
+    messageObject2["userid"] = userId;
+    QJsonDocument messageDoc2(messageObject2);
+    QString jsonString2 = messageDoc2.toJson();
+    m_socket->sendTextMessage(jsonString2);
 
+    messageView->scrollToBottom();
+
+    // Очистка полей ввода и предпросмотра
+    inputMessage->clear();
     m_imagePreviewLabel->clear();
     m_attachedImage = QPixmap();
     imagePrev->hide();
@@ -389,11 +400,14 @@ QVector<QVector<T>> ChatContent::splitArray(const QVector<T>& vector, int chunkS
     return result;
 }
 
+// Метод для реализации пагинации сообщений при прокрутке вверх
 void ChatContent::scrollOnTop(int value) {
     QObject* obj = sender();
     QScrollBar* scroll = qobject_cast<QScrollBar*>(obj);
     int currentScrollValue = scroll->value();
     int previousMaximum = scroll->maximum();
+
+    // Если скролл достиг верха, загружаем следующую порцию сообщений
     if(value == 0) {
         qDebug() << "Скрол наверху";
         if (!pagination.isEmpty()) {
@@ -411,6 +425,7 @@ void ChatContent::scrollOnTop(int value) {
     }
 }
 
+// Демо-представление изображения
 void ChatContent::onAttachImageButtonClicked() {
     QString fileName = QFileDialog::getOpenFileName(this, "Select Image", "", "Images (*.png *.jpg *.jpeg *.bmp)");
     if (!fileName.isEmpty()) {

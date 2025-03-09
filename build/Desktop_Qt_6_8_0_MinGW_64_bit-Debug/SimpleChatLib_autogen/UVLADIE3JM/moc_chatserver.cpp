@@ -53,6 +53,7 @@ static constexpr auto qt_meta_stringdata_ZN10ChatServerE = QtMocHelpers::stringD
     "handleAddChats",
     "handleUpdateChats",
     "handleUpdateStatusMessages",
+    "handleUpdateStatusUser",
     "handleAddUsers",
     "handleCreateChat",
     "handleSearching",
@@ -74,7 +75,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10ChatServerE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      16,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -82,23 +83,24 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10ChatServerE[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,  104,    2, 0x06,    1 /* Public */,
+       1,    0,  110,    2, 0x06,    1 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       3,    0,  105,    2, 0x08,    2 /* Private */,
-       4,    1,  106,    2, 0x08,    3 /* Private */,
-       6,    0,  109,    2, 0x08,    5 /* Private */,
-       7,    2,  110,    2, 0x08,    6 /* Private */,
-      10,    2,  115,    2, 0x08,    9 /* Private */,
-      11,    2,  120,    2, 0x08,   12 /* Private */,
-      12,    2,  125,    2, 0x08,   15 /* Private */,
-      13,    2,  130,    2, 0x08,   18 /* Private */,
-      14,    2,  135,    2, 0x08,   21 /* Private */,
-      15,    2,  140,    2, 0x08,   24 /* Private */,
-      16,    2,  145,    2, 0x08,   27 /* Private */,
-      17,    2,  150,    2, 0x08,   30 /* Private */,
-      18,    2,  155,    2, 0x08,   33 /* Private */,
-      19,    5,  160,    2, 0x08,   36 /* Private */,
+       3,    0,  111,    2, 0x08,    2 /* Private */,
+       4,    1,  112,    2, 0x08,    3 /* Private */,
+       6,    0,  115,    2, 0x08,    5 /* Private */,
+       7,    2,  116,    2, 0x08,    6 /* Private */,
+      10,    2,  121,    2, 0x08,    9 /* Private */,
+      11,    2,  126,    2, 0x08,   12 /* Private */,
+      12,    2,  131,    2, 0x08,   15 /* Private */,
+      13,    2,  136,    2, 0x08,   18 /* Private */,
+      14,    2,  141,    2, 0x08,   21 /* Private */,
+      15,    2,  146,    2, 0x08,   24 /* Private */,
+      16,    2,  151,    2, 0x08,   27 /* Private */,
+      17,    2,  156,    2, 0x08,   30 /* Private */,
+      18,    2,  161,    2, 0x08,   33 /* Private */,
+      19,    2,  166,    2, 0x08,   36 /* Private */,
+      20,    5,  171,    2, 0x08,   39 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -117,7 +119,8 @@ Q_CONSTINIT static const uint qt_meta_data_ZN10ChatServerE[] = {
     QMetaType::Void, 0x80000000 | 8, QMetaType::QJsonObject,    9,    5,
     QMetaType::Void, 0x80000000 | 8, QMetaType::QJsonObject,    9,    5,
     QMetaType::Void, 0x80000000 | 8, QMetaType::QJsonObject,    9,    5,
-    0x80000000 | 20, QMetaType::QString, 0x80000000 | 22, QMetaType::QString, QMetaType::QString, 0x80000000 | 8,   21,   23,   24,   25,    9,
+    QMetaType::Void, 0x80000000 | 8, QMetaType::QJsonObject,    9,    5,
+    0x80000000 | 21, QMetaType::QString, 0x80000000 | 23, QMetaType::QString, QMetaType::QString, 0x80000000 | 8,   22,   24,   25,   26,    9,
 
        0        // eod
 };
@@ -168,6 +171,10 @@ Q_CONSTINIT const QMetaObject ChatServer::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<QWebSocket *, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QJsonObject &, std::false_type>,
+        // method 'handleUpdateStatusUser'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QWebSocket *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QJsonObject &, std::false_type>,
         // method 'handleAddUsers'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<QWebSocket *, std::false_type>,
@@ -207,10 +214,11 @@ void ChatServer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 8: _t->handleAddChats((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
         case 9: _t->handleUpdateChats((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
         case 10: _t->handleUpdateStatusMessages((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
-        case 11: _t->handleAddUsers((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
-        case 12: _t->handleCreateChat((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
-        case 13: _t->handleSearching((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
-        case 14: { QSqlQuery _r = _t->executeQuery((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QVariantMap>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[5])));
+        case 11: _t->handleUpdateStatusUser((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
+        case 12: _t->handleAddUsers((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
+        case 13: _t->handleCreateChat((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
+        case 14: _t->handleSearching((*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QJsonObject>>(_a[2]))); break;
+        case 15: { QSqlQuery _r = _t->executeQuery((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QVariantMap>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<QWebSocket*>>(_a[5])));
             if (_a[0]) *reinterpret_cast< QSqlQuery*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
@@ -291,6 +299,13 @@ void ChatServer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 14:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QWebSocket* >(); break;
+            }
+            break;
+        case 15:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
             case 4:
                 *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QWebSocket* >(); break;
             }
@@ -328,14 +343,14 @@ int ChatServer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 16;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 15)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 16;
     }
     return _id;
 }

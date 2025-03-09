@@ -25,7 +25,7 @@ void TestChatContent::testInitialState()
     QWebSocket socket;
 
     // Создаём экземпляр ChatContent
-    ChatContent chatContent("Test Chat", "mail", true, 1, 1001, &socket);
+    ChatContent chatContent("Test Chat", "Me", "mail", true, 1, 1001, 1000, &socket);
     chatContent.show();
 
     // Проверяем, что модель пуста
@@ -45,7 +45,7 @@ void TestChatContent::testInitialState()
 void TestChatContent::testAddMessage()
 {
     QWebSocket socket;
-    ChatContent chatContent("Test Chat", "mail", true, 1, 1001, &socket);
+    ChatContent chatContent("Test Chat", "Me", "mail", true, 1, 1001, 1000, &socket);
     chatContent.show();
 
     ChatMessageModel* model = chatContent.findChild<ChatMessageModel*>();
@@ -77,7 +77,7 @@ void TestChatContent::testAddMessage()
 void TestChatContent::testClearMessages()
 {
     QWebSocket socket;
-    ChatContent chatContent("Test Chat", "mail", true, 1, 1001, &socket);
+    ChatContent chatContent("Test Chat", "Me", "mail", true, 1, 1001, 1000, &socket);
     chatContent.show();
 
     ChatMessageModel* model = chatContent.findChild<ChatMessageModel*>();
@@ -106,7 +106,7 @@ void TestChatContent::testClearMessages()
 void TestChatContent::testSendMessage()
 {
     QWebSocket socket;
-    ChatContent chatContent("Test Chat", "mail", true, 1, 1001, &socket);
+    ChatContent chatContent("Test Chat", "Me", "mail", true, 1, 1001, 1000, &socket);
     chatContent.show();
 
     ChatMessageModel* model = chatContent.findChild<ChatMessageModel*>();

@@ -11,7 +11,7 @@
 		"C:/Qt/6.8.1/mingw_64/lib/cmake/Qt6Test/Qt6TestConfigVersion.cmake",
 		"C:/Qt/6.8.1/mingw_64/lib/cmake/Qt6Test/Qt6TestConfigVersionImpl.cmake",
 		"C:/Qt/6.8.1/mingw_64/lib/cmake/Qt6Test/Qt6TestConfig.cmake",
-		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake",
 		"C:/Qt/6.8.1/mingw_64/lib/cmake/Qt6Test/Qt6TestDependencies.cmake",
 		"C:/Qt/6.8.1/mingw_64/lib/cmake/Qt6Test/Qt6TestTargets.cmake",
 		"C:/Qt/6.8.1/mingw_64/lib/cmake/Qt6Test/Qt6TestAdditionalTargetInfo.cmake",
@@ -102,7 +102,7 @@
 		"-dM",
 		"-E",
 		"-c",
-		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeCXXCompilerABI.cpp"
+		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp"
 	],
 	"MOC_PREDEFS_FILE" : "C:/cpp/projectsQt/SimpleChat/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/tests/SimpleChatTests_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,

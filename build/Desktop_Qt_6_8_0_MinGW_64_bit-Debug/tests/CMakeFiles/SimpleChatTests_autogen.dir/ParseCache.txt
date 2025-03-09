@@ -1099,7 +1099,6 @@ C:/cpp/projectsQt/SimpleChat/tests/test_chatcontent.cpp
  mdp:C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h
  mdp:C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wctype.h
  mdp:C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/InputMessage/inputmessage.h
- mdp:C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/MessageContainer/messagecontainer.h
  mdp:C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatcontent.h
  mdp:C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/chatmessagemodel.h
  mdp:C:/cpp/projectsQt/SimpleChat/ChatForm/ChatContent/hoverlabel.h

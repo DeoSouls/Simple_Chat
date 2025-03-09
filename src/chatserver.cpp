@@ -73,6 +73,8 @@ void ChatServer::onTextMessageReceived(const QString &message) {
             handleUpdateChats(senderClient, message_obj);
         } else if (action == "update_stat") {
             handleUpdateStatusMessages(senderClient, message_obj);
+        } else if (action == "update_user") {
+            handleUpdateStatusUser(senderClient, message_obj);
         } else if (action == "add_users") {
             handleAddUsers(senderClient, message_obj);
         } else if (action == "create_chat") {
@@ -102,6 +104,7 @@ void ChatServer::handleRegistration(QWebSocket* senderClient, const QJsonObject 
         QString userFirstname = query.value("firstname").toString();
         QString userLastname = query.value("lastname").toString();
 
+        // Добавляем авторизованного пользователя
         m_autorizedClients[userid] = senderClient;
 
         messageObj["userid"] = userid;
@@ -128,6 +131,7 @@ void ChatServer::handleLogin(QWebSocket* senderClient, const QJsonObject &messag
         QString userLastname = query.value("lastname").toString();
         QString userPassword = query.value("password").toString();
 
+        // Добавляем авторизованного пользователя
         m_autorizedClients[userid] = senderClient;
         if(!password.contains(userPassword)) {
             return; ////
@@ -149,6 +153,7 @@ void ChatServer::handleSendMessage(QWebSocket* senderClient, const QJsonObject &
     if (senderClient) {
         int user_id = message.value("user_id").toInt();
         QString body = message.value("body").toString();
+        QString selfName = message.value("selfName").toString();
         int chat_id = message.value("chat_id").toInt();
         QDateTime created_at = QDateTime::currentDateTime();
         QByteArray imageData;
@@ -163,7 +168,7 @@ void ChatServer::handleSendMessage(QWebSocket* senderClient, const QJsonObject &
         query.bindValue(":user_id", user_id);
         query.bindValue(":body", body);
         query.bindValue(":chat_id", chat_id);
-        query.bindValue(":created_at", created_at);
+        query.bindValue(":created_at", created_at.toString(Qt::ISODateWithMs));
         query.bindValue(":image_data", imageData);
 
         if (!query.exec()) {
@@ -202,11 +207,16 @@ void ChatServer::handleSendMessage(QWebSocket* senderClient, const QJsonObject &
             QJsonObject sendMessage;
             sendMessage["type"] = "send";
             sendMessage["chatid"] = chat_id;
+            // Первая часть для чата
             sendMessage["user_id"] = user_id;
-            sendMessage["firstname"] = "Me";
+            sendMessage["firstname"] = selfName;
             sendMessage["body"] = body;
             sendMessage["created_at"] = created_at.toString();
             sendMessage["image_data"] = QString::fromUtf8(imageData.toBase64());
+            // Вторая для переключателя чатов
+            sendMessage["unreadCount"] = 0;
+            sendMessage["userLastMessage"] = selfName;
+            sendMessage["lastMessage"] = body;
             QJsonDocument messageDoc(sendMessage);
             QString jsonString = messageDoc.toJson(QJsonDocument::Compact);
 
@@ -257,29 +267,50 @@ void ChatServer::handleAddChats(QWebSocket* senderClient, const QJsonObject &mes
     int userid = message.value("userid").toInt();
 
     QSqlQuery query = executeQuery(
-        "SELECT chats.id AS chat_id, users.firstname, users.lastname, users.email, users.id AS user_id,"
-        "(SELECT messages.body FROM messages "
-        "WHERE messages.chat_id = chats.id "
-        "ORDER BY messages.created_at DESC LIMIT 1) AS last_message "
+        "SELECT chats.id AS chat_id, "
+        "users.firstname AS participant_firstname, "
+        "users.lastname AS participant_lastname, "
+        "users.email AS participant_email, "
+        "users.id AS participant_user_id, "
+        "last_message.body AS last_message_body, "
+        "last_message.user_id AS last_message_user_id, "
+        "sender.firstname AS sender_firstname, "
+        "sender.lastname AS sender_lastname "
         "FROM chats "
         "INNER JOIN users ON (users.id = chats.user1_id OR users.id = chats.user2_id) "
+        "LEFT JOIN ("
+        "  SELECT m1.chat_id, m1.body, m1.user_id "
+        "  FROM messages m1 "
+        "  INNER JOIN ("
+        "      SELECT chat_id, MAX(created_at) AS max_created_at "
+        "      FROM messages "
+        "      GROUP BY chat_id"
+        "  ) m2 ON m1.chat_id = m2.chat_id AND m1.created_at = m2.max_created_at"
+        ") AS last_message ON last_message.chat_id = chats.id "
+        "LEFT JOIN users AS sender ON sender.id = last_message.user_id "
         "WHERE (chats.user1_id = :user_id OR chats.user2_id = :user_id) AND users.id != :user_id "
         "ORDER BY chats.created_at ASC;",
-        {{":user_id", userid}}, "Не удалось найти чаты", "error_chat", senderClient);
+        {{":user_id", userid}},
+        "Не удалось найти чаты",
+        "error_chat",
+        senderClient);
 
     QJsonArray messageArray;
     while(query.next()) {
         int chatId = query.value("chat_id").toInt();
-        int user2id = query.value("user_id").toInt();
-        QString email = query.value("email").toString();
-        QString chatName = query.value("firstname").toString() + " " + query.value("lastname").toString();
+        int user2id = query.value("participant_user_id").toInt();
+        QString email = query.value("participant_email").toString();
+        QString chatName = query.value("participant_firstname").toString() + " " + query.value("participant_lastname").toString();
         int posInit = chatName.indexOf(' ');
         QString userName = chatName.mid(0,1).toUpper() + chatName.mid(1,posInit) + chatName.mid(posInit+1, 1).toUpper() + chatName.mid(posInit+2, chatName.size());
-        QString lastMessage = query.value("last_message").toString();
+        QString lastMessage = query.value("last_message_body").toString();
+        QString userLastMessage = query.value("sender_firstname").toString();
 
         QJsonObject chatInfoObj;
         chatInfoObj["chatId"] = chatId;
         chatInfoObj["userName"] = userName;
+        chatInfoObj["user2Id"] = user2id;
+        chatInfoObj["userLastMessage"] = userLastMessage;
         chatInfoObj["lastMessage"] = lastMessage;
         chatInfoObj["email"] = email;
         if(m_autorizedClients.contains(user2id)) {
@@ -290,6 +321,7 @@ void ChatServer::handleAddChats(QWebSocket* senderClient, const QJsonObject &mes
         messageArray.append(chatInfoObj);
     }
 
+    // Ответ клиенту о содержимом чата
     QJsonObject response;
     response["type"] = "add_chats";
     response["data"] = messageArray;
@@ -302,21 +334,37 @@ void ChatServer::handleAddChats(QWebSocket* senderClient, const QJsonObject &mes
 
 void ChatServer::handleUpdateChats(QWebSocket* senderClient, const QJsonObject &message) {
     int userid = message.value("userid").toInt();
+    qDebug() << "Обновление переключателей с сервера";
 
     QSqlQuery query = executeQuery(
-        "SELECT chats.id, "
-        "(SELECT messages.body FROM messages "
-        "WHERE messages.chat_id = chats.id "
-        "ORDER BY messages.created_at DESC LIMIT 1) AS last_message "
-        "FROM chats "
+        "SELECT "
+        "chats.id AS chat_id, "
+        "last_message.body AS last_message_body, "
+        "sender.firstname AS sender_firstname, "
+        "sender.lastname AS sender_lastname "
+        "    FROM chats "
+        "        LEFT JOIN ( "
+        "            SELECT "
+        "                m.chat_id, "
+        "                m.body, "
+        "                m.user_id "
+        "            FROM messages m "
+        "            WHERE m.created_at = ( "
+        "            SELECT MAX(created_at) "
+        "                FROM messages "
+        "                    WHERE chat_id = m.chat_id "
+        "                ) "
+        "            ) AS last_message ON last_message.chat_id = chats.id "
+        "      LEFT JOIN users AS sender ON sender.id = last_message.user_id "
         "WHERE chats.user1_id = :user_id OR chats.user2_id = :user_id;",
         {{":user_id", userid}}, "Не удалось найти чаты", "error_chat", senderClient);
 
     QSqlQuery squery;
     QJsonArray messageArray;
     while(query.next()) {
-        int chatid = query.value("id").toInt();
-        QString lastMessage = query.value("last_message").toString();
+        int chatid = query.value("chat_id").toInt();
+        QString lastMessage = query.value("last_message_body").toString();
+        QString userLastMessage = query.value("sender_firstname").toString();
         squery = executeQuery("SELECT COUNT(*) AS total_count FROM message_read_status "
                               "INNER JOIN messages ON messages.id = message_read_status.message_id "
                               "WHERE message_read_status.user_id = :userid "
@@ -332,6 +380,7 @@ void ChatServer::handleUpdateChats(QWebSocket* senderClient, const QJsonObject &
         QJsonObject arrayObj;
         arrayObj["unreadCount"] = unreadCount;
         arrayObj["lastMessage"] = lastMessage;
+        arrayObj["userLastMessage"] = userLastMessage;
         arrayObj["chatid"] = chatid;
 
         messageArray.append(arrayObj);
@@ -366,6 +415,30 @@ void ChatServer::handleUpdateStatusMessages(QWebSocket* senderClient, const QJso
         updateQuery = executeQuery("UPDATE message_read_status SET is_read = true WHERE id = :id",
                                    {{":id", squery.value("id").toInt()}}, "Не удалось обновить данные о сообщении", "error_chat", senderClient);
     }
+}
+
+void ChatServer::handleUpdateStatusUser(QWebSocket* senderClient, const QJsonObject &message) {
+    int userid = message.value("userid").toInt();
+    QSqlQuery query = executeQuery("SELECT id, firstname, lastname, email FROM users WHERE users.id != :id",
+                                   {{":id", userid}}, "Не удалось получить данные о пользователях", "error_chat", senderClient);
+
+    QJsonArray messageArray;
+    while(query.next()) {
+        QJsonObject arrayObj;
+        int userId = query.value("id").toInt();
+        arrayObj["id"] = userId;
+        arrayObj["status"] = m_autorizedClients[userId] ? true : false;
+        messageArray.append(arrayObj);
+    }
+
+    QJsonObject responseObj;
+    responseObj["type"] = "update_status";
+    responseObj["data"] = messageArray;
+
+    QJsonDocument resDoc(responseObj);
+    QString jsonString = resDoc.toJson(QJsonDocument::Compact);
+
+    senderClient->sendTextMessage(jsonString);
 }
 
 void ChatServer::handleAddUsers(QWebSocket* senderClient, const QJsonObject &message) {
