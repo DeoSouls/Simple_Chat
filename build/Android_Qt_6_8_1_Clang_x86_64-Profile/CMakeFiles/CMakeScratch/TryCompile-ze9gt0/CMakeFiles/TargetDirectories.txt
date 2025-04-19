@@ -1,3 +1,0 @@
-C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Profile/CMakeFiles/CMakeScratch/TryCompile-ze9gt0/CMakeFiles/cmTC_c5582.dir
-C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Profile/CMakeFiles/CMakeScratch/TryCompile-ze9gt0/CMakeFiles/edit_cache.dir
-C:/cpp/projectsQt/SimpleChat/build/Android_Qt_6_8_1_Clang_x86_64-Profile/CMakeFiles/CMakeScratch/TryCompile-ze9gt0/CMakeFiles/rebuild_cache.dir
