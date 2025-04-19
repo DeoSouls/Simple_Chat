@@ -16,6 +16,8 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <QMediaPlayer>
+#include <QVideoWidget>
 
 // Конструктор класса ChatContent, создает основной интерфейс чата
 ChatContent::ChatContent(const QString& chatName, const QString& selfName, const QString& email, bool status, int index, int id, int user2id, QWebSocket* m_client, QWidget *parent)
@@ -156,7 +158,6 @@ ChatContent::ChatContent(const QString& chatName, const QString& selfName, const
     QScrollBar *verticalScrollBar = messageView->verticalScrollBar();
     verticalScrollBar->setSingleStep(20);
     connect(verticalScrollBar, QScrollBar::valueChanged, this, &ChatContent::scrollOnTop);
-    messageView->scrollToBottom();
     messageView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     messageView->setContentsMargins(0, 0, 0, 0);
 
@@ -224,6 +225,11 @@ void ChatContent::loadMessagesFromDatabase(const QString &message) {
             msg.imageData = image;
         }
 
+        msg.hasVideo = false; ///////
+        if(msg.hasVideo) {
+            msg.source = "";
+        }
+
         messageModel->addMessage(msg);
 
         QJsonObject messageObj;
@@ -266,6 +272,11 @@ void ChatContent::handleMessagesToChat(const QJsonArray& messagesArray, bool has
             msg.imageData = image;
         }
 
+        msg.hasVideo = false; ///////
+        if(msg.hasVideo) {
+            msg.source = "";
+        }
+
         if(hasPag) {
             messagesPag.push_back(msg);
         } else {
@@ -285,8 +296,8 @@ void ChatContent::addMessageToChat(const QString &message) {
     int chatidFromResponse = message_obj.value("chatid").toInt();
     if((typeMessage.contains("chat_info") || typeMessage.contains("send") || typeMessage.contains("searching")) && chatidFromResponse == chatIndex) {
         loadMessagesFromDatabase(message);
+        messageView->scrollToBottom();
     }
-    messageView->scrollToBottom();
 }
 
 // Метод для отправки сообщения на сервер
@@ -320,6 +331,52 @@ void ChatContent::sendMessage() {
     if(msg.hasImage) {
         msg.imageData = pixmapBytes;
     }
+    msg.hasVideo = !m_mediaSource.isEmpty();
+    if(msg.hasVideo) {
+        msg.source = m_mediaSource;
+
+        QWidget *containerWidget = new QWidget(messageView);
+        QVBoxLayout *layout = new QVBoxLayout(containerWidget);
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->setSpacing(0);
+
+        // Создаем видеовиджет и плеер
+        QVideoWidget *videoWidget = new QVideoWidget(containerWidget);
+        QMediaPlayer *player = new QMediaPlayer(containerWidget);
+
+        videoWidget->setAspectRatioMode(Qt::KeepAspectRatio);
+        videoWidget->setMinimumSize(400, 400);
+
+        player->setVideoOutput(videoWidget);
+        player->setSource(QUrl::fromLocalFile(msg.source));
+
+        // Создаем панель управления с кнопкой полноэкранного режима
+        QHBoxLayout *controlLayout = new QHBoxLayout();
+        controlLayout->setAlignment(Qt::AlignRight); // Выравнивание вправо
+
+        QPushButton *fullScreenButton = new QPushButton(containerWidget);
+        fullScreenButton->setIcon(QIcon::fromTheme("view-fullscreen")); // Используйте системную иконку или свою
+        fullScreenButton->setFixedSize(32, 32); // Фиксированный размер кнопки
+        fullScreenButton->setToolTip("Полноэкранный режим");
+
+        controlLayout->addWidget(fullScreenButton);
+
+        // Добавляем видео и панель управления в основной контейнер
+        layout->addWidget(videoWidget);
+        layout->addLayout(controlLayout);
+
+        // Устанавливаем контейнер как виджет для индекса
+        int newRowIndex = messageModel->rowCount() - 1;
+        QModelIndex newIndex = messageModel->index(newRowIndex, 0);
+        messageView->setIndexWidget(newIndex, containerWidget);
+
+        // Запускаем воспроизведение
+        player->play();
+
+        // Подключаем сигналы и слоты для полноэкранного режима
+        connect(fullScreenButton, &QPushButton::clicked, videoWidget, &QVideoWidget::setFullScreen);
+        connect(videoWidget, &QVideoWidget::fullScreenChanged, fullScreenButton, &QPushButton::setChecked);
+    }
 
     // Добавление сообщения в модель и отправка на сервер
     messageModel->addMessage(msg);
@@ -338,7 +395,7 @@ void ChatContent::sendMessage() {
     // Отправка сообщения на сервер
     QJsonDocument messageDoc(messageObject);
     QString jsonString = messageDoc.toJson();    
-    m_socket->sendTextMessage(jsonString);
+    //m_socket->sendTextMessage(jsonString);
 
     // Отправка запроса на обновление переключателей чатов
     QJsonObject messageObject2;
@@ -346,7 +403,7 @@ void ChatContent::sendMessage() {
     messageObject2["userid"] = userId;
     QJsonDocument messageDoc2(messageObject2);
     QString jsonString2 = messageDoc2.toJson();
-    m_socket->sendTextMessage(jsonString2);
+    //m_socket->sendTextMessage(jsonString2);
 
     messageView->scrollToBottom();
 
@@ -427,8 +484,19 @@ void ChatContent::scrollOnTop(int value) {
 
 // Демо-представление изображения
 void ChatContent::onAttachImageButtonClicked() {
-    QString fileName = QFileDialog::getOpenFileName(this, "Select Image", "", "Images (*.png *.jpg *.jpeg *.bmp)");
+    QString fileName = QFileDialog::getOpenFileName(this, "Select Image", "", "Images (*.png *.jpg *.jpeg *.bmp *.mp4)");
     if (!fileName.isEmpty()) {
+
+        // Обработка видеофайлов
+        QFileInfo fileInfo(fileName);
+        QString extension = fileInfo.suffix().toLower();
+        if(extension == "mp4") {
+            m_mediaSource = fileInfo.filePath();
+            QMessageBox::information(this, "Информация", "Вы выбрали видеофайл MP4!");
+            return;
+        }
+
+        // Обработка изображений
         imagePrev->show();
         QPixmap pixmap(fileName);
         if (!pixmap.isNull()) {

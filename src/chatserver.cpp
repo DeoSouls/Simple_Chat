@@ -5,10 +5,12 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <QSettings>
+#include <QCoreApplication>
 #include <QDebug>
 
 ChatServer::ChatServer(quint16 port, QObject *parent) : QObject{parent},
-    m_server(new QWebSocketServer(QStringLiteral("Chat Server"), QWebSocketServer::NonSecureMode, this)) {
+    m_server(new QWebSocketServer(QStringLiteral("Chat Server"), QWebSocketServer::SecureMode, this)) {
 
     if(m_server->listen(QHostAddress::Any, port)) {
         qDebug() << "Chat server listening on port: " << port;
@@ -23,12 +25,27 @@ ChatServer::ChatServer(quint16 port, QObject *parent) : QObject{parent},
 }
 
 void ChatServer::connectToDatabase() {
+    QString configFilePath = QCoreApplication::applicationDirPath() + "/config.ini";
+
+    QSettings settings(configFilePath, QSettings::IniFormat);
+
+    QString dbHost = settings.value("Database/Host", "localhost").toString();
+    int dbPort = settings.value("Database/Port", 5432).toInt();
+    QString dbName = settings.value("Database/DatabaseName", "SimpleChat").toString();
+    QString dbUser = settings.value("Database/Username", "postgres").toString();
+    QString dbPassword = settings.value("Database/Password", "").toString(); // Важно: обработать случай пустого пароля
+
+    if (dbPassword.isEmpty()) {
+        qCritical() << "Database password is not set in config file:" << configFilePath;
+        return;
+    }
+
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
-    db.setHostName("localhost");
-    db.setPort(5432);
-    db.setDatabaseName("SimpleChat");
-    db.setUserName("postgres");
-    db.setPassword("11281215");
+    db.setHostName(dbHost);
+    db.setPort(dbPort);
+    db.setDatabaseName(dbName);
+    db.setUserName(dbUser);
+    db.setPassword(dbPassword);
 
     if(!db.open()) {
         qDebug() << "Error connectiong database: " << db.lastError().text();
@@ -90,6 +107,12 @@ void ChatServer::handleRegistration(QWebSocket* senderClient, const QJsonObject 
     QString lastNameLine = message.value("lastname").toString();
     QString mailLine = message.value("email").toString();
     QString hashPass = message.value("password").toString();
+
+    if(firstNameLine.isEmpty() || lastNameLine.isEmpty() ||
+        mailLine.isEmpty() || hashPass.isEmpty()) {
+        errorHandle(senderClient, "Не валидные данные");
+    }
+
     QSqlQuery query = executeQuery("INSERT INTO users (firstname, lastname, email, password) "
                                    "VALUES (:firstname, :lastname, :email, :password) RETURNING id, firstname, lastname",
                                    {
@@ -122,6 +145,11 @@ void ChatServer::handleRegistration(QWebSocket* senderClient, const QJsonObject 
 void ChatServer::handleLogin(QWebSocket* senderClient, const QJsonObject &message) {
     QString email = message.value("email").toString();
     QString password = message.value("password").toString();
+
+    if(email.isEmpty() || password.isEmpty()) {
+        errorHandle(senderClient, "Не валидные данные");
+    }
+
     QSqlQuery query = executeQuery("SELECT id, firstname, lastname, email, password FROM users WHERE email = :email",
                                    {{":email", email}}, "Не удалось найти пользователя", "error_login", senderClient);
     QJsonObject messageObj;
@@ -134,7 +162,8 @@ void ChatServer::handleLogin(QWebSocket* senderClient, const QJsonObject &messag
         // Добавляем авторизованного пользователя
         m_autorizedClients[userid] = senderClient;
         if(!password.contains(userPassword)) {
-            return; ////
+            errorHandle(senderClient, "Неверный пароль");
+            return;
         }
 
         messageObj["userid"] = userid;
@@ -150,84 +179,99 @@ void ChatServer::handleLogin(QWebSocket* senderClient, const QJsonObject &messag
 }
 
 void ChatServer::handleSendMessage(QWebSocket* senderClient, const QJsonObject &message) {
-    if (senderClient) {
-        int user_id = message.value("user_id").toInt();
-        QString body = message.value("body").toString();
-        QString selfName = message.value("selfName").toString();
-        int chat_id = message.value("chat_id").toInt();
-        QDateTime created_at = QDateTime::currentDateTime();
-        QByteArray imageData;
-        if (message.contains("image_data")) {
-            // Декодируем Base64 строку в QByteArray
-            imageData = QByteArray::fromBase64(message.value("image_data").toString().toUtf8());
-        }
+    int userid = getUserIdFromSocket(senderClient);
+    if(userid == -1) {
+        errorHandle(senderClient, "Несуществующий пользователь");
+    }
 
-        QSqlQuery query;
-        query.prepare("INSERT INTO messages (user_id, body, chat_id, created_at, image_data) "
-                      "VALUES (:user_id, :body, :chat_id, :created_at, :image_data) RETURNING id");
-        query.bindValue(":user_id", user_id);
-        query.bindValue(":body", body);
-        query.bindValue(":chat_id", chat_id);
-        query.bindValue(":created_at", created_at.toString(Qt::ISODateWithMs));
-        query.bindValue(":image_data", imageData);
+    QString body = message.value("body").toString();
+    QString selfName = message.value("selfName").toString();
+    int chat_id = message.value("chat_id").toInt();
 
-        if (!query.exec()) {
-            qDebug() << "Ошибка добавления сообщения:" << query.lastError().text();
-            QJsonObject errMsgObject;
-            errMsgObject["type"] = "error_chat";
-            errMsgObject["message"] = "Ошибка при добавлении сообщения";
+    if(body.isEmpty() || selfName.isEmpty() ||
+        chat_id <= 0) {
+        errorHandle(senderClient, "Не валидные данные");
+    }
 
-            QJsonDocument errMsgDocument(errMsgObject);
-            senderClient->sendTextMessage(errMsgDocument.toJson(QJsonDocument::Compact));
+    QDateTime created_at = QDateTime::currentDateTime();
+
+    QByteArray imageData;
+    if (message.contains("image_data")) {
+        // Декодируем Base64 строку в QByteArray
+        imageData = QByteArray::fromBase64(message.value("image_data").toString().toUtf8());
+
+        const int MAX_BASE64_LENGTH = 1 * 1024 * 1024 * 4/3;
+
+        if(imageData.length() > MAX_BASE64_LENGTH) {
+            errorHandle(senderClient, "Размер изображения выходит за лимит в 1 МБ");
             return;
         }
+    }
 
-        query.next();
-        int message_id = query.value("id").toInt();
 
-        query = executeQuery("SELECT CASE WHEN user1_id != :userid THEN user1_id ELSE user2_id "
-                             "END AS result FROM chats WHERE (user1_id != :userid OR user2_id != :userid) AND chats.id = :chatid ",
-                             {
-                                 {":userid", user_id},
-                                 {":chatid", chat_id}
-                             }, "Ошибка при добавлении сообщения", "error_chat", senderClient);
+    QSqlQuery query;
+    query.prepare("INSERT INTO messages (user_id, body, chat_id, created_at, image_data) "
+                  "VALUES (:user_id, :body, :chat_id, :created_at, :image_data) RETURNING id");
+    query.bindValue(":user_id", user_id);
+    query.bindValue(":body", body);
+    query.bindValue(":chat_id", chat_id);
+    query.bindValue(":created_at", created_at.toString(Qt::ISODateWithMs));
+    query.bindValue(":image_data", imageData);
 
-        query.next();
-        int user2_id = query.value("result").toInt();
+    if (!query.exec()) {
+        qCritical() << query.lastError().text();
 
-        query = executeQuery("INSERT INTO message_read_status (message_id, user_id, is_read) "
-                             "VALUES (:message_id, :user_id, :is_read)", {
-                                 {":message_id", message_id},
-                                 {":user_id", user2_id},
-                                 {":is_read", false}
-                             }, "Ошибка при добавлении сообщения", "error_chat", senderClient);
-        qDebug() << user_id;
-        qDebug() << user2_id;
-        if(m_autorizedClients.contains(user2_id)) {
-            QJsonObject sendMessage;
-            sendMessage["type"] = "send";
-            sendMessage["chatid"] = chat_id;
-            // Первая часть для чата
-            sendMessage["user_id"] = user_id;
-            sendMessage["firstname"] = selfName;
-            sendMessage["body"] = body;
-            sendMessage["created_at"] = created_at.toString();
-            sendMessage["image_data"] = QString::fromUtf8(imageData.toBase64());
-            // Вторая для переключателя чатов
-            sendMessage["unreadCount"] = 0;
-            sendMessage["userLastMessage"] = selfName;
-            sendMessage["lastMessage"] = body;
-            QJsonDocument messageDoc(sendMessage);
-            QString jsonString = messageDoc.toJson(QJsonDocument::Compact);
+        errorHandle(senderClient, "Ошибка добавления сообщения" + query.lastError().text());
+        return;
+    }
 
-            m_autorizedClients[user2_id]->sendTextMessage(jsonString);
+    query.next();
+    int message_id = query.value("id").toInt();
 
-        }
+    query = executeQuery("SELECT CASE WHEN user1_id != :userid THEN user1_id ELSE user2_id "
+                         "END AS result FROM chats WHERE (user1_id != :userid OR user2_id != :userid) AND chats.id = :chatid ",
+                         {
+                             {":userid", user_id},
+                             {":chatid", chat_id}
+                         }, "Ошибка при добавлении сообщения", "error_chat", senderClient);
+
+    query.next();
+    int user2_id = query.value("result").toInt();
+
+    query = executeQuery("INSERT INTO message_read_status (message_id, user_id, is_read) "
+                         "VALUES (:message_id, :user_id, :is_read)", {
+                             {":message_id", message_id},
+                             {":user_id", user2_id},
+                             {":is_read", false}
+                         }, "Ошибка при добавлении сообщения", "error_chat", senderClient);
+    qDebug() << user_id;
+    qDebug() << user2_id;
+    if(m_autorizedClients.count(user2_id)) {
+        QJsonObject sendMessage;
+        sendMessage["type"] = "send";
+        sendMessage["chatid"] = chat_id;
+        sendMessage["user_id"] = user_id;
+        sendMessage["firstname"] = selfName;
+        sendMessage["body"] = body;
+        sendMessage["created_at"] = created_at.toString();
+        sendMessage["image_data"] = QString::fromUtf8(imageData.toBase64());
+        sendMessage["unreadCount"] = 0;
+        sendMessage["userLastMessage"] = selfName;
+        sendMessage["lastMessage"] = body;
+        QJsonDocument messageDoc(sendMessage);
+        QString jsonString = messageDoc.toJson(QJsonDocument::Compact);
+
+        m_autorizedClients[user2_id]->sendTextMessage(jsonString);
     }
 }
 
 void ChatServer::handleChatMessages(QWebSocket* senderClient, const QJsonObject &message) {
     int chatid = message.value("chatid").toInt();
+
+    if(chat_id <= 0) {
+        errorHandle(senderClient, "Не валидные данные");
+    }
+
     QSqlQuery query = executeQuery("SELECT users.firstname, messages.user_id, messages.body, messages.created_at, messages.id, messages.image_data "
                                           "FROM users "
                                           "INNER JOIN messages ON users.id = messages.user_id "
@@ -264,7 +308,10 @@ void ChatServer::handleChatMessages(QWebSocket* senderClient, const QJsonObject 
 }
 
 void ChatServer::handleAddChats(QWebSocket* senderClient, const QJsonObject &message) {
-    int userid = message.value("userid").toInt();
+    int userid = getUserIdFromSocket(senderClient);
+    if(userid == -1) {
+        errorHandle(senderClient, "Несуществующий пользователь");
+    }
 
     QSqlQuery query = executeQuery(
         "SELECT chats.id AS chat_id, "
@@ -300,9 +347,11 @@ void ChatServer::handleAddChats(QWebSocket* senderClient, const QJsonObject &mes
         int chatId = query.value("chat_id").toInt();
         int user2id = query.value("participant_user_id").toInt();
         QString email = query.value("participant_email").toString();
-        QString chatName = query.value("participant_firstname").toString() + " " + query.value("participant_lastname").toString();
+        QString chatName = query.value("participant_firstname").toString()
+                           + " " + query.value("participant_lastname").toString();
         int posInit = chatName.indexOf(' ');
-        QString userName = chatName.mid(0,1).toUpper() + chatName.mid(1,posInit) + chatName.mid(posInit+1, 1).toUpper() + chatName.mid(posInit+2, chatName.size());
+        QString userName = chatName.mid(0,1).toUpper() + chatName.mid(1,posInit)
+                           + chatName.mid(posInit+1, 1).toUpper() + chatName.mid(posInit+2, chatName.size());
         QString lastMessage = query.value("last_message_body").toString();
         QString userLastMessage = query.value("sender_firstname").toString();
 
@@ -333,8 +382,10 @@ void ChatServer::handleAddChats(QWebSocket* senderClient, const QJsonObject &mes
 }
 
 void ChatServer::handleUpdateChats(QWebSocket* senderClient, const QJsonObject &message) {
-    int userid = message.value("userid").toInt();
-    qDebug() << "Обновление переключателей с сервера";
+    int userid = getUserIdFromSocket(senderClient);
+    if(userid == -1) {
+        errorHandle(senderClient, "Несуществующий пользователь");
+    }
 
     QSqlQuery query = executeQuery(
         "SELECT "
@@ -398,7 +449,15 @@ void ChatServer::handleUpdateChats(QWebSocket* senderClient, const QJsonObject &
 
 void ChatServer::handleUpdateStatusMessages(QWebSocket* senderClient, const QJsonObject &message) {
     int chatid = message.value("chatid").toInt();
-    int userid = message.value("userid").toInt();
+
+    if(chat_id <= 0) {
+        errorHandle(senderClient, "Не валидные данные");
+    }
+
+    int userid = getUserIdFromSocket(senderClient);
+    if(userid == -1) {
+        errorHandle(senderClient, "Несуществующий пользователь");
+    }
 
     QSqlQuery squery = executeQuery("SELECT message_read_status.id FROM message_read_status "
                                     "INNER JOIN messages ON messages.id = message_read_status.message_id "
@@ -418,7 +477,11 @@ void ChatServer::handleUpdateStatusMessages(QWebSocket* senderClient, const QJso
 }
 
 void ChatServer::handleUpdateStatusUser(QWebSocket* senderClient, const QJsonObject &message) {
-    int userid = message.value("userid").toInt();
+    int userid = getUserIdFromSocket(senderClient);
+    if(userid == -1) {
+        errorHandle(senderClient, "Несуществующий пользователь");
+    }
+
     QSqlQuery query = executeQuery("SELECT id, firstname, lastname, email FROM users WHERE users.id != :id",
                                    {{":id", userid}}, "Не удалось получить данные о пользователях", "error_chat", senderClient);
 
@@ -442,7 +505,11 @@ void ChatServer::handleUpdateStatusUser(QWebSocket* senderClient, const QJsonObj
 }
 
 void ChatServer::handleAddUsers(QWebSocket* senderClient, const QJsonObject &message) {
-    int userid = message.value("userid").toInt();
+    int userid = getUserIdFromSocket(senderClient);
+    if(userid == -1) {
+        errorHandle(senderClient, "Несуществующий пользователь");
+    }
+
     QSqlQuery query = executeQuery("SELECT id, firstname, lastname, email FROM users WHERE users.id != :id",
                                    {{":id", userid}}, "Не удалось получить данные о пользователях", "error_choice", senderClient);
 
@@ -468,8 +535,16 @@ void ChatServer::handleAddUsers(QWebSocket* senderClient, const QJsonObject &mes
 }
 
 void ChatServer::handleCreateChat(QWebSocket* senderClient, const QJsonObject &message) {
-    int userid = message.value("userid").toInt();
+    int userid = getUserIdFromSocket(senderClient);
+    if(userid == -1) {
+        errorHandle(senderClient, "Несуществующий пользователь");
+    }
+
     int user2id = message.value("user2id").toInt();
+
+    if(user2id <= 0) {
+        errorHandle(senderClient, "Не валидные данные");
+    }
 
     QSqlQuery query = executeQuery("SELECT id FROM chats WHERE (user1_id=:user1_id AND user2_id=:user2_id) OR (user1_id=:user2_id AND user2_id=:user1_id)",
                                    {
@@ -489,6 +564,10 @@ void ChatServer::handleCreateChat(QWebSocket* senderClient, const QJsonObject &m
 void ChatServer::handleSearching(QWebSocket* senderClient, const QJsonObject &message) {
     int chat_id = message.value("chat_id").toInt();
     QString searchText = message.value("search").toString();
+
+    if(searchText.isEmpty() || chat_id <= 0) {
+        errorHandle(senderClient, "Не валидные данные");
+    }
 
     QSqlQuery query = executeQuery("SELECT messages.user_id, messages.body, messages.created_at, messages.image_data "
                                    "FROM messages "
@@ -544,6 +623,27 @@ QSqlQuery ChatServer::executeQuery(const QString& command, const QVariantMap& pa
         senderClient->sendTextMessage(errMsgDocument.toJson(QJsonDocument::Compact));
     }
     return query;
+}
+
+int ChatServer::getUserIdFromSocket(QWebSocket* client) const {
+    for(auto it = m_autorizedClients.begin(); it != m_autorizedClients.end(); ++it) {
+        if(client == it.value()) {
+            return it.key();
+        }
+    }
+
+    return -1;
+}
+
+void ChatServer::errorHandle(QWebSocket* client, const QString& error) const {
+    qDebug() << error;
+
+    QJsonObject errMsgObject;
+    errMsgObject["type"] = "error";
+    errMsgObject["message"] = error;
+
+    QJsonDocument errMsgDocument(errMsgObject);
+    client->sendTextMessage(errMsgDocument.toJson(QJsonDocument::Compact));
 }
 
 void ChatServer::onClientDisconnected() {

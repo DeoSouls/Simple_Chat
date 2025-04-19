@@ -2,6 +2,8 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QStyle>
+#include <QMediaPlayer>
+#include <QVideoWidget>
 
 const int MIN_BUBBLE_WIDTH = 100;  // Минимальная ширина пузыря в пикселях
 
@@ -41,6 +43,8 @@ void MessageItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     const int bubbleRadius = 10;
     int imageMaxWidth = 400;
     int imageMaxHeight = 400;
+    int mediaMaxWidth = 500;
+    int mediaMaxHeight = 500;
 
     QSize bubbleSize = sizeHint(option, index);
     QRect bubbleRect = option.rect.adjusted(padding, padding, -padding, -padding);
@@ -96,9 +100,9 @@ void MessageItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     painter->setFont(messageFont);
     painter->setPen(textColor);
 
-    // Рисование изображения, если есть
+    // Отрисовка изображения
     QPixmap pixmap;
-    int imageOffsetY = 0; // Насколько сдвинуть текст вниз
+    int mediaOffsetY = 0; // Насколько сдвинуть текст вниз
 
     if (msg.hasImage && !msg.imageData.isEmpty()) {
         if (pixmap.loadFromData(msg.imageData, "PNG")) {
@@ -120,14 +124,39 @@ void MessageItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
             painter->drawPixmap(imageRect, scaledImage);
 
             // На сколько сдвинем текст ниже картинки
-            imageOffsetY = hImg;
+            mediaOffsetY = hImg;
         } else {
             qWarning() << "Failed to load pixmap from QByteArray in delegate.";
         }
     }
 
+    // Отрисовка видео
+    if(msg.hasVideo && !msg.source.isEmpty()) {
+        // QVideoWidget* videoWidget = new QVideoWidget();
+        // videoWidget->setAspectRatioMode(Qt::KeepAspectRatio);
+
+        // QMediaPlayer* player = new QMediaPlayer();
+        // QUrl videoUrl = QUrl::fromLocalFile(msg.source);
+        // player->setVideoOutput(videoWidget);
+        // player->setSource(videoUrl);
+
+        // // Считаем, на какой высоте нарисовать media
+        // int xMed = bubbleDateRect.left() + 4;
+        // int yMed = bubbleDateRect.top() + 4;
+        // int wMed = mediaMaxWidth;
+        int hMed = mediaMaxHeight;
+
+        // // Формируем mediaRect в верхней части пузыря
+        // QRect mediaRect(xMed, yMed, wMed, hMed);
+        // videoWidget->setGeometry(mediaRect);
+        // videoWidget->show();
+
+        mediaOffsetY = hMed;
+    }
+
+
     // Рисуем текст сообщения
-    QRect textRect = bubbleDateRect.adjusted(10, 10 + imageOffsetY, -10, -10);
+    QRect textRect = bubbleDateRect.adjusted(10, 10 + mediaOffsetY, -10, -10);
     painter->drawText(textRect, Qt::TextWrapAnywhere, msg.message);
 
     // Отрисовка времени
@@ -161,22 +190,30 @@ QSize MessageItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QM
     int padding = 4;
     int imageMaxWidth = 400;
     int imageMaxHeight = 400;
+    int mediaMaxWidth = 500;
+    int mediaMaxHeight = 500;
 
     QPixmap pixmap;
-    int scaledImageX = 0;
-    int scaledImageY = 0;
+    int scaledMediaX = 0;
+    int scaledMediaY = 0;
 
+    // Расчет размеров под изображение
     if (msg.hasImage && !msg.imageData.isEmpty()) {
         if (pixmap.loadFromData(msg.imageData)) {
             QPixmap scaledImage = pixmap.scaled(imageMaxWidth,
                                                 imageMaxHeight,
                                                 Qt::KeepAspectRatio,
                                                 Qt::SmoothTransformation);
-            scaledImageX = scaledImage.width();
-            scaledImageY = scaledImage.height();
+            scaledMediaX = scaledImage.width();
+            scaledMediaY = scaledImage.height();
         } else {
             qWarning() << "Failed to load pixmap from QByteArray in delegate.";
         }
+    }
+
+    if(msg.hasVideo && !msg.source.isEmpty()) {
+        scaledMediaX = mediaMaxWidth;
+        scaledMediaY = mediaMaxHeight;
     }
 
     // Вычисление bounding rectangle для текста с учётом переноса слов
@@ -185,12 +222,12 @@ QSize MessageItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QM
                                          msg.message);
 
     // Общая высота пузыря (текст + отступы сверху и снизу)
-    int bubbleHeight = boundingRect.height() + scaledImageY + 2 + 2 * padding + 14;
+    int bubbleHeight = boundingRect.height() + scaledMediaY + 2 + 2 * padding + 14;
 
     // Общая ширина пузыря (текст + отступы слева и справа)
     int bubbleWidth = 0;
-    if(msg.hasImage) {
-        bubbleWidth = scaledImageX + 2 * padding;
+    if(msg.hasImage || msg.hasVideo) {
+        bubbleWidth = scaledMediaX + 2 * padding;
     } else {
         bubbleWidth = boundingRect.width() - 2 * padding;
     }
@@ -200,7 +237,7 @@ QSize MessageItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QM
     }
 
     // Ограничение ширины пузыря до максимальной
-    if (bubbleWidth > maxBubbleWidth + scaledImageX) {
+    if (bubbleWidth > maxBubbleWidth + scaledMediaX) {
         bubbleWidth = maxBubbleWidth;
     }
     // Ограничение ширины пузыря от минимальной

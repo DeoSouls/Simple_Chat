@@ -48,6 +48,7 @@ class ChatContent : public QWidget {
         QPixmap m_sendImage;
         QPixmap m_attachedImage;
         QLabel* m_imagePreviewLabel;
+        QString m_mediaSource;
         QHBoxLayout* inputFieldLayout;
         // Пагинация
         QVector<QVector<ChatMessage>> pagination;

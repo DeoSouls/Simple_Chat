@@ -2,6 +2,8 @@
 #include "../ChatForm/chatform.h"
 #include "../LoginForm/loginform.h"
 #include "../ChatForm/UserChoiceContainer/userchoice.h"
+#include <QRandomGenerator>
+#include <QByteArray>
 #include <QPushButton>
 #include <QWebSocket>
 #include <QMessageBox>
@@ -62,7 +64,7 @@ void Mainwindow::handlerLogin(const QString& message) {
 }
 
 // Создание криптографического пароля SHA256
-// Будет хранится в базе данных (для безопасности добавить соль)
+// Будет хранится в базе данных
 QString Mainwindow::hashPassword(const QString& password) {
     return QString(QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256).toHex());
 }

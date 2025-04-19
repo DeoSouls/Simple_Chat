@@ -32,6 +32,7 @@ class ChatServer : public QObject {
         void handleSearching(QWebSocket* senderClient, const QJsonObject &message);
 
         QSqlQuery executeQuery(const QString& command, const QVariantMap& params, const QString& errorMessage, const QString& error_type, QWebSocket* senderClient);
+        int getUserIdFromSocket(QWebSocket* client) const;
     private:
         QWebSocketServer* m_server;
         QSet<QWebSocket*> m_clients;

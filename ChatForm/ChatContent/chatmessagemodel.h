@@ -14,8 +14,10 @@ struct ChatMessage {
     QDateTime timestamp;
     bool hasImage;
     QByteArray imageData;
+    bool hasVideo;
+    QString source;
 
-    ChatMessage() : isMine(false), hasImage(false) {}
+    ChatMessage() : isMine(false), hasImage(false), hasVideo(false) {}
 };
 
 class ChatMessageModel : public QAbstractListModel {
@@ -33,7 +35,9 @@ class ChatMessageModel : public QAbstractListModel {
             IsMineRole,
             TimestampRole,
             HasImageRole,
-            ImageDataRole
+            ImageDataRole,
+            HasVideoRole,
+            SourceVideoRole
         };
 
         // Метод для добавления сообщения

@@ -28,6 +28,10 @@ QVariant ChatMessageModel::data(const QModelIndex& index,int role) const {
             return msg.hasImage;
         case ImageDataRole: // Роль для получения данных изображения
             return msg.imageData;
+        case HasVideoRole: // Роль для проверки наличия видео
+            return msg.hasVideo;
+        case SourceVideoRole: // Роль для получения данных видео
+            return msg.source;
         default:
             return QVariant();
     }
@@ -42,6 +46,8 @@ QHash<int, QByteArray> ChatMessageModel::roleNames() const {
     roles[TimestampRole] = "timestamp";
     roles[HasImageRole] = "hasImage";
     roles[ImageDataRole] = "imageData";
+    roles[HasVideoRole] = "hasVideo";
+    roles[SourceVideoRole] = "source";
     return roles;
 }
 
